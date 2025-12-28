@@ -1,0 +1,9 @@
+This scenario assumes voluntary adoption.
+No coercion or mandatory enforcement is implied.
+
+# Platform Capture
+
+Captured platforms may fork.
+They cannot alter prior settlements.
+
+History remains intact.

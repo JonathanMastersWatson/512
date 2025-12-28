@@ -1,0 +1,14 @@
+{
+  "type": "512-GENESIS",
+  "ledger": "XRPL",
+  "network": "mainnet",
+  "tx_hash": "",
+  "ledger_index": "",
+  "timestamp_utc": "2025-12-25T05:12:00Z",
+  "anchored_hash": "<SHA256_OF_512_MD>",
+  "hash_algorithm": "SHA-256",
+  "file": "512.md",
+  "memo_encoding": "UTF-8",
+  "repository": "https://github.com/<org>/512",
+  "notes": "Genesis anchor for the 512 constitution"
+}

@@ -1,0 +1,7 @@
+This scenario assumes voluntary adoption.
+No coercion or mandatory enforcement is implied.
+
+# Bad Actors
+
+512 does not prevent bad behavior.
+It records commitments so bad behavior is provable.

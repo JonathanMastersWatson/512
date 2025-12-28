@@ -1,0 +1,56 @@
+# Economic Implications of Execution-Time Legitimacy
+
+## Context
+
+As AI systems move into real-time execution:
+- latency becomes economic
+- locality becomes value
+- legitimacy becomes priced
+
+---
+
+## Inference as a Commodity
+
+AI inference behaves economically like:
+- electricity
+- bandwidth
+- compute cycles
+
+Value varies by:
+- location
+- latency
+- reliability
+- legitimacy guarantees
+
+---
+
+## Settlement Economics
+
+Legitimacy witnessing:
+- must be low cost
+- must be irreversible
+- must not dominate execution cost
+
+This favors micro-settlement models.
+
+---
+
+## Buy-Side Demand
+
+Buyers increasingly require:
+- proof of execution
+- auditability without surveillance
+- legitimacy without control
+
+512 satisfies this demand without imposing governance.
+
+---
+
+## Market Consequence
+
+Systems that cannot:
+- prove execution legitimacy
+- do so at execution time
+- without enforcement
+
+will be discounted or excluded by markets.
