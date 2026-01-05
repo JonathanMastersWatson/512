@@ -190,3 +190,4 @@ SPEC_HASH binds meaning.
 Multi-interpreter consensus hardens the edge.
 
 Ambiguity fails open.
+
