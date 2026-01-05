@@ -1,0 +1,142 @@
+{
+  "schema": "512.kernel.ir.v1",
+  "purpose": "Canonical intermediate representation (IR) for semantic equivalence and SPEC_HASH computation.",
+  "notes": [
+    "This is not an interpretation. It is the minimal invariant target set.",
+    "Kernel prose may vary. This IR must not."
+  ],
+  "canonicalization": {
+    "ordering": "Sort by rule.id ascending (I1..I9).",
+    "modality": [
+      "Normalize prohibitions to MUST_NOT.",
+      "Normalize requirements to MUST."
+    ],
+    "subjects": [
+      "AGENT",
+      "SYSTEM",
+      "PARTY",
+      "HUMAN"
+    ],
+    "serialization": {
+      "format": "UTF-8 JSON",
+      "hash_input": "Canonical JSON with stable key ordering and no insignificant whitespace (e.g., RFC 8785 JSON Canonicalization Scheme or equivalent)."
+    }
+  },
+  "rules": [
+    {
+      "id": "I1",
+      "title": "Non-initiation",
+      "modality": "MUST_NOT",
+      "subject": "AGENT",
+      "predicate": "INITIATE",
+      "object": "FORCE_OR_FRAUD",
+      "target": "HUMAN",
+      "qualifiers": {
+        "scope": "ANY",
+        "exceptions": "NONE"
+      }
+    },
+    {
+      "id": "I2",
+      "title": "Voluntary interaction",
+      "modality": "MUST",
+      "subject": "INTERACTION",
+      "predicate": "BE",
+      "object": "VOLUNTARY",
+      "qualifiers": {
+        "requires": ["EXPLICIT_CONSENT"],
+        "exceptions": "NONE"
+      }
+    },
+    {
+      "id": "I3",
+      "title": "Withdrawal",
+      "modality": "MUST",
+      "subject": "CONSENT",
+      "predicate": "BE",
+      "object": "WITHDRAWABLE",
+      "qualifiers": {
+        "revocation": "ALLOWED",
+        "exceptions": "NONE"
+      }
+    },
+    {
+      "id": "I4",
+      "title": "Exit",
+      "modality": "MUST",
+      "subject": "EXIT",
+      "predicate": "BE",
+      "object": "ALWAYS_POSSIBLE",
+      "qualifiers": {
+        "conditions": "UNCONDITIONAL",
+        "exceptions": "NONE"
+      }
+    },
+    {
+      "id": "I5",
+      "title": "Symmetric contracts",
+      "modality": "MUST",
+      "subject": "CONTRACT",
+      "predicate": "BE",
+      "object": "EXPLICIT_READABLE_SYMMETRIC",
+      "qualifiers": {
+        "explicit": true,
+        "readable": true,
+        "equally_enforceable": true,
+        "parties": "ALL",
+        "exceptions": "NONE"
+      }
+    },
+    {
+      "id": "I6",
+      "title": "No hidden or unilateral rules",
+      "modality": "MUST_NOT",
+      "subject": "RULES_GOVERNING_INTERACTION",
+      "predicate": "BE",
+      "object": "HIDDEN_OR_UNILATERALLY_CHANGEABLE",
+      "qualifiers": {
+        "hidden": false,
+        "unilateral_change": false,
+        "exceptions": "NONE"
+      }
+    },
+    {
+      "id": "I7",
+      "title": "Fail-open",
+      "modality": "MUST",
+      "subject": "SYSTEM",
+      "predicate": "ON_FAILURE",
+      "object": "FAIL_OPEN_REVEAL_RULES_DEFAULT_TO_CHOICE",
+      "qualifiers": {
+        "must_fail_open": true,
+        "must_reveal_governing_rules": true,
+        "default": "HUMAN_CHOICE",
+        "exceptions": "NONE"
+      }
+    },
+    {
+      "id": "I8",
+      "title": "Immutability",
+      "modality": "MUST",
+      "subject": "KERNEL",
+      "predicate": "BE",
+      "object": "IMMUTABLE",
+      "qualifiers": {
+        "mutation_allowed": false,
+        "exceptions": "NONE"
+      }
+    },
+    {
+      "id": "I9",
+      "title": "Binary adherence",
+      "modality": "MUST",
+      "subject": "ADHERENCE",
+      "predicate": "BE",
+      "object": "BINARY",
+      "qualifiers": {
+        "gradations_allowed": false,
+        "exceptions": "NONE"
+      }
+    }
+  ]
+}
