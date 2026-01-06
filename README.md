@@ -7,6 +7,18 @@ This repository documents **512**, a discovered constraint governing
 political program. It is a **minimal, non-ownable constraint**
 identified through applied systems research conducted in late 2025.
 
+## The 512 Kernel (Canonical)
+
+The immutable 512 kernel defines the minimal constraints governing voluntary interaction and the legitimacy of execution.
+
+The kernel text itself is **canonical, immutable, and non-ownable**.
+It lives exclusively in the `/512-core/CANON/` directory.
+
+👉 **Read the canonical kernel here:**  
+[`/512-core/CANON/README.md`](./512-core/CANON/README.md)
+
+No other location in this repository is authoritative.
+
 
 ## Scope Lock
 
