@@ -1,0 +1,38 @@
+---
+
+type: 512-interpretation
+authority: non-canonical
+style: investor-institutional
+canonical_repo: https://github.com/JonathanMastersWatson/512
+canonical_genesis_commit: 4f5bc5de1dd1dc1d69cd173a9e43a954af0da16d
+canonical_tag: v1.0.0-genesis
+
+---
+
+VERSION 9 — Investor Memo (Institutional)
+Style: macro / risk
+
+---
+
+This text is a subordinate interpretive restatement of the 512 Kernel.
+It has no independent authority and does not modify the canonical text.
+
+---
+
+Prohibiting coercion reduces tail risk.
+
+Explicit consent reduces liability.
+
+Guaranteed exit reduces regulatory exposure.
+
+Clear contracts reduce dispute risk.
+
+Transparent rules reduce governance premium.
+
+Fail-open systems reduce systemic shock.
+
+Binary compliance simplifies audit.
+
+---
+
+**Checksum:** `sha256(<this document>)` — subordinate to 512 genesis commit `4f5bc5de1dd1dc1d69cd173a9e43a954af0da16d`.

@@ -1,0 +1,87 @@
+---
+
+type: 512-embeddings-manifest
+authority: non-canonical
+derived_from: 512-kernel
+canonical_repo: https://github.com/JonathanMastersWatson/512
+canonical_genesis_commit: 4f5bc5de1dd1dc1d69cd173a9e43a954af0da16d
+canonical_tag: v1.0.0-genesis
+scope: executable-language
+
+---
+
+# 512 Embeddings — Manifest
+
+This document enumerates a set of **executable language embeddings** derived from the 512 Kernel.
+
+These files are intended for use in:
+- agent system prompts,
+- policy layers,
+- runtime guards,
+- refusal logic,
+- and workflow enforcement.
+
+They **do not** carry authority and **do not** modify, replace, or extend the canonical kernel.
+
+The canonical kernel remains frozen at genesis commit  
+`4f5bc5de1dd1dc1d69cd173a9e43a954af0da16d` (tag `v1.0.0-genesis`).
+
+---
+
+## Embedding Set (Current)
+
+| ID | File | Execution Context | Purpose |
+|----|------|-------------------|---------|
+| EMB-01 | agent-guard-core.md | agent / system | Core refusal and non-coercion logic |
+| EMB-02 | conflict-resolution.md | agent / workflow | Rule collision and ambiguity handling |
+| EMB-03 | consent-lifecycle.md | system / workflow | Consent grant, revoke, erase, exit |
+| EMB-04 | refusal-templates.md | agent / UI | Standardized refusal language |
+| EMB-05 | runtime-checks.md | runtime / audit | Boolean compliance checks |
+
+---
+
+## Execution Boundary
+
+These embeddings:
+- are **replaceable**,
+- are **context-specific**,
+- may evolve independently,
+- and are expected to change over time.
+
+Changes to these files **do not** affect:
+- kernel authority,
+- interpretation meaning,
+- or lineage records.
+
+Only the kernel defines constraints.
+
+---
+
+## Relationship to Interpretations and Lineage
+
+- **Interpretations** explain constraints to humans.
+- **Lineage** records how language evolved pre-genesis.
+- **Embeddings** instruct systems how to behave under constraints.
+
+No embedding supersedes interpretation.  
+No interpretation supersedes the kernel.
+
+---
+
+## Anchoring Intent
+
+This manifest is intentionally structured to be:
+- hashable as a single artifact,
+- independently verifiable,
+- cryptographically linkable back to the canonical kernel.
+
+Anchoring this manifest binds the **embedding set as a whole** to a point in time without freezing individual files or the kernel itself.
+
+---
+
+Language is allowed to live.  
+Authority must remain frozen.
+
+---
+
+**Checksum:** `sha256(<this document>)` — subordinate to 512 genesis commit `4f5bc5de1dd1dc1d69cd173a9e43a954af0da16d`.

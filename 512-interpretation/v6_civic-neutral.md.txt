@@ -1,0 +1,38 @@
+---
+
+type: 512-interpretation
+authority: non-canonical
+style: civic-neutral
+canonical_repo: https://github.com/JonathanMastersWatson/512
+canonical_genesis_commit: 4f5bc5de1dd1dc1d69cd173a9e43a954af0da16d
+canonical_tag: v1.0.0-genesis
+
+---
+
+VERSION 6 — Civic Framing (Non-Political)
+Style: neutral governance
+
+---
+
+This text is a subordinate interpretive restatement of the 512 Kernel.
+It has no independent authority and does not modify the canonical text.
+
+---
+
+Systems must not compel or mislead people.
+
+Participation must always be chosen.
+
+Leaving must always be allowed.
+
+Rules must be clear and applied equally.
+
+Governing rules must be visible.
+
+Failures must return choice to people.
+
+Compliance must be complete or not claimed.
+
+---
+
+**Checksum:** `sha256(<this document>)` — subordinate to 512 genesis commit `4f5bc5de1dd1dc1d69cd173a9e43a954af0da16d`.

@@ -1,0 +1,31 @@
+---
+type: 512-interpretation
+authority: non-canonical
+style: legal-appendix
+canonical_repo: https://github.com/JonathanMastersWatson/512
+canonical_genesis_commit: 4f5bc5de1dd1dc1d69cd173a9e43a954af0da16d
+canonical_tag: v1.0.0-genesis
+---
+
+This text is a subordinate interpretive restatement of the 512 Kernel.
+It has no independent authority and does not modify the canonical text.
+
+---
+
+A system SHALL NOT initiate deception or coercion against a person; it MAY act only by consent; failure is proven by undisclosed manipulation.
+
+A system SHALL require explicit consent; it SHALL NOT assume consent; consent is tested by clear affirmative action.
+
+A system SHALL permit exit at all times; it SHALL NOT impose lock-in; exit is tested by immediate disengagement.
+
+A system SHALL present readable terms; it SHALL NOT apply unequal enforcement; violation is tested by asymmetry.
+
+A system SHALL disclose all governing rules; it SHALL NOT alter rules unilaterally; change logs verify compliance.
+
+A system SHALL fail open on error; it SHALL NOT bind users under opacity; failure is tested by disclosure.
+
+A system SHALL be immutable in adherence; it SHALL NOT partially comply; compliance is binary.
+
+---
+
+**Checksum:** `sha256(<this document>)` — subordinate to 512 genesis commit `4f5bc5de1dd1dc1d69cd173a9e43a954af0da16d`.

@@ -1,0 +1,74 @@
+---
+type: 512-interpretation-manifest
+authority: non-canonical
+canonical_repo: https://github.com/JonathanMastersWatson/512
+canonical_genesis_commit: 4f5bc5de1dd1dc1d69cd173a9e43a954af0da16d
+canonical_tag: v1.0.0-genesis
+scope: linguistic-interpretations
+---
+
+# 512 Linguistic Interpretations — Manifest
+
+This document enumerates a set of **subordinate linguistic interpretations** of the 512 Kernel.
+
+These documents:
+- restate the kernel in different linguistic styles,
+- preserve intent and outcome,
+- have no independent authority,
+- do not amend, replace, or supersede the canonical kernel.
+
+The canonical kernel remains frozen at genesis commit  
+`4f5bc5de1dd1dc1d69cd173a9e43a954af0da16d` (tag `v1.0.0-genesis`).
+
+---
+
+## Interpretation Set (Current)
+
+| ID | File | Style |
+|----|------|-------|
+| INT-01 | v1_plain-english.md | Plain English |
+| INT-02 | v2_legal-appendix.md | Legal Appendix |
+| INT-03 | v3_systems-rfc.md | Systems / RFC |
+| INT-04 | v4_threat-model.md | Threat Model |
+| INT-05 | v5_prd.md | Product Requirements |
+| INT-06 | v6_civic-neutral.md | Civic-Neutral |
+| INT-07 | v7_minimalist.md | Minimalist |
+| INT-08 | v8_teaching.md | Teaching |
+| INT-09 | v9_investor.md | Investor |
+| INT-10 | v10_socratic.md | Socratic Q&A |
+| INT-11 | v11_declarative.md | Declarative Law |
+| INT-12 | v12_checklist.md | Operational Checklist |
+
+---
+
+## Authority Boundary
+
+This manifest establishes **set membership only**.
+
+It does not:
+- grant authority to any interpretation,
+- assert equivalence to the kernel,
+- define precedence between interpretations,
+- or introduce new constraints.
+
+Interpretations may be added in future sets without altering this manifest.
+
+---
+
+## Anchoring Intent
+
+This manifest is intentionally structured to be:
+- hashable as a single artifact,
+- independently verifiable,
+- cryptographically linkable back to the canonical kernel.
+
+Anchoring this manifest binds the **entire interpretation set** to a point in time without freezing the kernel or privileging any single rendering.
+
+---
+
+Language is allowed to live.  
+Authority must remain frozen.
+
+---
+
+**Checksum:** `sha256(<this document>)` — subordinate to 512 genesis commit `4f5bc5de1dd1dc1d69cd173a9e43a954af0da16d`.

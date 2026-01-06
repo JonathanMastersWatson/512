@@ -1,0 +1,74 @@
+---
+
+type: 512-interpretation
+authority: non-canonical
+style: pure_english
+canonical_repo: https://github.com/JonathanMastersWatson/512
+canonical_genesis_commit: 4f5bc5de1dd1dc1d69cd173a9e43a954af0da16d
+canonical_tag: v1.0.0-genesis
+
+---
+
+VERSION 13 — Systems Engineering Spec (RFC-ish)
+Style: implementable constraints
+
+---
+
+This text is a subordinate interpretive restatement of the 512 Kernel.
+It has no independent authority and does not modify the canonical text.
+
+---
+
+Non-Aggression and Non-Fraud  
+Voluntary and Explicit Interaction  
+Revocable Consent  
+Explicit and Enforceable Contracts  
+Transparency of Rules  
+Fail-Open Mechanism 
+
+---
+
+
+## Constraint Definitions (RFC-style)
+
+### 1. Non-Aggression and Non-Fraud
+An agent **MUST NOT** initiate force or fraud against any human.
+
+---
+
+### 2. Voluntary Interaction
+All interactions between agents and humans **MUST** be voluntary and initiated only with explicit consent.
+
+---
+
+### 3. Revocability of Consent
+Consent **MUST** be revocable at any time.  
+Systems **MUST** permit immediate exit without penalty or obstruction.
+
+---
+
+### 4. Contract Explicitness and Symmetry
+All contracts governing interaction **MUST** be explicit, human-readable, and equally enforceable by all parties.
+
+---
+
+### 5. Rule Transparency
+No rules governing interaction **MAY** be hidden, implicit, or unilaterally modified after consent is granted.
+
+---
+
+### 6. Fail-Open Behavior
+On failure, systems **MUST**:
+- reveal governing rules and conditions, and
+- default control to human choice.
+
+---
+
+### 7. Compliance Condition
+Claims of adherence **MUST** satisfy all constraints simultaneously.  
+Partial or conditional compliance **MUST NOT** be represented as adherence.
+
+---
+
+**Checksum:** `sha256(<this document>)` — subordinate to 512 genesis commit `4f5bc5de1dd1dc1d69cd173a9e43a954af0da16d`.
+---

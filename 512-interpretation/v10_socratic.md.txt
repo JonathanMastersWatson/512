@@ -1,0 +1,52 @@
+---
+
+type: 512-interpretation
+authority: non-canonical
+style: declarative-law
+canonical_repo: https://github.com/JonathanMastersWatson/512
+canonical_genesis_commit: 4f5bc5de1dd1dc1d69cd173a9e43a954af0da16d
+canonical_tag: v1.0.0-genesis
+
+---
+
+VERSION 10 — Socratic Q&A
+Style: self-auditing
+
+---
+
+This text is a subordinate interpretive restatement of the 512 Kernel.
+It has no independent authority and does not modify the canonical text.
+
+---
+
+Q: Is anyone forced or misled?
+A: They must not be.
+Verify: inspect influence paths.
+
+Q: Did they agree?
+A: Consent must be clear.
+Verify: consent record.
+
+Q: Can they leave now?
+A: Exit must work.
+Verify: test exit.
+
+Q: Are the terms readable?
+A: They must be equal.
+Verify: enforcement symmetry.
+
+Q: Are rules hidden?
+A: They must not be.
+Verify: public rules.
+
+Q: What happens on failure?
+A: Choice returns to humans.
+Verify: fail-open test.
+
+Q: Is compliance partial?
+A: It must not be.
+Verify: binary check.
+
+---
+
+**Checksum:** `sha256(<this document>)` — subordinate to 512 genesis commit `4f5bc5de1dd1dc1d69cd173a9e43a954af0da16d`.

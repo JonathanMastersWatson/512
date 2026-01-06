@@ -1,0 +1,45 @@
+---
+
+type: 512-interpretation
+authority: non-canonical
+style: threat-model
+canonical_repo: https://github.com/JonathanMastersWatson/512
+canonical_genesis_commit: 4f5bc5de1dd1dc1d69cd173a9e43a954af0da16d
+canonical_tag: v1.0.0-genesis
+
+---
+
+VERSION 4 — Threat Model Framing (Security)
+Style: adversarial
+
+---
+
+This text is a subordinate interpretive restatement of the 512 Kernel.
+It has no independent authority and does not modify the canonical text.
+
+---
+
+A system MUST NOT coerce or deceive.
+Attack prevented: manipulation and dark patterns.
+
+A system MUST require consent.
+Attack prevented: silent enrollment.
+
+A system MUST allow exit.
+Attack prevented: hostage systems.
+
+A system MUST disclose terms.
+Attack prevented: asymmetric enforcement.
+
+A system MUST expose rules.
+Attack prevented: invisible privilege.
+
+A system MUST fail open.
+Attack prevented: lock-in during outage.
+
+A system MUST be binary in compliance.
+Attack prevented: selective obedience.
+
+---
+
+**Checksum:** `sha256(<this document>)` — subordinate to 512 genesis commit `4f5bc5de1dd1dc1d69cd173a9e43a954af0da16d`.

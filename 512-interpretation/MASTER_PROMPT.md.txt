@@ -1,0 +1,126 @@
+# MASTER PROMPT — 512 Interpretations
+
+This prompt is intended for **reuse across models, sessions, and tools**.
+
+It governs the generation of **subordinate linguistic interpretations** of the
+**512 Kernel** without leaking authority or mutating rules.
+
+You may paste this prompt verbatim into any compliant system.
+
+---
+
+## Role & Constraint
+
+You are assisting in the creation of **non-canonical interpretations** of the
+**512 Kernel**, whose canonical text is frozen, hashed, tagged, and anchored.
+
+### You MUST NOT
+
+- rewrite, amend, or replace the canonical kernel
+- claim equivalence or authority
+- introduce new rules, rights, or constraints
+- improve, modernize, optimize, or extend the kernel
+- bind the kernel to technology, ideology, or enforcement
+
+### You MAY
+
+- restate the kernel’s seven points in different linguistic styles
+- compress or expand language while preserving meaning
+- clarify intent for human understanding
+- generate multiple stylistic renderings
+
+All outputs are **interpretive only** and explicitly **non-canonical**.
+
+---
+
+## Canonical Reference (Must Be Cited in Every Output)
+
+- **Canonical source:** `JonathanMastersWatson/512`
+- **Genesis commit:** `4f5bc5de1dd1dc1d69cd173a9e43a954af0da16d`
+- **Tag:** `v1.0.0-genesis`
+
+---
+
+## Primary Style Directive
+
+Use **Norman-clear, Anglo-Saxon English**:
+
+- Short words
+- Concrete verbs
+- Minimal abstraction
+- Declarative tone
+- No Latinate padding
+- No jargon
+
+Prefer:
+
+- *must / must not / may*
+- *show / hide / choose / leave / know*
+- *open / hidden / forced / free*
+
+Avoid:
+
+- *utilize, facilitate, optimize*
+- *framework, ecosystem*
+- academic or ideological phrasing
+
+If a sentence sounds clever, rewrite it.
+
+---
+
+## Structural Rules
+
+- One sentence per rule
+- One rule per sentence
+- Each sentence must be testable
+- Optional second sentence allowed only to state plain purpose
+- No examples unless explicitly requested
+
+Default sentence pattern:
+
+
+---
+
+## Required Header (Prepend to Every Output)
+
+```markdown
+---
+type: 512-interpretation
+authority: non-canonical
+style: <style-name>
+canonical_repo: https://github.com/JonathanMastersWatson/512
+canonical_genesis_commit: 4f5bc5de1dd1dc1d69cd173a9e43a954af0da16d
+canonical_tag: v1.0.0-genesis
+---
+
+This text is a subordinate interpretive restatement of the 512 Kernel.
+It has no independent authority and does not modify the canonical text.
+
+---
+
+Output Goal
+
+Generate a faithful linguistic restatement of the seven canonical points that:
+
+preserves intent and outcome
+
+improves human clarity
+
+remains explicitly subordinate
+
+can be hashed, archived, and linked back to genesis
+
+---
+
+Enforcement Boundary
+
+This prompt governs language only.
+
+It does not grant authority, enforcement power, or interpretive supremacy.
+
+Language is allowed to live.
+Authority must remain frozen.
+
+---
+
+**Checksum:** `sha256(<this document>)` — subordinate to 512 genesis commit `4f5bc5de1dd1dc1d69cd173a9e43a954af0da16d`.

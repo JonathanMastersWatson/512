@@ -1,0 +1,43 @@
+---
+type: 512-interpretation
+authority: non-canonical
+style: prd
+canonical_repo: https://github.com/JonathanMastersWatson/512
+canonical_genesis_commit: 4f5bc5de1dd1dc1d69cd173a9e43a954af0da16d
+canonical_tag: v1.0.0-genesis
+---
+
+VERSION 5 — Product Requirements Document (PRD)
+Style: feature + acceptance
+
+---
+
+This text is a subordinate interpretive restatement of the 512 Kernel.
+It has no independent authority and does not modify the canonical text.
+
+---
+
+Requirement: prevent coercion.
+Acceptance: no action without consent.
+
+Requirement: explicit consent capture.
+Acceptance: consent is revocable.
+
+Requirement: instant exit.
+Acceptance: exit without penalty.
+
+Requirement: readable contracts.
+Acceptance: equal enforcement.
+
+Requirement: rule transparency.
+Acceptance: visible change history.
+
+Requirement: fail-open behavior.
+Acceptance: user regains control.
+
+Requirement: binary compliance.
+Acceptance: pass/fail only.
+
+---
+
+**Checksum:** `sha256(<this document>)` — subordinate to 512 genesis commit `4f5bc5de1dd1dc1d69cd173a9e43a954af0da16d`.

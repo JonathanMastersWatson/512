@@ -1,0 +1,37 @@
+---
+
+type: 512-interpretation
+authority: non-canonical
+style: plain-english-boardroom
+canonical_repo: https://github.com/JonathanMastersWatson/512
+canonical_genesis_commit: 4f5bc5de1dd1dc1d69cd173a9e43a954af0da16d
+canonical_tag: v1.0.0-genesis
+
+---
+
+VERSION 1 — Plain English (Boardroom)
+
+---
+
+This text is a subordinate interpretive restatement of the 512 Kernel.
+It has no independent authority and does not modify the canonical text.
+
+---
+
+A system MUST NOT trick or coerce a person.
+
+A system MUST operate only with clear permission.
+
+A system MUST allow people to leave at any time.
+
+A system MUST show all terms in plain language and enforce them evenly.
+
+A system MUST NOT hide rules or change them without notice.
+
+A system MUST reveal how it works when something breaks and let people decide.
+
+A system MUST either follow these rules fully or not claim compliance.
+
+---
+
+**Checksum:** `sha256(<this document>)` — subordinate to 512 genesis commit `4f5bc5de1dd1dc1d69cd173a9e43a954af0da16d`.
