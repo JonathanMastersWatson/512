@@ -138,3 +138,19 @@ They do not define, modify, or extend the kernel.
 
 The kernel text remains authoritative in all cases.
 
+---
+
+## Verified Kernel Artifact
+
+The file `512-core/KERNEL/512-kernel-padded.txt` is a fixed-width, verified
+512-byte padded representation of the canonical 512 kernel text.
+
+- Encoding: UTF-8 (no BOM)
+- Size: 512 bytes (exact)
+- Verification hash (SHA-256): 7b08c024b77a24830c15e7952d6e54bed383aa960f4c74a71ff95ce51f4d80f5
+
+- This artifact is implementation-oriented and MUST NOT be edited in-browser.
+Canonical meaning remains defined by the unpadded kernel text.
+
+
+
