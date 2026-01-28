@@ -164,3 +164,18 @@ It exists to ensure the research is read as:
 ---
 
 *End of provenance statement.*
+
+---
+
+### Verified Artifact Record
+
+For completeness of record, a fixed-width, implementation-oriented padded
+representation of the canonical 512 kernel has been published for purposes of
+verification and interoperability.
+
+- Artifact: `512-core/KERNEL/512-kernel-padded.txt`
+- Verification record: `00_PROOFS/512_KERNEL_PADDED_SHA256.md`
+
+This reference attests only to byte-level integrity of the padded artifact.
+Canonical meaning remains defined exclusively by the unpadded kernel text.
+
