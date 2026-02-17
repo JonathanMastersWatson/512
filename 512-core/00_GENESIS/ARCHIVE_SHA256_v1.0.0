@@ -1,0 +1,15 @@
+Artifact: 512-v1.0.0 Genesis Sealed Archive SHA-256.zip
+
+SHA-256:
+23de0d6e2d6df295c4bf3f1b74b3662c81631571793274cd2797f4f7be41430b
+
+Generated-UTC: 2026-02-17
+Method: Windows certutil
+Source: GitHub Code → Download ZIP (main branch)
+
+Notes:
+This hash represents the distributable archive packaging layer.
+It does NOT modify the canonical 512 kernel commitment.
+Kernel identity remains defined by SHA-256 of:
+
+512-core/KERNEL/512-kernel-padded.txt
