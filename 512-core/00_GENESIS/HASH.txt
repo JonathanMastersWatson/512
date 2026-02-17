@@ -1,6 +1,13 @@
-Document: 512.md
+Artifact: 512-core/KERNEL/512-kernel-padded.txt
+Size: 512 bytes
 Hash-Algorithm: SHA-256
-Hash: <PASTE_HASH_HERE>
-Generated-UTC: 2025-12-25T05:12:00Z
-Canonical-Encoding: UTF-8
+
+Kernel-Commitment-SHA256:
+7B08C024B77A24830C15E7952D6E54BED383AA960F4C74A71FF95CE51F4D80F5
+
+Canonical-Git-Commit:
+4f5bc5de1dd1dc1d69cd173a9e43a954af0da16d
+
+Date-Sealed-UTC: 2026-02-02
+Encoding: UTF-8
 Line-Endings: LF
