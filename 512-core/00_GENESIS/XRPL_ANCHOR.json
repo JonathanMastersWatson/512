@@ -2,13 +2,17 @@
   "type": "512-GENESIS",
   "ledger": "XRPL",
   "network": "mainnet",
-  "tx_hash": "",
-  "ledger_index": "",
-  "timestamp_utc": "2025-12-25T05:12:00Z",
-  "anchored_hash": "<SHA256_OF_512_MD>",
+
+  "artifact": "512-core/KERNEL/512-kernel-padded.txt",
+  "size_bytes": 512,
+
   "hash_algorithm": "SHA-256",
-  "file": "512.md",
-  "memo_encoding": "UTF-8",
-  "repository": "https://github.com/<org>/512",
-  "notes": "Genesis anchor for the 512 constitution"
+  "kernel_commitment_sha256": "7B08C024B77A24830C15E7952D6E54BED383AA960F4C74A71FF95CE51F4D80F5",
+
+  "git_commit": "4f5bc5de1dd1dc1d69cd173a9e43a954af0da16d",
+  "ledger_tx_reference": "378536A3CB75DECF90B6AE57F75292BDFF716285B01946870CAC158F8152D100",
+
+  "date_recorded": "2026-02-02",
+  "encoding": "UTF-8",
+  "line_endings": "LF"
 }
