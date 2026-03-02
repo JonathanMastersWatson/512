@@ -1,3 +1,8 @@
+Status: Under Active Deterministic Serialization Review (Spec Hardening Phase).
+This repository is undergoing formal cross-language determinism validation and specification tightening. No production deployment is recommended until v3.x hardening is complete.
+
+---
+
 # 512 — Execution-Time Legitimacy Under Scale
 
 This repository documents **512**, a discovered constraint governing
