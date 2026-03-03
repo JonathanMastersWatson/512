@@ -1,3 +1,8 @@
+⚠ HARDENING PHASE – NOT APPROVED FOR DEPLOYMENT  
+See Issue #1 for full notice.
+
+---
+
 Status: Under Active Deterministic Serialization Review (Spec Hardening Phase).
 This repository is undergoing formal cross-language determinism validation and specification tightening. No production deployment is recommended until v3.x hardening is complete.
 
