@@ -3,6 +3,18 @@ This repository is undergoing formal cross-language determinism validation and s
 
 ---
 
+512 is a discovered constraint category.
+The authors assert no copyright, patent, or proprietary rights
+over the constraint set itself.
+
+The written documentation contained in this repository
+is released under Creative Commons Attribution 4.0 (CC BY 4.0),
+unless otherwise specified.
+
+The constraint category itself remains unowned.
+
+----
+
 # 512 — Execution-Time Legitimacy Under Scale
 
 This repository documents **512**, a discovered constraint governing
