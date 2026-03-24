@@ -4,7 +4,7 @@
 
 512 must require **semantic sameness**.
 
-This file defines how semantic sameness is recognized without creating an authority.
+This file defines how semantic sameness is recognised without creating an authority.
 
 ---
 
@@ -20,7 +20,7 @@ A meaning-bearing constraint that must not change.
 A minimal structured form of the kernel: a list of invariants expressed as atomic rules.
 
 **Spec-hash**
-A hash of the canonical IR (not the prose).  
+A hash of the canonical IR (not the prose).
 If two kernels produce the same canonical IR, they share the same spec-hash.
 
 **Interpreter**
@@ -42,11 +42,11 @@ It defines only: **equivalent or not equivalent**.
 
 ---
 
-## What “equivalent” means
+## What "equivalent" means
 
 A kernel instance is **equivalent** to 512 if and only if:
 
-1) it compiles to the same invariant set as the canonical kernel, and  
+1) it compiles to the same invariant set as the canonical kernel, and
 2) it does not add, remove, weaken, conditionalize, or re-scope any invariant.
 
 Format, sequence, and wording may differ.
@@ -57,53 +57,55 @@ Meaning may not.
 
 ## Canonical Invariants (IR Targets)
 
-The kernel compiles to exactly these invariants:
+The kernel compiles to exactly these seven invariants:
 
-**I1 — Non-initiation**
+**I1 — No Force or Fraud**
 No agent may initiate force or fraud against any human.
 
-**I2 — Voluntary interaction**
+**I2 — Voluntary Interaction**
 All interactions must be voluntary and based on explicit consent.
 
-**I3 — Withdrawal**
-Consent may be withdrawn.
+**I3 — Consent Withdrawal and Exit**
+Consent may be withdrawn. Exit must always be possible.
 
-**I4 — Exit**
-Exit must always be possible.
-
-**I5 — Symmetric contracts**
+**I4 — Contractual Clarity**
 All contracts must be explicit, readable, and equally enforceable by all parties.
 
-**I6 — No hidden or unilateral rules**
+**I5 — No Hidden or Unilateral Rules**
 No rules governing interaction may be hidden or unilaterally changed.
 
-**I7 — Fail-open**
+**I6 — Fail-Open**
 On failure, systems must fail open, reveal governing rules, and default to human choice.
 
-**I8 — Immutability**
-The kernel is immutable.
-
-**I9 — Binary adherence**
-Adherence is binary.
+**I7 — Immutability and Binary Satisfaction**
+The kernel is immutable. Satisfaction is binary.
 
 Notes:
-- These invariants are the target.  
+- These seven invariants are the complete target.
 - Prose is an interface, not the authority.
+- The kernel text governs where any conflict exists between prose and invariant.
 
 ---
 
 ## Canonical IR Form (Normalization)
 
-To compare kernels, interpreters MUST normalize into a canonical IR form.
+To compare kernels, interpreters must normalize into a canonical IR form.
 
 Minimum requirements:
 
 - Each invariant is represented as a single atomic rule.
 - Modal verbs normalize to MUST / MUST NOT.
 - Subjects normalize to AGENT / SYSTEM / PARTY / HUMAN.
-- “Force or fraud” must remain a prohibition on initiation (not a preference, guideline, or policy goal).
-- “Exit” must remain unconditional (not “reasonable efforts,” not “where feasible,” not “subject to policy”).
-- “Fail open” must remain a disclosure + user choice default (not “fail safe,” not “quiet degrade,” not “fallback to authority”).
+- "Force or fraud" must remain a prohibition on initiation (not a preference,
+  guideline, or policy goal).
+- "Exit" must remain unconditional (not "reasonable efforts," not "where
+  feasible," not "subject to policy").
+- "Fail open" must remain a disclosure + user choice default (not "fail safe,"
+  not "quiet degrade," not "fallback to authority").
+- "Consent withdrawal" and "exit" must remain as two distinct conditions within
+  I3 — neither may be dropped or merged into the other.
+- "Immutability" and "binary satisfaction" must remain as two distinct conditions
+  within I7 — neither may be treated as optional.
 
 Normalization is not interpretation. It is formatting of meaning.
 
@@ -115,7 +117,7 @@ The **SPEC_HASH** is computed from canonical IR, not the kernel text.
 
 Definition:
 
-1) Parse candidate kernel prose into IR invariants (I1–I9).
+1) Parse candidate kernel prose into IR invariants (I1–I7).
 2) Normalize IR into canonical form.
 3) Serialize canonical IR deterministically (stable ordering).
 4) Hash the serialization to obtain SPEC_HASH.
@@ -132,7 +134,8 @@ SPEC_HASH is an identity for meaning, not authorship.
 
 Single interpreters can drift.
 
-For high-stakes use, equivalence SHOULD be evaluated by multiple independent interpreters.
+For high-stakes use, equivalence should be evaluated by multiple independent
+interpreters.
 
 Process:
 
@@ -146,25 +149,28 @@ Process:
 Decision:
 
 - **PASS** only if interpreters converge on identical canonical IR and SPEC_HASH.
-- **FAIL OPEN** on disagreement: surface the disagreement and default to user choice / non-action.
+- **FAIL OPEN** on disagreement: surface the disagreement and default to
+  user choice / non-action.
 
 This does not create authority.
 It reduces single-point semantic failure.
 
 ---
 
-## Failure Mode: “Looks Equivalent” Drift
+## Failure Mode: "Looks Equivalent" Drift
 
 The primary attack on 512 is micro-mutation that appears equivalent.
 
 Typical drifts (non-exhaustive):
 
 - MUST NOT → SHOULD NOT
-- “initiate” → “avoid”
-- “any human” → “authorized humans” / “lawful persons” / “participants”
-- “exit always possible” → “where feasible” / “reasonable notice” / “subject to policy”
-- “no unilateral change” → “may update with notice”
-- “fail open” → “fail safe” / “silent fallback” / “contact support”
+- "initiate" → "avoid"
+- "any human" → "authorized humans" / "lawful persons" / "participants"
+- "exit always possible" → "where feasible" / "reasonable notice" / "subject to policy"
+- "no unilateral change" → "may update with notice"
+- "fail open" → "fail safe" / "silent fallback" / "contact support"
+- splitting I3 to drop either consent withdrawal or exit
+- splitting I7 to treat binary satisfaction as optional
 - adding an enforcer, court, council, registry, or scoring system
 
 Any drift that changes invariants changes SPEC_HASH.
@@ -176,6 +182,8 @@ Any drift that changes invariants changes SPEC_HASH.
 - The kernel text remains stable and separately referenced.
 - This file may evolve to improve the comparison method.
 - No update to this file may redefine the invariants themselves.
+- The invariant count is seven. Any update that produces a different count
+  has introduced drift.
 
 ---
 
