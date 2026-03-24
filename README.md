@@ -1,25 +1,3 @@
-⚠ HARDENING PHASE – NOT APPROVED FOR DEPLOYMENT  
-See Issue #1 for full notice.
-
----
-
-Status: Under Active Deterministic Serialization Review (Spec Hardening Phase).
-This repository is undergoing formal cross-language determinism validation and specification tightening. No production deployment is recommended until v3.x hardening is complete.
-
----
-
-512 is a discovered constraint category.
-The authors assert no copyright, patent, or proprietary rights
-over the constraint set itself.
-
-The written documentation contained in this repository
-is released under Creative Commons Attribution 4.0 (CC BY 4.0),
-unless otherwise specified.
-
-The constraint category itself remains unowned.
-
-----
-
 # 512 — Execution-Time Legitimacy Under Scale
 
 This repository documents **512**, a discovered constraint governing
@@ -29,60 +7,40 @@ This repository documents **512**, a discovered constraint governing
 political program. It is a **minimal, non-ownable constraint**
 identified through applied systems research conducted in late 2025.
 
-## The 512 Kernel (Canonical)
-
-The immutable 512 kernel defines the minimal constraints governing voluntary interaction and the legitimacy of execution.
-
-The kernel text itself is **canonical, immutable, and non-ownable**.
-It lives exclusively in the `/512-core/CANON/` directory.
-
-👉 **Read the canonical kernel here:**  
-[`/512-core/CANON/README.md`](./512-core/CANON/README.md)
-
-No other location in this repository is authoritative.
-
-
-## Scope Lock
-
-512 defines a minimal constraint kernel for making **execution-time legitimacy auditable**
-*without creating new authorities*.
-
-512 does **not** provide coordination, incentives, enforcement, identity, governance, or safety logic.
-Those are explicitly out of scope. See `SCOPE_AND_NON_GOALS.md`.
-
-**Note on terminology:** in 512, *legitimacy* means verifiable consistency between declared rules and
-observed execution — not moral, legal, or political legitimacy.
-
-**Implementation note:** 512 does not prescribe implementations. Evidence-Sidecar (maintained separately)
-is one example of an external witness architecture compatible with 512 constraints.
-
 ---
 
+## ⚡ START HERE — Developers
 
-## What This Repository Is
+If you are building a system against 512, start with these three files
+in this order:
 
-This repository is a **research archive**.
+| Step | File | What it gives you |
+|---|---|---|
+| 1 | [`512-core/KERNEL/512-kernel.txt.txt`](./512-core/KERNEL/512-kernel.txt.txt) | The 7 invariants — the actual constraint text |
+| 2 | [`512-core/KERNEL/INVARIANTS.md`](./512-core/KERNEL/INVARIANTS.md) | Each invariant defined precisely |
+| 3 | [`512-ops/COMMIT_BOUNDARY_REFERENCE.md`](./512-ops/COMMIT_BOUNDARY_REFERENCE.md) | What the boundary looks like in practice — Proposal Objects, evaluation, output |
 
-It records:
-- observed failures of legitimacy under scale
-- constraints imposed by physics, latency, and irreversibility
-- the identification of a minimal execution-time constraint (512)
+The verified 512-byte canonical artifact:
+[`512-core/KERNEL/512-kernel-padded.txt`](./512-core/KERNEL/512-kernel-padded.txt)
+SHA-256: `7b08c024b77a24830c15e7952d6e54bed383aa960f4c74a71ff95ce51f4d80f5`
 
-It does **not** prescribe outcomes, enforce behavior, or recommend adoption.
+Everything else in this repository is context, history, or commentary.
+Those three files are what you need to build.
 
 ---
 
 ## What 512 Is
 
-512 is a **constraint layer**, not a system.
+512 is a **discovered constraint** — not a product, system, or invention.
 
-It:
-- governs how legitimacy may be *witnessed*
-- operates adjacent to execution, not inside it
-- avoids identity, enforcement, ideology, and governance
-- remains voluntary and unenforceable by design
+It consists of seven invariants defining the minimum conditions under
+which execution at machine speed can be considered legitimate.
+
+Systems either satisfy these properties or they do not.
+There is no partial satisfaction.
 
 512 does not determine truth, correctness, or morality.
+It defines only whether execution aligns with declared constraints.
 
 ---
 
@@ -95,42 +53,81 @@ It:
 - a protocol suite
 - a standards body
 - a movement or ideology
+- a compliance system
+- a monitoring tool
 
-If a system enforces behavior, requires identity, or embeds ideology,
-it is **not** 512-compliant.
+A system that enforces behavior, requires identity, or embeds ideology
+does not satisfy 512's properties.
+
+---
+
+## The Canonical Kernel
+
+The kernel text is the authority. It lives here:
+[`512-core/KERNEL/512-kernel.txt.txt`](./512-core/KERNEL/512-kernel.txt.txt)
+
+The kernel is **immutable**. It is not redefined anywhere else in this
+repository. Commentary, analysis, and interpretation documents are
+subordinate to it.
+
+The 512-byte padded artifact is implementation-oriented and
+MUST NOT be edited in-browser. Canonical meaning is defined by
+the unpadded kernel text.
+
+- Encoding: UTF-8 (no BOM)
+- Size: 512 bytes (exact)
+- SHA-256: `7b08c024b77a24830c15e7952d6e54bed383aa960f4c74a71ff95ce51f4d80f5`
+
+---
+
+## Scope
+
+512 defines the minimum constraint surface for making execution-time
+legitimacy auditable — without creating new authorities.
+
+512 does **not** provide:
+- coordination or incentives
+- enforcement or identity
+- governance or safety logic
+- implementation prescriptions
+
+Those are explicitly out of scope. See `SCOPE_AND_NON_GOALS.md`.
+
+**On terminology:** in 512, *legitimacy* means verifiable consistency
+between declared rules and observed execution — not moral, legal,
+or political legitimacy.
+
+**On witness architectures:** 512 does not prescribe a witness layer.
+External witness architectures that observe and record execution
+against 512's properties are compatible but independent.
+The Evidence-Sidecar repository is one such architecture.
+Others may exist. None are canonical to 512.
 
 ---
 
 ## Repository Structure
 
-- `/512-papers/` — canonical research record  
-  (discovery history, problem definition, technical constraints,
-  economic implications, explicit non-goals)
+**Core — start here:**
+- `/512-core/KERNEL/` — the canonical kernel text and invariants
+- `/512-ops/` — operational reference, including the developer boundary worksheet
 
+**Research record:**
+- `/512-papers/` — discovery history, problem definition, technical constraints,
+  economic implications, explicit non-goals
 
-- `/PROMPTS/` — optional copy‑paste prompts for loading 512 into an LLM workspace (non‑canonical; UX helpers only)
-- Meta-documents at repository root define:
-  - provenance (`PROVENANCE.md`)
-  - interpretation boundaries (`INTERPRETATION_GUIDE.md`)
-  - terminology (`TERMS.md`)
-  - citation rules (`CITATION_POLICY.md`)
-  - explicit non-solutions (`FAILURE_MODES.md`)
-  - legal posture (`LEGAL_NOTE.md`)
-  - historical freeze (`CHANGELOG.md`)
+**Reference:**
+- `PROVENANCE.md` — origin and authorship
+- `INTERPRETATION_GUIDE.md` — how not to misread this repository
+- `TERMS.md` — terminology
+- `FAILURE_MODES.md` — explicit non-solutions
+- `ANTI_DRIFT.md` — what 512 is not, and how implementations drift
+- `LEGAL_NOTE.md` — legal posture
+- `CITATION_POLICY.md` — citation rules
 
-Other directories contain exploratory, commercial, or derivative material
-that does not define 512 itself.
-
----
-
-## How to Read This Repository
-
-Start with:
-1. `PROVENANCE.md`
-2. `INTERPRETATION_GUIDE.md`
-3. `TERMS.md`
-
-Then proceed to `/512-papers/`.
+**Non-canonical:**
+- `/PROMPTS/` — optional LLM workspace loaders (UX helpers only)
+- `/DERIVATIVES/` — commercial and exploratory material
+- `/512-interpretation/` — interpretation variants (non-authoritative)
 
 ---
 
@@ -138,9 +135,18 @@ Then proceed to `/512-papers/`.
 
 This repository is a **descriptive research record**.
 
-Historical documents are immutable.
+The kernel is frozen. Historical documents are immutable.
 New material may be added only through append-only updates
 tracked in `CHANGELOG.md`.
+
+---
+
+## Licensing
+
+512 and its constraint set are non-ownable.
+Written documentation in this repository is released under
+Creative Commons Attribution 4.0 (CC BY 4.0) unless otherwise specified.
+The constraint category itself remains unowned.
 
 ---
 
@@ -148,31 +154,3 @@ tracked in `CHANGELOG.md`.
 
 > 512 documents a minimal execution-time constraint required to witness
 > legitimacy in distributed systems without identity, enforcement, or ideology.
-
----
-
-## Prompt Interfaces
-
-This repository includes optional prompt interfaces in `/PROMPTS/`.
-
-These prompts provide a structured way to load the 512 constraint kernel into AI workspaces or analytical contexts.
-They do not define, modify, or extend the kernel.
-
-The kernel text remains authoritative in all cases.
-
----
-
-## Verified Kernel Artifact
-
-The file `512-core/KERNEL/512-kernel-padded.txt` is a fixed-width, verified
-512-byte padded representation of the canonical 512 kernel text.
-
-- Encoding: UTF-8 (no BOM)
-- Size: 512 bytes (exact)
-- Verification hash (SHA-256): 7b08c024b77a24830c15e7952d6e54bed383aa960f4c74a71ff95ce51f4d80f5
-
-- This artifact is implementation-oriented and MUST NOT be edited in-browser.
-Canonical meaning remains defined by the unpadded kernel text.
-
-
-
