@@ -1,0 +1,56 @@
+Creative Commons Attribution 4.0 International (CC BY 4.0)
+
+Copyright (c) 2025-2026 Jonathan M. Watson
+
+This licence applies to the written documentation contained in this
+repository — including all .md files, papers, analysis, and commentary.
+
+You are free to:
+  Share — copy and redistribute the material in any medium or format
+  Adapt — remix, transform, and build upon the material for any purpose,
+          even commercially
+
+Under the following terms:
+  Attribution — You must give appropriate credit, provide a link to the
+  licence, and indicate if changes were made. You may do so in any
+  reasonable manner, but not in any way that suggests the licensor
+  endorses you or your use.
+
+Full licence text: https://creativecommons.org/licenses/by/4.0/
+
+---
+
+IMPORTANT — SCOPE OF THIS LICENCE
+
+This licence applies to the written documentation only.
+
+The 512 constraint set — the seven invariants defining execution-time
+legitimacy — is not owned by any person or entity. It cannot be
+licensed because it is not ownable. It was discovered, not invented.
+Physics and scale force it into existence regardless of whether any
+specific documentation exists.
+
+No person may claim copyright, patent, or proprietary rights over
+the 512 constraint set itself.
+
+Anyone may build systems that satisfy 512's properties. No permission
+is required. No licence is needed. No attribution is required for
+the constraint set — only for the written documentation in this
+repository if reproduced.
+
+---
+
+DISTINCTION FROM CVS
+
+The Cryptographic Verification Sidecar (CVS) is an invented witness
+architecture maintained in a separate repository. CVS is released
+under Apache License 2.0. The licensing distinction between 512
+(discovered constraint, documentation CC BY 4.0) and CVS (invented
+architecture, Apache 2.0) is intentional and architecturally
+significant.
+
+---
+
+The name "512" refers to the canonical constraint set defined in
+this repository. Use of the name does not imply endorsement or
+affiliation.
