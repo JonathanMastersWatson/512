@@ -1,0 +1,291 @@
+# Commit Boundary Reference
+
+This document is a developer reference for building systems that
+satisfy 512's properties at the execution boundary.
+
+It answers four questions:
+1. Where is the boundary?
+2. What crosses it?
+3. What gets evaluated?
+4. What comes out?
+
+No philosophy. No history. Start here, build from here.
+
+---
+
+## 1. Where Is the Boundary?
+
+The commit boundary is the exact point at which a proposed action
+becomes an irreversible state change.
+
+Before the boundary: the action is a proposal. It can be modified,
+withdrawn, or cancelled. Nothing is committed.
+
+After the boundary: the action is a fact. State has changed.
+Reversal requires a new action with its own boundary crossing.
+
+**The boundary is not:**
+- the moment a user clicks a button
+- the moment a request hits an API
+- the moment a decision is logged
+- the moment an AI model outputs a result
+
+**The boundary is:**
+- the moment state becomes irreversible
+- the moment an obligation is created that another party relies on
+- the moment a transfer of ownership, authority, or rights completes
+- the moment a payment finalises
+
+If reversal would impose harm on another party or create enforceable
+obligations — that is the boundary.
+
+---
+
+## 2. What Crosses the Boundary — The Proposal Object
+
+Every action that crosses the boundary is represented as a
+**Proposal Object** before evaluation begins.
+
+A Proposal Object answers:
+
+| Field | Question | Notes |
+|---|---|---|
+| `action` | What is being proposed? | Human-readable description |
+| `proposing_party` | Who is proposing it? | Identifiable party |
+| `affected_parties` | Who does it affect? | All parties, not just initiator |
+| `consent_evidence` | Is consent explicit and current? | Not assumed, not inherited |
+| `contract_reference` | What terms govern this? | Must be explicit and readable |
+| `exit_available` | Can any party still exit? | Must be true before boundary |
+| `rules_disclosed` | Are all governing rules visible? | No hidden rules permitted |
+| `spec_hash` | Which constraint set is active? | Hash of the declared constraints |
+| `timestamp` | When is this proposed? | Before boundary crossing |
+
+The Proposal Object is constructed **before** the boundary is crossed.
+It is not reconstructed after the fact.
+
+---
+
+## 3. What Gets Evaluated — The Seven Invariants
+
+Each Proposal Object is evaluated against all seven invariants.
+Evaluation is per-invariant. All seven must be satisfied.
+There is no weighting, scoring, or partial credit.
+
+### I1 — No Force or Fraud
+**Check:** Does this action initiate force or fraud against any human?
+
+Force: physical coercion, digital coercion, economic coercion
+through undisclosed constraints.
+
+Fraud: misrepresentation, omission of material facts, deceptive
+interface or system behaviour.
+
+**Pass:** No force or fraud is initiated.
+**Fail:** Any force or fraud is present.
+
+---
+
+### I2 — Voluntary Interaction
+**Check:** Is this interaction voluntary and based on explicit consent?
+
+Consent must be explicit. Silence is not consent.
+Assumed consent is not consent.
+
+**Pass:** Explicit consent is present and current.
+**Fail:** Consent is absent, assumed, or inherited from a prior action.
+
+---
+
+### I3 — Consent Withdrawal and Exit
+**Check:** Can consent be withdrawn? Can any party exit?
+
+These are two separate checks.
+
+Withdrawal: the proposing party and affected parties can revoke
+consent before the boundary is crossed.
+
+Exit: departure from the system, interaction, or obligation remains
+structurally possible. Exit that requires permission from the system
+being exited fails this invariant.
+
+**Pass:** Both withdrawal and exit are structurally available.
+**Fail:** Either withdrawal or exit is blocked, costly, or requires
+permission from the system.
+
+---
+
+### I4 — Contractual Clarity
+**Check:** Are the governing terms explicit, readable, and equally
+enforceable by all parties?
+
+Three sub-checks:
+- Explicit: terms are stated, not implied
+- Readable: legible to affected parties without specialist interpretation
+- Equally enforceable: all parties hold identical enforcement rights
+
+**Pass:** All three sub-checks pass.
+**Fail:** Any term is hidden, unreadable, or asymmetrically enforceable.
+
+---
+
+### I5 — No Hidden or Unilateral Rules
+**Check:** Are all governing rules visible? Have any been changed
+unilaterally?
+
+All rules affecting this action must be visible and inspectable
+before the boundary is crossed.
+
+Unilateral change: rules changed by one party without the knowledge
+and exit opportunity of all affected parties fail this invariant.
+
+**Pass:** All rules are disclosed and unchanged since last consent.
+**Fail:** Any rule is hidden, or any rule changed without disclosure
+and exit opportunity.
+
+---
+
+### I6 — Fail-Open
+**Check:** If this system fails at or after this boundary, will it
+fail open?
+
+Fail-open means:
+- default to least restrictive state
+- reveal governing rules
+- return control to the human party
+
+**Pass:** Failure mode is structurally fail-open.
+**Fail:** Failure mode is fail-closed, silent, or increases system
+control over the human party.
+
+---
+
+### I7 — Immutability and Binary Satisfaction
+**Check:** Is the constraint set immutable? Is evaluation binary?
+
+The constraint set in force at evaluation must be the canonical
+512 kernel — unmodified, referenced by hash.
+
+Satisfaction is binary per invariant. No scoring. No partial credit.
+
+**Pass:** Constraint set matches canonical hash. All seven invariants
+evaluated. Each produces pass or fail.
+**Fail:** Constraint set is modified. Any invariant is skipped.
+Any invariant produces a non-binary output.
+
+---
+
+## 4. What Comes Out — Three Possible Outputs
+
+Every boundary evaluation produces exactly one of three outputs:
+
+### ALLOW
+All seven invariants are satisfied.
+The action may cross the boundary and become irreversible state change.
+
+At ALLOW, the following is hashed and anchored:
+- the Proposal Object
+- the per-invariant evaluation results
+- the spec hash of the constraint set
+- the timestamp
+- the execution outcome
+
+### DENY
+One or more invariants are not satisfied.
+The action does not cross the boundary.
+State does not change.
+The denial is recorded with the specific invariant(s) that failed.
+
+### GAP
+The system cannot evaluate one or more invariants.
+This is not a pass. This is not a denial.
+This is a coverage failure — the system could not determine
+whether the property holds.
+
+A GAP must be recorded explicitly. It must not be treated as ALLOW.
+A GAP must not be concealed or smoothed.
+
+**Silent execution — proceeding without a declared output — is
+non-satisfaction of 512's properties.**
+
+---
+
+## 5. What Gets Anchored to XRPL
+
+At ALLOW, the following is committed to the XRP Ledger:
+
+| What | Why |
+|---|---|
+| Hash of Proposal Object | Proves what was proposed |
+| Hash of evaluation results | Proves which constraints were active and passed |
+| Spec hash | Proves which constraint version was in force |
+| Timestamp | Proves when commitment occurred |
+| Execution outcome | Proves what actually happened |
+
+**What is never anchored:**
+- private data
+- personal information
+- content of contracts
+- identity information beyond what is required for consent evidence
+
+The ledger records proof of commitment. It does not record content.
+
+**Why XRPL:**
+- Deterministic finality
+- Low, predictable transaction cost (~$0.000025 per transaction)
+- Public auditability — no operator cooperation required to verify
+- Conservative protocol governance
+- Long-term operational stability
+
+XRPL is used as a neutral public witness. It is not used to execute
+rules, enforce behaviour, store documents, or manage identities.
+
+---
+
+## 6. Canonical Kernel Reference
+
+**Kernel text:**
+```
+No agent may initiate force or fraud against any human.
+All interactions must be voluntary and based on explicit consent.
+Consent may be withdrawn. Exit must always be possible.
+All contracts must be explicit, readable, and equally enforceable
+by all parties.
+No rules governing interaction may be hidden or unilaterally changed.
+On failure, systems must fail open, reveal governing rules, and
+default to human choice.
+The kernel is immutable. Adherence is binary.
+```
+
+**Canonical artifact:** `512-core/KERNEL/512-kernel-padded.txt`
+**Encoding:** UTF-8, no BOM, exactly 512 bytes
+**SHA-256:** `7b08c024b77a24830c15e7952d6e54bed383aa960f4c74a71ff95ce51f4d80f5`
+
+**XRPL anchor transaction:**
+`378536A3CB75DECF90B6AE57F75292BDFF716285B01946870CAC158F8152D100`
+
+---
+
+## 7. Quick Reference
+
+| Concept | Answer |
+|---|---|
+| Where is the boundary? | Point of irreversible state change |
+| What is a Proposal Object? | Structured record of a proposed action, built before boundary |
+| How many invariants? | Seven — all must be satisfied |
+| What are the outputs? | ALLOW / DENY / GAP |
+| What does GAP mean? | Coverage failure — not ALLOW, must be recorded |
+| What gets anchored? | Hashes only — no private data |
+| Why XRPL? | Public, final, cheap, no operator trust required |
+| Is partial satisfaction valid? | No. Binary. All seven or none. |
+| Can I build my own witness layer? | Yes. The witness layer is external to 512. |
+
+---
+
+## Related Files
+
+- `512-core/KERNEL/INVARIANTS.md` — full invariant definitions
+- `512-core/KERNEL/512-kernel.txt.txt` — canonical kernel text
+- `512-core/CANON/KERNEL_EQUIVALENCE_AND_SPEC_HASH.md` — SPEC_HASH mechanism
+- `512-interface/BLOCKCHAIN/COMMIT_BOUNDARY.md` — boundary mechanics detail
+- `512-interface/BLOCKCHAIN/WHY_XRPL.md` — ledger selection rationale
+- `ANTI_DRIFT.md` — how implementations drift from 512's properties
