@@ -24,10 +24,11 @@ It defines only whether execution aligns with declared constraints.
 
 ## The Kernel
 
-The 512 kernel consists of a small set of invariants governing voluntary interaction, consent, exit, symmetry, transparency, and failure behavior.
+The 512 kernel consists of seven invariants governing voluntary interaction,
+consent, exit, symmetry, transparency, and failure behaviour.
 
 - The kernel is **immutable**.
-- Adherence is **binary**.
+- Satisfaction is **binary**.
 - The kernel does not evolve.
 - No interpretation is authoritative.
 
@@ -76,10 +77,13 @@ Those concerns are explicitly out of scope.
 
 ## Evidence Sidecars (Related, Separate)
 
-512 is compatible with external evidence-capture systems (often referred to as sidecars or CVS architectures) that independently observe and record execution events.
+512 is compatible with external evidence-capture systems (often referred
+to as sidecars or CVS architectures) that independently observe and
+record execution events.
 
 These systems are not part of the kernel.
-They are optional infrastructure that may use 512 constraints to evaluate execution consistency.
+They are optional infrastructure that may use 512 constraints to
+evaluate execution consistency.
 
 ---
 
@@ -100,7 +104,7 @@ They are optional infrastructure that may use 512 constraints to evaluate execut
 - Kernel: **Frozen**
 - Equivalence mechanism: **Defined**
 - Implementations: **Out of scope**
-- Adoption: **Voluntary**
+- Satisfaction: **voluntary and binary**
 
 512 spreads by usefulness, not mandate.
 
@@ -109,7 +113,7 @@ They are optional infrastructure that may use 512 constraints to evaluate execut
 ## License / Use
 
 This repository documents a constraint.
-It may be referenced, implemented, or ignored.
+It may be referenced, built against, or ignored.
 
 No permission is required.
 No endorsement is implied.
@@ -145,7 +149,7 @@ Equivalence is determined mechanically, not socially.
 - word-for-word matching
 - centralized interpretation
 - silent drift through paraphrase
-- “looks equivalent” attacks
+- "looks equivalent" attacks
 - governance by explanation
 
 ### What this enables
@@ -161,11 +165,10 @@ Implementations are intentionally out of scope.
 ---
 
 **If this function cannot be implemented deterministically, the kernel is not portable.**
-
-text
+```text
 function compute_spec_hash(kernel_text):
     ir_list = parse_to_ir(kernel_text)          // extract invariants
-    canonical_ir = normalize(ir_list)            // I1..I9, fixed semantics
+    canonical_ir = normalize(ir_list)            // I1..I7, fixed semantics
     canonical_ir = sort_by_id(canonical_ir)      // deterministic ordering
     json = serialize_canonical(canonical_ir)     // stable keys, UTF-8
     json = json_canonicalize(json)               // RFC 8785 (JCS) or equivalent
@@ -174,6 +177,4 @@ function compute_spec_hash(kernel_text):
 function equivalent(kernel_a, kernel_b):
     return compute_spec_hash(kernel_a) ==
            compute_spec_hash(kernel_b)
-
-
-
+```
