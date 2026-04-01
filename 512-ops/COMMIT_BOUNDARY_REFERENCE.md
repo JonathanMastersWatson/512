@@ -11,6 +11,8 @@ It answers four questions:
 
 No philosophy. No history. Start here, build from here.
 
+> **Pre-hardening phase in progress.** See [`PRE_HARDENING_NOTICE.md`](../PRE_HARDENING_NOTICE.md).
+
 ---
 
 ## 1. Where Is the Boundary?
@@ -278,6 +280,120 @@ The kernel is immutable. Adherence is binary.
 | Why XRPL? | Public, final, cheap, no operator trust required |
 | Is partial satisfaction valid? | No. Binary. All seven or none. |
 | Can I build my own witness layer? | Yes. The witness layer is external to 512. |
+| Is a pre-check architecture conformant? | No. See §9. |
+| Can execution proceed via a parallel path? | No. See §8. |
+
+---
+
+## 8. Commit Path Ownership
+
+There exists exactly one path to irreversible state change.
+That path does not open without a passing evaluation result.
+
+This is not a recommendation. It is a structural requirement.
+
+The commit boundary must be the gate on the commit path — not a
+check that runs before an independently operable execution surface.
+A system where the execution surface can be reached without passing
+through evaluation does not satisfy 512's properties, regardless of
+how rarely that path is used.
+
+**The conformant model:**
+```
+[upstream systems]
+        |
+        v
+[evaluation at commit boundary]
+        |
+        v
+[irreversible state change]
+
+- no alternate path exists
+- no reinterpretation occurs between evaluation and commit
+- no execution proceeds outside this path under any operational mode
+```
+
+**Procedural controls do not satisfy this requirement.**
+Access policies, documentation, and contractual prohibitions on
+bypass are not structural controls. The absence of any reachable
+path to the execution surface that bypasses evaluation is the
+requirement.
+
+**The existence of a bypass path — not its frequency of use —
+is the disqualifying condition.**
+
+---
+
+## 9. Non-Conformant Patterns
+
+The following patterns do not satisfy 512's properties.
+Each introduces a structural separation between evaluation and
+the commit boundary, creating a path to irreversible state change
+that is not controlled by the evaluation result.
+
+---
+
+**❌ Pattern A — Evaluation result handed off to an API layer**
+```
+[evaluation] → [API call] → [DB write]
+```
+The DB write is reachable independently of evaluation.
+The evaluation result is advisory to the API layer.
+
+---
+
+**❌ Pattern B — Evaluation result handed off to a queue**
+```
+[evaluation] → [message queue] → [worker executes]
+```
+The worker can consume from sources other than the evaluation path.
+The queue is an independently operable execution surface.
+
+---
+
+**❌ Pattern C — Evaluation result handed off to a broker**
+```
+[evaluation] → [broker] → [runtime applies decision]
+```
+The broker reintroduces an interpretation layer.
+The runtime may apply the decision differently from the evaluation output.
+
+---
+
+**❌ Pattern D — Pre-check positioning**
+```
+[evaluation check] → [execution layer]
+```
+Decision and execution are structurally separate.
+The execution layer is operable without the evaluation result.
+This is the most common misinterpretation of 512's boundary model.
+
+---
+
+**❌ Pattern E — Parallel or fallback execution path**
+```
+[evaluation]
+     |
+     +──► [primary execution path]
+     |
+     +──► [fallback / override / admin path]
+```
+Any path that reaches the execution surface without evaluation
+is a bypass. The existence of the path is the disqualifying
+condition — not whether it is used.
+
+---
+
+**The only conformant model:**
+```
+[upstream systems]
+        |
+        v
+[evaluation at commit boundary]
+        |
+        v
+[irreversible state change]
+```
 
 ---
 
@@ -289,3 +405,4 @@ The kernel is immutable. Adherence is binary.
 - `512-interface/BLOCKCHAIN/COMMIT_BOUNDARY.md` — boundary mechanics detail
 - `512-interface/BLOCKCHAIN/WHY_XRPL.md` — ledger selection rationale
 - `ANTI_DRIFT.md` — how implementations drift from 512's properties
+- `PRE_HARDENING_NOTICE.md` — current hardening phase status
