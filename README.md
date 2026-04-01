@@ -7,6 +7,9 @@ This repository documents **512**, a discovered constraint governing
 political program. It is a **minimal, non-ownable constraint**
 identified through applied systems research conducted in late 2025.
 
+> **Pre-hardening phase in progress.** Language and normative framework
+> are being tightened. See [`PRE_HARDENING_NOTICE.md`](./PRE_HARDENING_NOTICE.md).
+
 ---
 
 ## ⚡ START HERE — Developers
@@ -124,6 +127,10 @@ Others may exist. None are canonical to 512.
 - `LEGAL_NOTE.md` — legal posture
 - `CITATION_POLICY.md` — citation rules
 
+**Status documents:**
+- `PRE_HARDENING_NOTICE.md` — current hardening phase status
+- `LIVING_DOCUMENTS.md` — which documents are dynamic and subject to revision
+
 **Non-canonical:**
 - `/PROMPTS/` — optional LLM workspace loaders (UX helpers only)
 - `/DERIVATIVES/` — commercial and exploratory material
@@ -138,6 +145,8 @@ This repository is a **descriptive research record**.
 The kernel is frozen. Historical documents are immutable.
 New material may be added only through append-only updates
 tracked in `CHANGELOG.md`.
+
+See `PRE_HARDENING_NOTICE.md` for current hardening phase status.
 
 ---
 
