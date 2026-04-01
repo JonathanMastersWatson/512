@@ -8,6 +8,8 @@ does not satisfy 512's properties — regardless of naming or intent.
 
 This checklist is a developer reference, not a certification instrument.
 
+> **Pre-hardening phase in progress.** See [`PRE_HARDENING_NOTICE.md`](../PRE_HARDENING_NOTICE.md).
+
 ---
 
 ## Boundary Properties
@@ -36,6 +38,29 @@ This checklist is a developer reference, not a certification instrument.
 
 ---
 
+## Commit Path Properties
+
+- [ ] There exists exactly one path to irreversible state change —
+      no parallel, fallback, admin, or override paths reach the
+      execution surface without passing through boundary evaluation
+
+- [ ] The evaluation result is the structural prerequisite for the
+      commit path to open — not a prior check, not a message passed
+      to a downstream layer, not advisory input to an independent
+      execution surface
+
+- [ ] No procedural control (access policy, documented prohibition,
+      contractual restriction) is relied upon as a substitute for
+      structural elimination of bypass paths — the paths must not
+      exist, not merely be restricted
+
+- [ ] Evaluation and execution are not structurally separated —
+      a pre-check architecture where evaluation runs before an
+      independently operable execution surface does not satisfy
+      this property
+
+---
+
 ## What This Checklist Does Not Cover
 
 This checklist does not address:
@@ -53,4 +78,6 @@ Those are outside 512's scope.
 
 Invariant definitions: `512-core/KERNEL/INVARIANTS.md`
 Boundary mechanics: `512-ops/COMMIT_BOUNDARY_REFERENCE.md`
+Commit path ownership and non-conformant patterns: `512-ops/COMMIT_BOUNDARY_REFERENCE.md §8–9`
+Drift patterns: `ANTI_DRIFT.md`
 Kernel text: `512-core/KERNEL/512-kernel.txt.txt`
