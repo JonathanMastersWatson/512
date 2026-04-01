@@ -7,6 +7,8 @@ It exists because the most common failure mode is not outright rejection
 of 512's properties — it is gradual reinterpretation that preserves
 the name while abandoning the constraint.
 
+> **Pre-hardening phase in progress.** See [`PRE_HARDENING_NOTICE.md`](./PRE_HARDENING_NOTICE.md).
+
 ---
 
 ## What 512 Is
@@ -396,6 +398,51 @@ over time.
 Each bypass is a hole. Enough holes and the boundary is
 structurally irrelevant regardless of what documentation says.
 
+The disqualifying condition is the existence of a bypass path —
+not its frequency of use. A boundary with one rarely-used admin
+override is as non-conformant as a boundary that is bypassed
+constantly. The path existing is the failure.
+
+Procedural controls — access policies, documented prohibitions,
+contractual restrictions on bypass use — do not satisfy this
+requirement. Structural elimination of bypass paths is the
+only conformant posture.
+
+### Pattern 8 — Pre-Check Positioning
+
+A system positions evaluation upstream of an independently
+operable execution surface and treats the result as 512-conformant.
+```
+[evaluation check] → [execution layer]
+```
+
+This is the architectural equivalent of bypass accumulation, but
+it is a design error rather than an operational one. The execution
+surface is reachable independently of the evaluation result. The
+evaluation is structurally advisory — it runs before execution
+but does not control the commit path.
+
+Common forms:
+
+> A middleware component that evaluates proposals and passes results
+> to a downstream service that performs the actual state change
+>
+> An API gateway that checks constraints and forwards requests to
+> a database layer that writes independently
+>
+> A compliance check that runs before a transaction engine that
+> executes regardless of evaluation outcome
+
+In each case, the evaluation and the commit boundary are separate
+systems. The evaluation result is a message, not a gate. Any
+implementation where the execution surface can operate without
+receiving — or can ignore — the evaluation result is not satisfying
+512's properties.
+
+The conformant model requires that the evaluation result is the
+structural prerequisite for the commit path to open. Not a prior
+step. Not an upstream check. The gate on the path.
+
 ---
 
 ## Prohibited Terms and Framings
@@ -460,5 +507,6 @@ full equivalence mechanism.
 - `512-interpretation/FORBIDDEN_MUTATIONS.md` — specific prohibited mutations
 - `INTERPRETATION_GUIDE.md` — how not to misread this repository
 - `512-ops/COMMIT_BOUNDARY_REFERENCE.md` — what the boundary looks like in practice
+- `PRE_HARDENING_NOTICE.md` — current hardening phase status
 - `https://github.com/JonathanMastersWatson/Constraint-Architecture` — upstream
   constraint definition discipline
