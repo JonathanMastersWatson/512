@@ -6,8 +6,9 @@ This document enumerates **problems 512 does not attempt to solve**.
 
 It exists to prevent scope creep and misattribution of responsibility.
 
-
 These are **boundary conditions**, not defects: they are the limits of what 512 can guarantee on its own.
+
+> **Pre-hardening phase in progress.** See [`PRE_HARDENING_NOTICE.md`](./PRE_HARDENING_NOTICE.md).
 
 ---
 
@@ -21,7 +22,9 @@ These are **boundary conditions**, not defects: they are the limits of what 512 
 - correctness
 - intent
 
-It only witnesses that an execution occurred.
+It evaluates whether a proposed action satisfies declared constraints.
+It does not determine whether those constraints are correct, complete,
+or whether the declared intent is truthful.
 
 ---
 
@@ -40,12 +43,16 @@ It contains no ethical logic.
 ### 3. Behavioral Enforcement
 
 512 does not:
-- block actions
-- permit actions
-- penalize actions
-- reward actions
+- penalize actions that have already occurred
+- reward compliant behaviour
+- modify how agents behave over time
+- enforce consequences beyond the boundary decision
 
-Execution always remains local and autonomous.
+At the commit boundary, 512 produces one of three outputs: allow,
+deny, or gap. What happens to an agent as a result of a denial —
+sanctions, reputation effects, legal consequences — is outside
+512's scope. 512 controls the boundary. It does not control
+what follows from a boundary decision.
 
 ---
 
@@ -101,7 +108,7 @@ It is not designed to.
 
 If a problem requires:
 - ethics
-- enforcement
+- enforcement of consequences
 - identity
 - values
 - authority
