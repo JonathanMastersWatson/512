@@ -50,6 +50,7 @@ The following are frozen and will not change:
 | `512-core/KERNEL/INVARIANTS.md` | Invariant definitions |
 | `512-core/00_GENESIS/` | Genesis record — immutable by design |
 | `00_PROOFS/` | Hash and XRPL proof record |
+| `PRIMITIVE_BOUNDARY.md` | Defines the fixed scope boundary of the 512 primitive — not subject to revision |
 
 ---
 
