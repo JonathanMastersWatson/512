@@ -126,6 +126,7 @@ Others may exist. None are canonical to 512.
 - `ANTI_DRIFT.md` — what 512 is not, and how implementations drift
 - `LEGAL_NOTE.md` — legal posture
 - `CITATION_POLICY.md` — citation rules
+- `PRIMITIVE_BOUNDARY.md` — what 512 defines and what it does not; derivative responsibility
 
 **Status documents:**
 - `PRE_HARDENING_NOTICE.md` — current hardening phase status
