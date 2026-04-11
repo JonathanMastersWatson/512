@@ -11,7 +11,7 @@ It answers four questions:
 
 No philosophy. No history. Start here, build from here.
 
-> **Pre-hardening phase in progress.** See [`PRE_HARDENING_NOTICE.md`](../PRE_HARDENING_NOTICE.md).
+> See [`PRE_HARDENING_NOTICE.md`](../PRE_HARDENING_NOTICE.md) for repository status.
 
 ---
 
@@ -184,13 +184,6 @@ Every boundary evaluation produces exactly one of three outputs:
 All seven invariants are satisfied.
 The action may cross the boundary and become irreversible state change.
 
-At ALLOW, the following is hashed and anchored:
-- the Proposal Object
-- the per-invariant evaluation results
-- the spec hash of the constraint set
-- the timestamp
-- the execution outcome
-
 ### DENY
 One or more invariants are not satisfied.
 The action does not cross the boundary.
@@ -198,9 +191,9 @@ State does not change.
 The denial is recorded with the specific invariant(s) that failed.
 
 ### GAP
-The system cannot evaluate one or more invariants.
+The gate cannot complete evaluation.
 This is not a pass. This is not a denial.
-This is a coverage failure — the system could not determine
+This is a failure of evaluation — the system could not determine
 whether the property holds.
 
 A GAP must be recorded explicitly. It must not be treated as ALLOW.
@@ -213,15 +206,16 @@ non-satisfaction of 512's properties.**
 
 ## 5. What Gets Anchored to XRPL
 
-At ALLOW, the following is committed to the XRP Ledger:
+Every evaluation event — ALLOW, DENY, and GAP — produces a witness
+record. The witness layer batches these records and anchors a Merkle
+root to the XRP Ledger on a fixed interval (every 30 seconds under
+standard configuration).
 
-| What | Why |
+| Event | What is anchored |
 |---|---|
-| Hash of Proposal Object | Proves what was proposed |
-| Hash of evaluation results | Proves which constraints were active and passed |
-| Spec hash | Proves which constraint version was in force |
-| Timestamp | Proves when commitment occurred |
-| Execution outcome | Proves what actually happened |
+| ALLOW | Hash of Proposal Object, per-invariant results, spec hash, timestamp, execution outcome |
+| DENY | Hash of Proposal Object, per-invariant results, violated invariant identifier, spec hash, timestamp |
+| GAP | Gap duration, gap reason, executing identity during gap window, spec hash, timestamp |
 
 **What is never anchored:**
 - private data
@@ -229,7 +223,12 @@ At ALLOW, the following is committed to the XRP Ledger:
 - content of contracts
 - identity information beyond what is required for consent evidence
 
-The ledger records proof of commitment. It does not record content.
+The ledger records proof of evaluation. It does not record content.
+DENY and GAP records are anchored with the same integrity guarantees
+as ALLOW records. A DENY is not a lesser event — it is evidence that
+the constraint enforced correctly. A GAP is not a lesser event — it
+is evidence that evaluation did not occur and execution proceeded
+under fail-open.
 
 **Why XRPL:**
 - Deterministic finality
@@ -246,7 +245,6 @@ rules, enforce behaviour, store documents, or manage identities.
 ## 6. Canonical Kernel Reference
 
 **Kernel text:**
-```
 No agent may initiate force or fraud against any human.
 All interactions must be voluntary and based on explicit consent.
 Consent may be withdrawn. Exit must always be possible.
@@ -256,7 +254,6 @@ No rules governing interaction may be hidden or unilaterally changed.
 On failure, systems must fail open, reveal governing rules, and
 default to human choice.
 The kernel is immutable. Adherence is binary.
-```
 
 **Canonical artifact:** `512-core/KERNEL/512-kernel-padded.txt`
 **Encoding:** UTF-8, no BOM, exactly 512 bytes
@@ -275,7 +272,7 @@ The kernel is immutable. Adherence is binary.
 | What is a Proposal Object? | Structured record of a proposed action, built before boundary |
 | How many invariants? | Seven — all must be satisfied |
 | What are the outputs? | ALLOW / DENY / GAP |
-| What does GAP mean? | Coverage failure — not ALLOW, must be recorded |
+| What does GAP mean? | Failure of evaluation — not ALLOW, must be recorded |
 | What gets anchored? | Hashes only — no private data |
 | Why XRPL? | Public, final, cheap, no operator trust required |
 | Is partial satisfaction valid? | No. Binary. All seven or none. |
@@ -299,19 +296,18 @@ through evaluation does not satisfy 512's properties, regardless of
 how rarely that path is used.
 
 **The conformant model:**
-```
 [upstream systems]
-        |
-        v
+|
+v
 [evaluation at commit boundary]
-        |
-        v
+|
+v
 [irreversible state change]
 
-- no alternate path exists
-- no reinterpretation occurs between evaluation and commit
-- no execution proceeds outside this path under any operational mode
-```
+no alternate path exists
+no reinterpretation occurs between evaluation and commit
+no execution proceeds outside this path under any operational mode
+
 
 **Procedural controls do not satisfy this requirement.**
 Access policies, documentation, and contractual prohibitions on
@@ -334,36 +330,28 @@ that is not controlled by the evaluation result.
 ---
 
 **❌ Pattern A — Evaluation result handed off to an API layer**
-```
 [evaluation] → [API call] → [DB write]
-```
 The DB write is reachable independently of evaluation.
 The evaluation result is advisory to the API layer.
 
 ---
 
 **❌ Pattern B — Evaluation result handed off to a queue**
-```
 [evaluation] → [message queue] → [worker executes]
-```
 The worker can consume from sources other than the evaluation path.
 The queue is an independently operable execution surface.
 
 ---
 
 **❌ Pattern C — Evaluation result handed off to a broker**
-```
 [evaluation] → [broker] → [runtime applies decision]
-```
 The broker reintroduces an interpretation layer.
 The runtime may apply the decision differently from the evaluation output.
 
 ---
 
 **❌ Pattern D — Pre-check positioning**
-```
 [evaluation check] → [execution layer]
-```
 Decision and execution are structurally separate.
 The execution layer is operable without the evaluation result.
 This is the most common misinterpretation of 512's boundary model.
@@ -371,13 +359,11 @@ This is the most common misinterpretation of 512's boundary model.
 ---
 
 **❌ Pattern E — Parallel or fallback execution path**
-```
 [evaluation]
-     |
-     +──► [primary execution path]
-     |
-     +──► [fallback / override / admin path]
-```
+|
++──► [primary execution path]
+|
++──► [fallback / override / admin path]
 Any path that reaches the execution surface without evaluation
 is a bypass. The existence of the path is the disqualifying
 condition — not whether it is used.
@@ -385,15 +371,13 @@ condition — not whether it is used.
 ---
 
 **The only conformant model:**
-```
 [upstream systems]
-        |
-        v
+|
+v
 [evaluation at commit boundary]
-        |
-        v
+|
+v
 [irreversible state change]
-```
 
 ---
 
@@ -405,4 +389,6 @@ condition — not whether it is used.
 - `512-interface/BLOCKCHAIN/COMMIT_BOUNDARY.md` — boundary mechanics detail
 - `512-interface/BLOCKCHAIN/WHY_XRPL.md` — ledger selection rationale
 - `ANTI_DRIFT.md` — how implementations drift from 512's properties
-- `PRE_HARDENING_NOTICE.md` — current hardening phase status
+- `PRE_HARDENING_NOTICE.md` — repository hardening status
+- `512-ops/CONSTRAINT_DEFINITION_LAYER.md` — upstream constraint definition
+- `512-ops/INTEGRATION_STEPS.md` — end-to-end integration workflow
