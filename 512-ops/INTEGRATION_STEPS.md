@@ -130,7 +130,7 @@ Before enabling enforcement, operate the gate in observation mode.
 In observation mode:
 - all seven invariants are evaluated at every boundary crossing
 - no execution is blocked
-- all results are recorded: ALLOW / DENY / GAP
+- all gate results are recorded: ALLOW or DENY; fail-open events are recorded as evidence chain gaps by the witness layer
 
 Observation mode surfaces three categories of problem:
 
@@ -138,9 +138,10 @@ Observation mode surfaces three categories of problem:
 requests. These indicate constraint definitions that are too narrow
 or input data that is not being assembled correctly.
 
-**GAP results** — evaluation failures caused by missing input data,
-registry unavailability, or timeout. These indicate integration
-gaps that must be resolved before enforcement.
+**Fail-open events** — gate unavailability or evaluation timeout
+caused by missing input data, registry unavailability, or timeout.
+These generate evidence chain gaps recorded by the witness layer
+and indicate integration issues that must be resolved before enforcement.
 
 **Coverage gaps** — execution events that do not produce any
 evaluation record. These indicate commit boundaries that were
@@ -148,10 +149,10 @@ missed in Step 1 or parallel paths that were missed in Step 2.
 
 **Output:** An observation period of sufficient duration to capture
 a representative sample of your execution traffic, with a resolution
-log showing how each DENY and GAP was addressed.
+log showing how each DENY and fail-open event was addressed.
 
 Do not proceed to Step 6 until the observation record is clean:
-no unexpected DENYs, no unresolved GAPs, no uncovered boundaries.
+no unexpected DENYs, no unresolved fail-open events, no uncovered boundaries.
 
 ---
 
@@ -162,7 +163,7 @@ Switch the gate from observation mode to enforcement mode.
 At this point:
 - ALLOW results open the commit path
 - DENY results close the commit path and record the violated invariant
-- GAP results open the commit path under fail-open and record the gap
+- Fail-open events allow execution to proceed; the witness layer records the ungoverned period as an evidence chain gap
 
 No constraint changes are required between observation and
 enforcement mode. Only the enforcement posture changes.
@@ -200,7 +201,7 @@ For a sample of DENY results, confirm:
 - the denial record identifies the specific violated invariant
 - the deny message is present and human-readable
 
-For any GAP records, confirm:
+For any witness layer gap records (fail-open events), confirm:
 - the gap duration and reason are recorded
 - all executions during the gap window are identifiable
 
