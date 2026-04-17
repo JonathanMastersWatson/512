@@ -176,9 +176,9 @@ Any invariant produces a non-binary output.
 
 ---
 
-## 4. What Comes Out — Three Possible Outputs
+## 4. What Comes Out — Gate Outputs
 
-Every boundary evaluation produces exactly one of three outputs:
+Every boundary evaluation produces exactly one of two outputs:
 
 ### ALLOW
 All seven invariants are satisfied.
@@ -190,32 +190,34 @@ The action does not cross the boundary.
 State does not change.
 The denial is recorded with the specific invariant(s) that failed.
 
-### GAP
+### Fail-Open (Gate Unavailable)
 The gate cannot complete evaluation.
-This is not a pass. This is not a denial.
-This is a failure of evaluation — the system could not determine
-whether the property holds.
+The gate produces no output — evaluation did not complete.
+Execution proceeds because fail-open behaviour is engaged.
 
-A GAP must be recorded explicitly. It must not be treated as ALLOW.
-A GAP must not be concealed or smoothed.
+This is not an ALLOW. Constraint satisfaction was not established.
+The fail-open handler emits a gap record to the witness layer.
+The witness layer classifies the ungoverned period as an evidence
+chain gap. The gap must not be concealed.
 
-**Silent execution — proceeding without a declared output — is
-non-satisfaction of 512's properties.**
+**Silent execution — proceeding without a gate output and without
+a gap record — is non-satisfaction of 512's properties.**
 
 ---
 
 ## 5. What Gets Anchored to XRPL
 
-Every evaluation event — ALLOW, DENY, and GAP — produces a witness
-record. The witness layer batches these records and anchors a Merkle
-root to the XRP Ledger on a fixed interval (every 30 seconds under
-standard configuration).
+Every gate evaluation produces ALLOW or DENY and generates a witness
+record. Fail-open events produce no gate output but generate a witness
+layer gap record. The witness layer batches these records and anchors
+a Merkle root to the XRP Ledger on a fixed interval (every 30 seconds
+under standard configuration).
 
 | Event | What is anchored |
 |---|---|
 | ALLOW | Hash of Proposal Object, per-invariant results, spec hash, timestamp, execution outcome |
 | DENY | Hash of Proposal Object, per-invariant results, violated invariant identifier, spec hash, timestamp |
-| GAP | Gap duration, gap reason, executing identity during gap window, spec hash, timestamp |
+| Fail-open (gap record) | Gap duration, gap reason, executing identity during gap window, spec hash, timestamp |
 
 **What is never anchored:**
 - private data
@@ -224,10 +226,10 @@ standard configuration).
 - identity information beyond what is required for consent evidence
 
 The ledger records proof of evaluation. It does not record content.
-DENY and GAP records are anchored with the same integrity guarantees
+DENY and gap records are anchored with the same integrity guarantees
 as ALLOW records. A DENY is not a lesser event — it is evidence that
-the constraint enforced correctly. A GAP is not a lesser event — it
-is evidence that evaluation did not occur and execution proceeded
+the constraint enforced correctly. A gap record is not a lesser event
+— it is evidence that evaluation did not occur and execution proceeded
 under fail-open.
 
 **Why XRPL:**
@@ -271,8 +273,8 @@ The kernel is immutable. Adherence is binary.
 | Where is the boundary? | Point of irreversible state change |
 | What is a Proposal Object? | Structured record of a proposed action, built before boundary |
 | How many invariants? | Seven — all must be satisfied |
-| What are the outputs? | ALLOW / DENY / GAP |
-| What does GAP mean? | Failure of evaluation — not ALLOW, must be recorded |
+| What are the outputs? | ALLOW or DENY |
+| What happens when the gate is unavailable? | Fail-open: execution proceeds; witness layer records a gap |
 | What gets anchored? | Hashes only — no private data |
 | Why XRPL? | Public, final, cheap, no operator trust required |
 | Is partial satisfaction valid? | No. Binary. All seven or none. |
