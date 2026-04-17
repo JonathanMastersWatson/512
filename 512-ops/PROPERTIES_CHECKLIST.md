@@ -80,8 +80,8 @@ partial passage.
       without exception — no selective evaluation, no skipped
       invariants
 
-- [ ] Evaluation produces exactly three output values:
-      ALLOW, DENY, or GAP. No scored, probabilistic,
+- [ ] Evaluation produces exactly two output values:
+      ALLOW or DENY. No scored, probabilistic,
       conditional, or deferred outputs are produced
 
 - [ ] Median evaluation latency is below 50μs at sustained
@@ -165,7 +165,7 @@ representative period.
       identifies the specific violated invariant and includes
       the deny message
 
-- [ ] For any GAP records: confirm the gap duration, reason,
+- [ ] For any witness layer gap records (fail-open events): confirm the gap duration, reason,
       and executing identity during the gap window are recorded
 
 - [ ] Evidence anchoring is confirmed against the public ledger
