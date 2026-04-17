@@ -89,7 +89,7 @@ I7 — Immutability and binary sat.  pass / fail
 If all seven pass: overall result is ALLOW.
 If any fail: overall result is DENY, with the specific
 violated invariant identified.
-If the gate cannot complete evaluation: result is GAP.
+If the gate cannot complete evaluation: the gate produces no output. Execution proceeds under fail-open. The witness layer records the ungoverned period as an evidence chain gap.
 
 **Evaluation completes in under 50μs (median) in software.**
 **Under 5μs on dedicated hardware.**
@@ -105,7 +105,7 @@ hash, and evaluation duration.
 
 ## Stage 4 — Commit Authorisation Signal
 
-The gate returns exactly one of three values.
+The gate returns exactly one of two values.
 
 ### ALLOW
 All seven invariants passed.
@@ -124,15 +124,19 @@ The violated invariant identifier and deny message are returned.
 The proposing entity is informed which invariant failed and why.
 No guesswork. No ambiguity.
 
-### GAP
+### Fail-Open (Gate Unavailable)
 The gate was unavailable or evaluation timed out.
-The commit path opens under fail-open.
+The gate produces no output — evaluation did not complete.
+The commit path opens because fail-open behaviour is engaged.
 Execution proceeds.
-A gap record is generated — not an evaluation result.
 
-A GAP is not an ALLOW. Constraint satisfaction was not established.
-Execution proceeds because availability is prioritised over blocking.
+This is not an ALLOW. Constraint satisfaction was not established.
+The fail-open handler emits a gap record to the witness layer.
 The gap is recorded and must not be concealed.
+
+The witness layer — not the gate — classifies this as an evidence
+chain gap. The gate's absence from the signal path is itself the
+evidence of the ungoverned period.
 
 **The gate's signal is the structural prerequisite for the commit
 path to open. It is not advisory. It is not delivered to a
@@ -177,7 +181,7 @@ Evidence Object
 │   └── timestamp
 │
 ├── validation_result       (Observation Point 2)
-│   ├── overall_result      ALLOW / DENY / GAP
+│   ├── overall_result      ALLOW or DENY (absent on fail-open events — see gap_record)
 │   ├── spec_hash
 │   ├── per_invariant_results
 │   ├── violated_constraint_detail  (on DENY only)
@@ -234,7 +238,7 @@ PROPOSING ENTITY       COMMIT GATE            WITNESS LAYER (CVS)      XRPL
 │                     │                        │                    │
 │                     │── validation_result ───►│                   │
 │                     │                        │                    │
-│◄── ALLOW/DENY/GAP ──│                        │                    │
+│◄── ALLOW or DENY ───│                        │                    │
 │                     │                        │                    │
 [commit path opens         │                        │                    │
 or remains closed]        │                        │                    │
@@ -255,7 +259,7 @@ FAIL-OPEN PATH (gate unavailable or evaluation timeout):
 │                     │                        │                    │
 │              GateUnavailable                  │                    │
 │              or EvalTimeout                  │                    │
-│◄── ALLOW (GAP) ─────│                        │                    │
+│   [no gate signal — fail-open handler opens commit path]          │
 │                     │── gap_record ──────────►│                   │
 │                     │   [queued locally if    │                    │
 │                     │    CVS unavailable]     │                    │
