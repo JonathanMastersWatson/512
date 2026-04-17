@@ -225,7 +225,8 @@ Start in observation mode.
 
 Observation mode evaluates all seven invariants at every
 boundary crossing without blocking any execution. All results
-are recorded: ALLOW, DENY, GAP. No operational disruption.
+are recorded: ALLOW or DENY; fail-open events are recorded as
+evidence chain gaps by the witness layer. No operational disruption.
 
 Observation mode surfaces three things before enforcement
 begins:
@@ -233,8 +234,9 @@ begins:
 - **Unexpected DENY results** — constraints firing on
   legitimate requests, indicating constraint definitions
   that need refinement
-- **GAP results** — evaluation failures indicating missing
-  input data or integration gaps
+- **Fail-open events** — gate unavailability or evaluation timeout,
+  generating evidence chain gaps recorded by the witness layer;
+  indicates integration issues to resolve before enforcement
 - **Coverage gaps** — execution events with no evaluation
   record, indicating missed boundaries or parallel paths
 
