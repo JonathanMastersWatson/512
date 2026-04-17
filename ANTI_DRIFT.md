@@ -105,7 +105,7 @@ The commit boundary:
 
 - receives compiled constraint specifications
 - evaluates them deterministically
-- produces binary outcomes: allow / deny / gap
+- produces binary outcomes: ALLOW or DENY
 
 The commit boundary does NOT:
 
@@ -165,7 +165,7 @@ In observation mode:
 
 - all seven constraints are evaluated at every boundary crossing
 - no execution is blocked
-- all results are recorded: allow / deny / gap
+- gate results are recorded: ALLOW or DENY; ungoverned execution periods are recorded by the witness layer as evidence chain gaps
 
 Observation mode is not a simulation. It is real evaluation without
 enforcement. The mechanism is unchanged. Only the enforcement
@@ -184,7 +184,7 @@ Observation mode is NOT:
 - a partial evaluation
 - a bypass of the boundary
 
-Valid outputs in observation mode remain: allow / deny / gap.
+Valid outputs in observation mode are: ALLOW or DENY.
 No advisory or conditional outputs are produced.
 
 ---
@@ -200,9 +200,9 @@ Advisory outputs are non-conformant. The boundary MUST NOT:
 - suggest alternative actions
 - score or rank proposals
 
-Valid outputs are exactly three: allow / deny / gap.
+Valid outputs are exactly two: ALLOW or DENY.
 
-Any output that is not one of these three is not a commit boundary
+Any output that is not one of these two is not a commit boundary
 output. A system that produces advisory outputs is not satisfying
 512's properties regardless of what it is called.
 
