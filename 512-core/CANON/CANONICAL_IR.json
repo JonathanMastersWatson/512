@@ -1,12 +1,23 @@
+## FILE 1 of 3 — MODIFY
+**Path:** `512-main/512-core/CANON/CANONICAL_IR.json`
+
+Merging I3+I4 → I3, renumbering I5→I4, I6→I5, I7→I6, merging I8+I9 → I7. Ordering comment updated.
+
+---
+
+```json
 {
   "schema": "512.kernel.ir.v1",
   "purpose": "Canonical intermediate representation (IR) for semantic equivalence and SPEC_HASH computation.",
   "notes": [
     "This is not an interpretation. It is the minimal invariant target set.",
-    "Kernel prose may vary. This IR must not."
+    "Kernel prose may vary. This IR must not.",
+    "Seven rules (I1..I7) correspond directly to the seven statements in the canonical kernel text.",
+    "I3 encodes both withdrawal and exit — two conditions from one kernel statement.",
+    "I7 encodes both immutability and binary satisfaction — two conditions from one kernel statement."
   ],
   "canonicalization": {
-    "ordering": "Sort by rule.id ascending (I1..I9).",
+    "ordering": "Sort by rule.id ascending (I1..I7).",
     "modality": [
       "Normalize prohibitions to MUST_NOT.",
       "Normalize requirements to MUST."
@@ -50,30 +61,20 @@
     },
     {
       "id": "I3",
-      "title": "Withdrawal",
+      "title": "Withdrawal and exit",
       "modality": "MUST",
-      "subject": "CONSENT",
+      "subject": "CONSENT_AND_EXIT",
       "predicate": "BE",
-      "object": "WITHDRAWABLE",
+      "object": "WITHDRAWABLE_AND_ALWAYS_POSSIBLE",
       "qualifiers": {
-        "revocation": "ALLOWED",
-        "exceptions": "NONE"
+        "consent_revocation": "ALLOWED",
+        "exit_conditions": "UNCONDITIONAL",
+        "exceptions": "NONE",
+        "note": "Two conditions from one kernel statement: consent may be withdrawn; exit must always be possible."
       }
     },
     {
       "id": "I4",
-      "title": "Exit",
-      "modality": "MUST",
-      "subject": "EXIT",
-      "predicate": "BE",
-      "object": "ALWAYS_POSSIBLE",
-      "qualifiers": {
-        "conditions": "UNCONDITIONAL",
-        "exceptions": "NONE"
-      }
-    },
-    {
-      "id": "I5",
       "title": "Symmetric contracts",
       "modality": "MUST",
       "subject": "CONTRACT",
@@ -88,7 +89,7 @@
       }
     },
     {
-      "id": "I6",
+      "id": "I5",
       "title": "No hidden or unilateral rules",
       "modality": "MUST_NOT",
       "subject": "RULES_GOVERNING_INTERACTION",
@@ -101,7 +102,7 @@
       }
     },
     {
-      "id": "I7",
+      "id": "I6",
       "title": "Fail-open",
       "modality": "MUST",
       "subject": "SYSTEM",
@@ -115,28 +116,19 @@
       }
     },
     {
-      "id": "I8",
-      "title": "Immutability",
+      "id": "I7",
+      "title": "Immutability and binary satisfaction",
       "modality": "MUST",
-      "subject": "KERNEL",
+      "subject": "KERNEL_AND_ADHERENCE",
       "predicate": "BE",
-      "object": "IMMUTABLE",
+      "object": "IMMUTABLE_AND_BINARY",
       "qualifiers": {
         "mutation_allowed": false,
-        "exceptions": "NONE"
-      }
-    },
-    {
-      "id": "I9",
-      "title": "Binary adherence",
-      "modality": "MUST",
-      "subject": "ADHERENCE",
-      "predicate": "BE",
-      "object": "BINARY",
-      "qualifiers": {
         "gradations_allowed": false,
-        "exceptions": "NONE"
+        "exceptions": "NONE",
+        "note": "Two conditions from one kernel statement: the kernel is immutable; adherence is binary."
       }
     }
   ]
 }
+```
