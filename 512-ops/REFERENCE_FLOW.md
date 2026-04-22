@@ -80,7 +80,7 @@ evaluation. No human judgment is applied.
 Each invariant produces a binary result: pass or fail.
 I1 — No force or fraud             pass / fail
 I2 — Explicit consent              pass / fail
-I3 — Consent withdrawal available  pass / fail
+I3 — Consent withdrawal and exit   pass / fail
 I4 — Contractual clarity           pass / fail
 I5 — No hidden rules               pass / fail
 I6 — Fail-open confirmed           pass / fail
@@ -89,7 +89,9 @@ I7 — Immutability and binary sat.  pass / fail
 If all seven pass: overall result is ALLOW.
 If any fail: overall result is DENY, with the specific
 violated invariant identified.
-If the gate cannot complete evaluation: the gate produces no output. Execution proceeds under fail-open. The witness layer records the ungoverned period as an evidence chain gap.
+If the gate cannot complete evaluation: the gate produces no
+output. Execution proceeds under fail-open. The witness layer
+records the ungoverned period as an evidence chain gap.
 
 **Evaluation completes in under 50μs (median) in software.**
 **Under 5μs on dedicated hardware.**
@@ -99,13 +101,16 @@ If the gate cannot complete evaluation: the gate produces no output. Execution p
 **What the witness layer sees:** a validation-result event is
 emitted after evaluation completes. This is Observation Point 2.
 It contains the overall result, per-invariant results, the spec
-hash, and evaluation duration.
+hash, and evaluation duration. On fail-open events, the gate
+produces no output and no validation-result event is emitted —
+the witness layer records a gap record instead.
 
 ---
 
 ## Stage 4 — Commit Authorisation Signal
 
-The gate returns exactly one of two values.
+The gate is binary. Every completed evaluation returns exactly
+one of two values: ALLOW or DENY. There is no third output value.
 
 ### ALLOW
 All seven invariants passed.
@@ -124,19 +129,29 @@ The violated invariant identifier and deny message are returned.
 The proposing entity is informed which invariant failed and why.
 No guesswork. No ambiguity.
 
-### Fail-Open (Gate Unavailable)
-The gate was unavailable or evaluation timed out.
-The gate produces no output — evaluation did not complete.
-The commit path opens because fail-open behaviour is engaged.
-Execution proceeds.
+---
 
-This is not an ALLOW. Constraint satisfaction was not established.
-The fail-open handler emits a gap record to the witness layer.
-The gap is recorded and must not be concealed.
+## Stage 4.1 — Fail-Open (Gate Unavailable)
 
-The witness layer — not the gate — classifies this as an evidence
-chain gap. The gate's absence from the signal path is itself the
-evidence of the ungoverned period.
+Fail-open is not a gate output. It is a system behaviour that
+engages when the gate cannot complete evaluation.
+
+When the gate is unavailable or evaluation times out:
+
+- the gate produces **no output** — evaluation did not complete
+- the commit path opens because Invariant 6 requires fail-open
+  behaviour; blocking execution on gate failure would itself be
+  an I6 violation
+- the fail-open handler emits a **gap record** to the witness layer
+- the witness layer records the ungoverned period as an evidence
+  chain gap
+
+**A gap record is not an ALLOW.** Constraint satisfaction was not
+established. Execution proceeded because availability is prioritised
+over blocking — not because the constraints passed.
+
+The witness layer — not the gate — records the ungoverned period.
+The gate's absence from the signal path is itself the evidence.
 
 **The gate's signal is the structural prerequisite for the commit
 path to open. It is not advisory. It is not delivered to a
@@ -181,7 +196,8 @@ Evidence Object
 │   └── timestamp
 │
 ├── validation_result       (Observation Point 2)
-│   ├── overall_result      ALLOW or DENY (absent on fail-open events — see gap_record)
+│   ├── overall_result      ALLOW or DENY
+│   │                       (absent on fail-open — gap_record replaces)
 │   ├── spec_hash
 │   ├── per_invariant_results
 │   ├── violated_constraint_detail  (on DENY only)
@@ -240,8 +256,8 @@ PROPOSING ENTITY       COMMIT GATE            WITNESS LAYER (CVS)      XRPL
 │                     │                        │                    │
 │◄── ALLOW or DENY ───│                        │                    │
 │                     │                        │                    │
-[commit path opens         │                        │                    │
-or remains closed]        │                        │                    │
+[commit path opens    │                        │                    │
+or remains closed]    │                        │                    │
 │                     │                        │                    │
 │                     │── post_execution ──────►│                   │
 │                     │   (after execution)     │                    │
@@ -258,7 +274,7 @@ Execution is never delayed by witness layer state.
 FAIL-OPEN PATH (gate unavailable or evaluation timeout):
 │                     │                        │                    │
 │              GateUnavailable                  │                    │
-│              or EvalTimeout                  │                    │
+│              or EvalTimeout                   │                    │
 │   [no gate signal — fail-open handler opens commit path]          │
 │                     │── gap_record ──────────►│                   │
 │                     │   [queued locally if    │                    │
