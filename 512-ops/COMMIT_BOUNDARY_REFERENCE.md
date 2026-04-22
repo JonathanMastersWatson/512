@@ -178,7 +178,8 @@ Any invariant produces a non-binary output.
 
 ## 4. What Comes Out — Gate Outputs
 
-Every boundary evaluation produces exactly one of two outputs:
+The gate is binary. Every completed evaluation produces exactly
+one of two outputs: ALLOW or DENY. There is no third output value.
 
 ### ALLOW
 All seven invariants are satisfied.
@@ -190,15 +191,25 @@ The action does not cross the boundary.
 State does not change.
 The denial is recorded with the specific invariant(s) that failed.
 
-### Fail-Open (Gate Unavailable)
-The gate cannot complete evaluation.
-The gate produces no output — evaluation did not complete.
-Execution proceeds because fail-open behaviour is engaged.
+---
 
-This is not an ALLOW. Constraint satisfaction was not established.
-The fail-open handler emits a gap record to the witness layer.
-The witness layer classifies the ungoverned period as an evidence
-chain gap. The gap must not be concealed.
+## 4.1 Fail-Open — When the Gate Cannot Evaluate
+
+Fail-open is not a gate output. It is a system behaviour that
+engages when the gate cannot complete evaluation.
+
+When the gate is unavailable or evaluation times out:
+
+- the gate produces **no output** — evaluation did not complete
+- execution proceeds because Invariant 6 requires fail-open behaviour;
+  blocking execution on gate failure would itself be a violation
+- the fail-open handler emits a **gap record** to the witness layer
+- the witness layer records the ungoverned period as an evidence
+  chain gap — not an ALLOW, not a DENY
+
+**A gap record is not an ALLOW.** Constraint satisfaction was not
+established. Execution proceeded because availability is prioritised
+over blocking — not because the constraints passed.
 
 **Silent execution — proceeding without a gate output and without
 a gap record — is non-satisfaction of 512's properties.**
@@ -273,8 +284,8 @@ The kernel is immutable. Adherence is binary.
 | Where is the boundary? | Point of irreversible state change |
 | What is a Proposal Object? | Structured record of a proposed action, built before boundary |
 | How many invariants? | Seven — all must be satisfied |
-| What are the outputs? | ALLOW or DENY |
-| What happens when the gate is unavailable? | Fail-open: execution proceeds; witness layer records a gap |
+| What are the gate outputs? | ALLOW or DENY — binary, always |
+| What is fail-open? | System behaviour when gate cannot evaluate — not a gate output; witness layer records a gap |
 | What gets anchored? | Hashes only — no private data |
 | Why XRPL? | Public, final, cheap, no operator trust required |
 | Is partial satisfaction valid? | No. Binary. All seven or none. |
@@ -306,10 +317,9 @@ v
 v
 [irreversible state change]
 
-no alternate path exists
-no reinterpretation occurs between evaluation and commit
-no execution proceeds outside this path under any operational mode
-
+- no alternate path exists
+- no reinterpretation occurs between evaluation and commit
+- no execution proceeds outside this path under any operational mode
 
 **Procedural controls do not satisfy this requirement.**
 Access policies, documentation, and contractual prohibitions on
