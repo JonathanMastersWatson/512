@@ -1,4 +1,4 @@
-# Failure Modes and Non-Solutions 
+# Failure Modes and Non-Solutions
 
 ## Purpose
 
@@ -48,11 +48,17 @@ It contains no ethical logic.
 - modify how agents behave over time
 - enforce consequences beyond the boundary decision
 
-At the commit boundary, 512 produces one of three outputs: allow,
-deny, or gap. What happens to an agent as a result of a denial —
-sanctions, reputation effects, legal consequences — is outside
-512's scope. 512 controls the boundary. It does not control
-what follows from a boundary decision.
+At the commit boundary, 512 produces exactly two outputs: ALLOW or
+DENY. What happens to an agent as a result of a denial — sanctions,
+reputation effects, legal consequences — is outside 512's scope.
+512 controls the boundary. It does not control what follows from
+a boundary decision.
+
+When the gate cannot complete evaluation, it produces no output.
+Execution proceeds under the fail-open posture required by Invariant 6.
+The witness layer records the ungoverned period as an evidence chain
+gap. That gap record is a witness layer classification — it is not
+a gate output.
 
 ---
 
