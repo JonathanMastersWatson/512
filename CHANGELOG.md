@@ -6,6 +6,108 @@ It exists to:
 - prevent silent revisionism
 - allow reviewers to track evolution
 ---
+## [2026-04-23] — Schema Hardening, Vocabulary Lock, and Operational Reference Pass
+
+### Objective
+Four passes completed in this entry: schema hardening (Pass 4),
+vocabulary lock (Pass 2), operational directory reference (Pass 3
+continuation), and ANTI_DRIFT.md prescribed vocabulary integration.
+
+### New Files
+- `512-ops/PROPOSAL_OBJECT.md`
+- `512-ops/COMPILED_CONSTRAINT_FORMAT.md`
+- `512-ops/README.md`
+
+### Files Modified
+- `ANTI_DRIFT.md`
+
+### Changes Applied
+
+**512-ops/PROPOSAL_OBJECT.md (new):**
+Single authoritative definition of the Proposal Object. All other
+documents that reference the Proposal Object point here.
+- Definition: complete, immutable, structured record constructed
+  before the commit boundary; explicit statement of what it is not
+- Fourteen required fields defined with type, source, purpose,
+  and invariant dependency for each field
+- Fields Required Before Evaluation Begins: explicit list with
+  gate behaviour on missing/null/unresolvable fields (DENY without
+  evaluating invariants)
+- Construction Rules: five rules covering pre-submission
+  construction, no deferred fields, no inherited fields, intent
+  hash computation method, timestamp authority (gate sets it)
+- Non-Conformant Construction Patterns: five labelled anti-patterns
+- Relationship to Evidence Objects: Proposal Object fields mapped
+  to the three witness layer observation points
+
+**512-ops/COMPILED_CONSTRAINT_FORMAT.md (new):**
+Single authoritative definition of a compiled constraint and the
+compiled constraint set.
+- Definition: deterministic Boolean expression over named typed
+  inputs with declared data sources; explicit statement of what
+  it is not
+- Canonical Compiled Rule Shape: seven required fields — invariant_id,
+  rule_id, description, input_fields, data_sources, predicate,
+  allowed_operators, failure_mode_on_missing_input (DENY or
+  UNEVALUATED — missing input is never a pass),
+  witness_emission_fields
+- Compiled Constraint Set requirements: every I1–I7 must have at
+  least one constraint; versioned; hashed; disclosed before
+  enforcement; immutable at runtime
+- Set loading sequence: five steps; hash mismatch = gate refuses
+  to start
+- Prohibited Content table: seven prohibited items
+- Complete example compiled constraint for I2 in JSON format
+
+**512-ops/README.md (new):**
+Operational reference directory index. Previously blank.
+- Start Here table linking all five ops files
+- Layer Reference section quoting the core invariant and linking
+  to LAYER_REFERENCE.md
+- Key Principles for Builders: five declarative statements covering
+  binary gate output, non-bypassable commit path, exclusive commit
+  authority, fail-open as system behaviour, constraint definition
+  as upstream work
+- Related files section
+
+**ANTI_DRIFT.md:**
+Prescribed vocabulary introduced in three sections:
+
+Single Authority Path: "exclusive commit authority" and
+"non-bypassable commit path" introduced as the canonical terms;
+opening statement added: "There exists exactly one path to
+irreversible state change. That path is owned and resolved by
+the gate."
+
+Pattern 7 — Bypass Accumulation: "destroys the non-bypassable
+commit path" added to pattern description; closing paragraph adds
+"Exclusive commit authority cannot be achieved by policy. It is
+achieved by ensuring no alternate path to the execution surface
+exists."
+
+Pattern 8 — Pre-Check Positioning: "Exclusive commit authority
+does not exist. The non-bypassable commit path is absent." added
+to name the structural failure; closing paragraph rewritten to
+frame the conformant model as "holding exclusive commit authority
+over the non-bypassable commit path."
+
+LAYER_REFERENCE.md and TERMS.md added to Relationship to Other
+Documents.
+
+### Vocabulary Lock Status
+
+Prescribed terms now present in normative documents:
+
+| Term | Documents |
+|---|---|
+| exclusive commit authority | TERMS.md, LAYER_REFERENCE.md, 512-ops/README.md, ANTI_DRIFT.md |
+| non-bypassable commit path | TERMS.md, LAYER_REFERENCE.md, 512-ops/README.md, ANTI_DRIFT.md |
+| compiled constraint set | TERMS.md, LAYER_REFERENCE.md, COMPILED_CONSTRAINT_FORMAT.md |
+| Proposal Object | TERMS.md, PROPOSAL_OBJECT.md, COMMIT_BOUNDARY_REFERENCE.md |
+| evidence chain gap | TERMS.md, LAYER_REFERENCE.md, ANTI_DRIFT.md |
+| ALLOW / DENY only | TERMS.md, LAYER_REFERENCE.md, COMMIT_BOUNDARY_REFERENCE.md, REFERENCE_FLOW.md, ANTI_DRIFT.md, FAILURE_MODES.md |
+
+---
 ## [2026-04-23] — Contradiction Elimination and Layer Reference Pass
 
 ### Objective
