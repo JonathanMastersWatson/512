@@ -81,9 +81,18 @@ Those concerns are explicitly out of scope.
 to as sidecars or CVS architectures) that independently observe and
 record execution events.
 
-These systems are not part of the kernel.
-They are optional infrastructure that may use 512 constraints to
-evaluate execution consistency.
+These systems are not part of the kernel. The kernel specification
+is complete without them.
+
+In a full 512/CVS deployment — where independent evidentiary
+accountability is required — a conformant witness layer is not
+optional. A gate without a witness layer enforces constraints but
+produces no independently verifiable record of having done so.
+The kernel defines constraint satisfaction. The witness layer
+produces the proof.
+
+This repository documents the kernel only. The CVS witness layer
+architecture is defined separately at the Evidence-Sidecar repository.
 
 ---
 
