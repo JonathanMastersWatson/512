@@ -112,6 +112,7 @@ preparing agentic workflows for Commit Gate execution:
 | [`CONSTRAINT_DEFINITION_LAYER.md`](./512-ops/CONSTRAINT_DEFINITION_LAYER.md) | How to translate policies into executable constraints |
 | [`REFERENCE_FLOW.md`](./512-ops/REFERENCE_FLOW.md) | End-to-end sequence from intent to anchored evidence |
 | [`PROPERTIES_CHECKLIST.md`](./512-ops/PROPERTIES_CHECKLIST.md) | Go-live verification checklist |
+| [`LAYER_REFERENCE.md`](./LAYER_REFERENCE.md) | Three-layer architecture: Kernel / Commit Boundary / Witness Layer — functions, outputs, and prohibited claims |
 
 ---
 
@@ -122,20 +123,23 @@ preparing agentic workflows for Commit Gate execution:
 - `/512-core/CANON/` — spec hash mechanism and equivalence model
 - `/512-ops/` — operational reference for builders and enterprise practitioners
 
-**Research record:**
-- `/512-papers/` — discovery history, problem definition, technical
-  constraints, economic implications, explicit non-goals
-- `/512-analysis/` — economics, philosophy, history
-
 **Reference:**
+- `LAYER_REFERENCE.md` — three-layer semantic firewall: Kernel /
+  Commit Boundary / Witness Layer — what each layer does, what it
+  produces, and what it must not claim
 - `ANTI_DRIFT.md` — how implementations drift from 512's properties
   and how to prevent it
+- `TERMS.md` — canonical vocabulary
 - `PROVENANCE.md` — origin and authorship
-- `TERMS.md` — terminology
 - `FAILURE_MODES.md` — explicit non-solutions
 - `INTERPRETATION_GUIDE.md` — how not to misread this repository
 - `LEGAL_NOTE.md` — legal posture
 - `SCOPE_AND_NON_GOALS.md` — what 512 defines and what it does not
+
+**Research record:**
+- `/512-papers/` — discovery history, problem definition, technical
+  constraints, economic implications, explicit non-goals
+- `/512-analysis/` — economics, philosophy, history
 
 **Entry points by audience:**
 - `/USE_CASES/ENTRY_POINTS/` — engineers, enterprise practitioners,
