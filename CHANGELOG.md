@@ -6,6 +6,76 @@ It exists to:
 - prevent silent revisionism
 - allow reviewers to track evolution
 ---
+## [2026-04-23] — Contradiction Elimination and Layer Reference Pass
+
+### Objective
+Three contradictions eliminated. One new reference document added.
+This pass closes the known semantic escape surfaces identified in the
+post-hardening audit.
+
+### Files Modified
+- `FAILURE_MODES.md`
+- `512-core/CANON/README.md`
+- `TERMS.md`
+- `README.md`
+
+### New Files
+- `LAYER_REFERENCE.md`
+
+### Changes Applied
+
+**FAILURE_MODES.md:**
+- §3 (Behavioral Enforcement): "one of three outputs: allow, deny,
+  or gap" corrected to "exactly two outputs: ALLOW or DENY"
+- Paragraph added correctly describing the fail-open path: gate
+  produces no output when evaluation cannot complete; execution
+  proceeds under Invariant 6; witness layer records the ungoverned
+  period as an evidence chain gap; gap record is a witness layer
+  classification, not a gate output
+- This was the last known instance of the three-output model in
+  the 512-main repository
+
+**512-core/CANON/README.md:**
+- Evidence Sidecars section: "optional infrastructure" framing
+  replaced with three scoped statements
+  (1) kernel-complete without witness layer
+  (2) witness layer not optional in full 512/CVS deployment where
+  independent evidentiary accountability is required
+  (3) this repository documents the kernel only; CVS is defined
+  separately in the Evidence-Sidecar repository
+
+**TERMS.md:**
+- Eight new definitions added: Commit Boundary, Exclusive Commit
+  Authority, Non-Bypassable Commit Path, Proposal Object (with
+  required fields), Compiled Constraint Set, Spec Hash (with
+  canonical commitment hash), Gate Output (ALLOW/DENY only — no
+  third value), Evidence Chain Gap, Witness Layer
+- Fail-Open definition rewritten: correctly describes system
+  behaviour under Invariant 6, not a gate output; distinguishes
+  from evidence chain gap produced by witness layer
+
+**README.md:**
+- LAYER_REFERENCE.md added to Operational Reference table
+- LAYER_REFERENCE.md added as first entry in Reference section
+  with description as authoritative layer separation document
+
+**LAYER_REFERENCE.md (new):**
+- Three-layer table: Kernel / Commit Boundary / Witness Layer —
+  Function and Must Not Do columns
+- What Each Layer Produces table: gate output explicitly ALLOW or
+  DENY only; fail-open path produces no gate output
+- What No Layer May Claim table: six prohibited claims with
+  rationale, covering three-output gate model, optional CVS in
+  full system, kernel enforcement, gate interpretation, witness
+  execution influence, pre-check architecture
+- Layer Separation Is Structural section: four structural isolation
+  requirements stated
+- Core Invariant block: "There exists exactly one path to
+  irreversible state change. That path is owned and resolved by
+  the gate. If any execution path exists outside gate control,
+  the system is non-conformant."
+
+---
 ## [2026-04-22] — Canonical IR Correction and Execution Boundary Hardening Pass
 
 ### Objective
