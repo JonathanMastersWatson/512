@@ -96,6 +96,5 @@ full equivalence mechanism.
   non-bypassable commit path, and all boundary vocabulary
 - `512-ops/COMMIT_BOUNDARY_REFERENCE.md` — what the boundary looks
   like in practice, including non-conformant patterns
-- `PRE_HARDENING_NOTICE.md` — current hardening phase status
 - `https://github.com/JonathanMastersWatson/Constraint-Architecture`
   — upstream constraint definition discipline
