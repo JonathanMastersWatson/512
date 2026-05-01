@@ -8,8 +8,6 @@ It exists to prevent scope creep and misattribution of responsibility.
 
 These are **boundary conditions**, not defects: they are the limits of what 512 can guarantee on its own.
 
-> **Pre-hardening phase in progress.** See [`PRE_HARDENING_NOTICE.md`](./PRE_HARDENING_NOTICE.md).
-
 ---
 
 ## 512 Does Not Solve
