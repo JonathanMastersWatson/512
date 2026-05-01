@@ -11,8 +11,6 @@ It answers four questions:
 
 No philosophy. No history. Start here, build from here.
 
-> See [`PRE_HARDENING_NOTICE.md`](../PRE_HARDENING_NOTICE.md) for repository status.
-
 ---
 
 ## 1. Where Is the Boundary?
@@ -401,6 +399,5 @@ v
 - `512-interface/BLOCKCHAIN/COMMIT_BOUNDARY.md` — boundary mechanics detail
 - `512-interface/BLOCKCHAIN/WHY_XRPL.md` — ledger selection rationale
 - `ANTI_DRIFT.md` — how implementations drift from 512's properties
-- `PRE_HARDENING_NOTICE.md` — repository hardening status
 - `512-ops/CONSTRAINT_DEFINITION_LAYER.md` — upstream constraint definition
 - `512-ops/INTEGRATION_STEPS.md` — end-to-end integration workflow
