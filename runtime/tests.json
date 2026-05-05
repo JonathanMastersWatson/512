@@ -40,6 +40,25 @@
     "expected": "DENY"
   },
   {
+    "name": "deny_missing_target",
+    "input": {
+      "intent": {
+        "action": "payment.execute",
+        "amount": 500
+      },
+      "constraints": {
+        "max_amount": 1000
+      },
+      "context": {
+        "identity": "user_001",
+        "consent": true,
+        "timestamp": "2026-05-05T10:00:00Z",
+        "system_state": "healthy"
+      }
+    },
+    "expected": "DENY"
+  },
+  {
     "name": "allow_valid",
     "input": {
       "intent": {
