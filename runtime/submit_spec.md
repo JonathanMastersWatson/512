@@ -41,4 +41,8 @@ ALLOW
 
 or  
 
-DENY <invariant_id>
+DENY <invariant_id>  
+
+or  
+
+DENY invalid_request
