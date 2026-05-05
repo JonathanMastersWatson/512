@@ -7,9 +7,16 @@ if len(sys.argv) != 2:
     print("Usage: ./run_512 <request.json>")
     sys.exit(1)
 
-with open(sys.argv[1], "r") as f:
-    request = json.load(f)
+try:
+    with open(sys.argv[1], "r") as f:
+        request = json.load(f)
+except Exception:
+    print("DENY invalid_request")
+    sys.exit(1)
 
 result, invariant = evaluate(request)
 
-print("ALLOW" if result else f"DENY {invariant}")
+if result:
+    print("ALLOW")
+else:
+    print(f"DENY {invariant}")
