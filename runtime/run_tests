@@ -1,15 +1,23 @@
 #!/usr/bin/env python3
 import json
+import sys
 from evaluator import evaluate
 
-with open("tests.json", "r") as f:
-    tests = json.load(f)
+try:
+    with open("tests.json", "r") as f:
+        tests = json.load(f)
+except Exception:
+    print("DENY invalid_tests_file")
+    sys.exit(1)
 
 for t in tests:
-    result, _ = evaluate(t["input"])
-    outcome = "ALLOW" if result else "DENY"
+    try:
+        result, _ = evaluate(t["input"])
+        outcome = "ALLOW" if result else "DENY"
+    except Exception:
+        outcome = "DENY"
 
-    if outcome == t["expected"]:
-        print(f"PASS: {t['name']}")
+    if outcome == t.get("expected"):
+        print(f"PASS {t.get('name')}")
     else:
-        print(f"FAIL: {t['name']} (expected {t['expected']}, got {outcome})")
+        print(f"FAIL {t.get('name')} expected={t.get('expected')} got={outcome}")
