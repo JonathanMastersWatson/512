@@ -1,0 +1,15 @@
+#!/usr/bin/env python3
+import json
+import sys
+from evaluator import evaluate
+
+if len(sys.argv) != 2:
+    print("Usage: ./run_512 <request.json>")
+    sys.exit(1)
+
+with open(sys.argv[1], "r") as f:
+    request = json.load(f)
+
+result, invariant = evaluate(request)
+
+print("ALLOW" if result else f"DENY {invariant}")
