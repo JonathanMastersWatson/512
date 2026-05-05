@@ -1,0 +1,16 @@
+{
+  "intent": {
+    "action": "payment.execute",
+    "amount": 5000,
+    "target": "acct_123"
+  },
+  "constraints": {
+    "max_amount": 1000
+  },
+  "context": {
+    "identity": "user_001",
+    "consent": false,
+    "timestamp": "2026-05-05T10:00:00Z",
+    "system_state": "healthy"
+  }
+}
