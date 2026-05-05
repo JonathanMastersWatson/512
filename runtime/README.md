@@ -42,4 +42,18 @@ No interpretation
 
 ---
 
+## Output
+
+ALLOW  
+
+or  
+
+DENY <invariant_id>  
+
+or  
+
+DENY invalid_request  
+
+---
+
 Nothing becomes real unless the boundary allows it.
