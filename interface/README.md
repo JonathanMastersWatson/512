@@ -1,23 +1,36 @@
 # Interface
 
-This folder defines how external systems interact with the 512 execution boundary.
+This directory contains canonical interface contracts for 512.
 
-The core contract:
+Interfaces define:
 
-submit(action, constraints, state) → ALLOW | DENY
+- boundary request structure
+- boundary response structure
+- versioned integration surfaces
 
-## Purpose
+Interfaces are:
 
-- Define the structure of requests
-- Provide a clear integration entry point
-- Ensure all required data is explicit at execution time
+- deterministic
+- language-agnostic
+- immutable once sealed
 
-## Key Principles
+Runtime implementations may evolve.
 
-- No hidden state
-- No implicit inputs
-- No interpretation inside the interface layer
+Canonical interfaces must not.
 
-## Next
+---
 
-See `/interface/request.schema.json` (to be added) for the formal request structure.
+## Scope
+
+This directory is reserved for:
+
+- proposal schemas
+- decision schemas
+- interface version definitions
+
+It does not contain:
+
+- runtime logic
+- invariant implementation
+- orchestration logic
+- policy interpretation
