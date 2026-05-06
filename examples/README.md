@@ -1,22 +1,28 @@
 # Examples
 
-This folder contains concrete examples of requests sent to the 512 boundary and their expected outcomes.
+This directory contains reference examples for 512 boundary placement and runtime interaction.
 
-## Purpose
+Examples are provided to demonstrate:
 
-- Make the system immediately understandable
-- Show real-world usage
-- Demonstrate deterministic ALLOW / DENY behavior
+- conformant execution-boundary positioning
+- non-conformant integration patterns
+- request construction
+- runtime interaction
+- evaluation flow
 
-## Structure
+Examples are explanatory only.
 
-Each example should include:
+They do not redefine the canonical runtime interface or invariant behavior.
 
-- input (action, constraints, state)
-- expected result (ALLOW or DENY)
+---
 
-## Principle
+## Future Scope
 
-Examples are the fastest way to understand 512.
+Examples may include:
 
-If a developer cannot understand 512 from these examples, the system is not clear enough.
+- conformant topologies
+- bypass patterns
+- queue handoff failures
+- broker reinterpretation failures
+- proposal lifecycle flows
+- fail-open witness flows
