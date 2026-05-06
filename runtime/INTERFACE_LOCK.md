@@ -18,31 +18,40 @@ The lock applies to:
 - `run_tests`
 - `README.md` (within `/runtime/`)
 
+The following documents describe the interface but are not themselves
+part of the locked surface — they may be updated without constituting
+a breaking change:
+
+- `INVARIANTS.md` — proxy-to-canonical mapping documentation
+- `docs/512_EBI_DESIGN_v1_1.md` — full interface design specification
+
 ---
 
 ## Input Contract (Frozen)
 
 Request shape:
 
+```json
 {
-  "intent": {},
+  "intent":      {},
   "constraints": {},
-  "context": {}
+  "context":     {}
 }
+```
 
 Required fields:
 
-- intent.action
-- intent.target
-- context.identity
-- context.consent
-- context.timestamp
-- context.system_state
-- constraints.max_amount
+- `intent.action`
+- `intent.target`
+- `context.identity`
+- `context.consent`
+- `context.timestamp`
+- `context.system_state`
+- `constraints.max_amount`
 
 Rules:
 
-- Missing or null required field → DENY
+- Missing or null required field → `DENY invalid_request`
 - No defaults
 - No inference
 - No mutation
@@ -52,12 +61,17 @@ Rules:
 ## Output Contract (Frozen)
 
 The runtime produces exactly one of:
-
 ALLOW
-
-DENY <invariant_id>
-
+DENY inv_<N>
 DENY invalid_request
+DENY evaluation_error
+
+`DENY inv_<N>` — invariant N failed; N is 1–7; evaluation terminated
+`DENY invalid_request` — malformed request; evaluation did not begin
+`DENY evaluation_error` — internal gate error during evaluation
+
+All DENY tokens are terminal. The reason code is diagnostic. No state
+change follows any DENY under any condition.
 
 ---
 
@@ -69,6 +83,7 @@ DENY invalid_request
 - No external data fetching
 - No interpretation layer
 - No partial results
+- Early-exit: first invariant failure terminates evaluation
 
 ---
 
@@ -80,6 +95,7 @@ If a change modifies:
 - required fields
 - output format
 - evaluation determinism
+- invariant evaluation order
 
 → it is a **breaking change**
 
@@ -103,7 +119,8 @@ This lock exists to ensure:
 
 ## Future Work (Outside This Lock)
 
-- Replace placeholder invariant mappings with canonical 512 mappings
+- ~~Replace placeholder invariant mappings with canonical 512 mappings~~
+  **Complete** — see `INVARIANTS.md` and `docs/512_EBI_DESIGN_v1_1.md §4`
 - Integrate CVS for evidence generation
 - Extend constraint richness upstream
 
@@ -113,5 +130,5 @@ None of the above modifies this interface.
 
 ## Principle
 
-> The interface is stable.  
+> The interface is stable.
 > The truth it enforces evolves.
