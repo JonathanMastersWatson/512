@@ -1,25 +1,49 @@
 # Documentation
 
-This folder contains supporting documentation for 512.
+This directory contains explanatory and design documentation for 512.
+
+Canonical runtime behavior is defined in:
+
+- `/runtime/INTERFACE_LOCK.md`
+
+The runtime implementation lives in:
+
+- `/runtime/`
+
+The runtime interface is authoritative.
+Documentation explains the interface but does not redefine it.
+
+---
 
 ## Purpose
 
-- Explain how to use the system
-- Provide quick start guidance
-- Describe constraints and behavior
+- Describe execution-boundary behavior
+- Define interface semantics
+- Explain invariant mappings
+- Provide runtime usage guidance
+- Document conformant and non-conformant patterns
 
-## Key File
+---
 
-- `512_QUICK_START.md` (to be added)
+## Key Files
 
-This file should allow a developer to:
+- `512_EBI_DESIGN_v1_0.md`
+- `512_EBI_DESIGN_v1_1.md`
 
-- understand the boundary
-- submit a request
-- receive ALLOW or DENY
+These documents describe:
+
+- the Execution Boundary Interface (EBI)
+- proposal and decision semantics
+- invariant mappings
+- runtime topology
+- boundary placement requirements
+
+---
 
 ## Principle
 
-Documentation must support usage, not replace it.
+Documentation supports the runtime.
 
-If documentation is required to understand basic usage, the system is too complex.
+If runtime behavior and documentation diverge:
+
+> the runtime interface is authoritative.
