@@ -3,6 +3,33 @@ import json
 import sys
 from evaluator import evaluate
 
+REQUIRED_FIELDS = [
+    ("intent", "action"),
+    ("intent", "target"),
+    ("context", "identity"),
+    ("context", "consent"),
+    ("context", "timestamp"),
+    ("context", "system_state"),
+    ("constraints", "max_amount"),
+]
+
+def check_required_fields(request):
+    for block, field in REQUIRED_FIELDS:
+        if request.get(block, {}).get(field) is None:
+            return False
+    return True
+
+def run_request(request):
+    if not check_required_fields(request):
+        return "DENY invalid_request"
+    try:
+        result, invariant = evaluate(request)
+        if result:
+            return "ALLOW"
+        return f"DENY {invariant}"
+    except Exception:
+        return "DENY evaluation_error"
+
 try:
     with open("tests.json", "r") as f:
         tests = json.load(f)
@@ -10,14 +37,33 @@ except Exception:
     print("DENY invalid_tests_file")
     sys.exit(1)
 
-for t in tests:
-    try:
-        result, _ = evaluate(t["input"])
-        outcome = "ALLOW" if result else "DENY"
-    except Exception:
-        outcome = "DENY"
+passed = 0
+failed = 0
 
-    if outcome == t.get("expected"):
-        print(f"PASS {t.get('name')}")
+for t in tests:
+    name = t.get("name", "unnamed")
+    token = run_request(t["input"])
+
+    # Prefer expected_token (exact match) when present
+    # Fall back to expected (ALLOW/DENY prefix match) for compatibility
+    expected_token = t.get("expected_token")
+    expected = t.get("expected")
+
+    if expected_token:
+        ok = token == expected_token
+    elif expected == "ALLOW":
+        ok = token == "ALLOW"
     else:
-        print(f"FAIL {t.get('name')} expected={t.get('expected')} got={outcome}")
+        ok = token.startswith("DENY")
+
+    if ok:
+        print(f"PASS {name}")
+        passed += 1
+    else:
+        want = expected_token or expected
+        print(f"FAIL {name}  expected={want}  got={token}")
+        failed += 1
+
+print(f"\n{passed} passed · {failed} failed")
+if failed:
+    sys.exit(1)
