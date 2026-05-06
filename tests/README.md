@@ -1,27 +1,48 @@
 # Tests
 
-This folder contains deterministic test cases for the 512 boundary.
+This directory contains deterministic validation for the 512 runtime interface.
 
-## Purpose
+Tests verify:
 
-- Validate correctness of constraint evaluation
-- Ensure consistent ALLOW / DENY outcomes
-- Prevent unintended behavior changes
+- invariant evaluation behavior
+- request validation behavior
+- output token correctness
+- evaluation ordering
+- early-exit behavior
+- boundary-condition handling
+
+---
 
 ## Principles
 
-- Every test must be deterministic
-- Every input must produce a single fixed output
-- No randomness
-- No external dependencies
+Tests must be:
 
-## Structure
+- deterministic
+- reproducible
+- stateless
+- version-aligned with the locked interface
 
-Each test should define:
+Tests validate runtime behavior against the canonical interface contract.
 
-- input (action, constraints, state)
-- expected result (ALLOW or DENY)
+They do not redefine runtime semantics.
 
-## Goal
+---
 
-Given the same input, 512 must always return the same result.
+## Scope
+
+Validation includes:
+
+- ALLOW paths
+- DENY paths
+- malformed requests
+- invariant ordering
+- edge conditions
+- replay consistency
+
+---
+
+## Non-Negotiable
+
+If runtime behavior and tests diverge:
+
+> the locked interface contract is authoritative.
