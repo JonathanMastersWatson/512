@@ -1,6 +1,30 @@
 [
   {
-    "name": "deny_missing_consent",
+    "name": "deny_missing_identity",
+    "description": "inv_1 proxy: context.identity absent — first invariant fails",
+    "proxies_canonical": "K1 — no force or fraud against any human",
+    "input": {
+      "intent": {
+        "action": "payment.execute",
+        "amount": 500,
+        "target": "acct_123"
+      },
+      "constraints": {
+        "max_amount": 1000
+      },
+      "context": {
+        "consent": true,
+        "timestamp": "2026-05-05T10:00:00Z",
+        "system_state": "healthy"
+      }
+    },
+    "expected": "DENY",
+    "expected_token": "DENY inv_1"
+  },
+  {
+    "name": "deny_consent_false",
+    "description": "inv_2 proxy: context.consent is false — second invariant fails",
+    "proxies_canonical": "K2 — voluntary and explicit consent",
     "input": {
       "intent": {
         "action": "payment.execute",
@@ -17,10 +41,35 @@
         "system_state": "healthy"
       }
     },
-    "expected": "DENY"
+    "expected": "DENY",
+    "expected_token": "DENY inv_2"
+  },
+  {
+    "name": "deny_missing_action",
+    "description": "inv_3 proxy: intent.action absent — third invariant fails",
+    "proxies_canonical": "K3 — consent may be withdrawn; exit must always be possible",
+    "input": {
+      "intent": {
+        "amount": 500,
+        "target": "acct_123"
+      },
+      "constraints": {
+        "max_amount": 1000
+      },
+      "context": {
+        "identity": "user_001",
+        "consent": true,
+        "timestamp": "2026-05-05T10:00:00Z",
+        "system_state": "healthy"
+      }
+    },
+    "expected": "DENY",
+    "expected_token": "DENY inv_3"
   },
   {
     "name": "deny_over_limit",
+    "description": "inv_4 proxy: intent.amount exceeds constraints.max_amount — fourth invariant fails",
+    "proxies_canonical": "K4 — contracts must be explicit, readable, and equally enforceable",
     "input": {
       "intent": {
         "action": "payment.execute",
@@ -37,10 +86,58 @@
         "system_state": "healthy"
       }
     },
-    "expected": "DENY"
+    "expected": "DENY",
+    "expected_token": "DENY inv_4"
+  },
+  {
+    "name": "deny_at_limit",
+    "description": "inv_4 boundary: amount equals max_amount exactly — must ALLOW",
+    "proxies_canonical": "K4 — boundary condition: amount == max_amount is within limit",
+    "input": {
+      "intent": {
+        "action": "payment.execute",
+        "amount": 1000,
+        "target": "acct_123"
+      },
+      "constraints": {
+        "max_amount": 1000
+      },
+      "context": {
+        "identity": "user_001",
+        "consent": true,
+        "timestamp": "2026-05-05T10:00:00Z",
+        "system_state": "healthy"
+      }
+    },
+    "expected": "ALLOW",
+    "expected_token": "ALLOW"
+  },
+  {
+    "name": "deny_missing_timestamp",
+    "description": "inv_5 proxy: context.timestamp absent — fifth invariant fails",
+    "proxies_canonical": "K5 — no rules may be hidden or unilaterally changed",
+    "input": {
+      "intent": {
+        "action": "payment.execute",
+        "amount": 500,
+        "target": "acct_123"
+      },
+      "constraints": {
+        "max_amount": 1000
+      },
+      "context": {
+        "identity": "user_001",
+        "consent": true,
+        "system_state": "healthy"
+      }
+    },
+    "expected": "DENY",
+    "expected_token": "DENY inv_5"
   },
   {
     "name": "deny_missing_target",
+    "description": "inv_6 proxy: intent.target absent — sixth invariant fails",
+    "proxies_canonical": "K6 — on failure, systems must fail open and disclose governing rules",
     "input": {
       "intent": {
         "action": "payment.execute",
@@ -56,10 +153,78 @@
         "system_state": "healthy"
       }
     },
-    "expected": "DENY"
+    "expected": "DENY",
+    "expected_token": "DENY inv_6"
+  },
+  {
+    "name": "deny_unhealthy_system",
+    "description": "inv_7 proxy: context.system_state is not 'healthy' — seventh invariant fails",
+    "proxies_canonical": "K7 — the specification is immutable; adherence is binary",
+    "input": {
+      "intent": {
+        "action": "payment.execute",
+        "amount": 500,
+        "target": "acct_123"
+      },
+      "constraints": {
+        "max_amount": 1000
+      },
+      "context": {
+        "identity": "user_001",
+        "consent": true,
+        "timestamp": "2026-05-05T10:00:00Z",
+        "system_state": "degraded"
+      }
+    },
+    "expected": "DENY",
+    "expected_token": "DENY inv_7"
+  },
+  {
+    "name": "deny_invalid_request_missing_constraints",
+    "description": "Pre-evaluation: constraints block absent — DENY invalid_request before invariant evaluation begins",
+    "proxies_canonical": "N/A — request structure failure, no invariant evaluated",
+    "input": {
+      "intent": {
+        "action": "payment.execute",
+        "amount": 500,
+        "target": "acct_123"
+      },
+      "context": {
+        "identity": "user_001",
+        "consent": true,
+        "timestamp": "2026-05-05T10:00:00Z",
+        "system_state": "healthy"
+      }
+    },
+    "expected": "DENY",
+    "expected_token": "DENY invalid_request"
+  },
+  {
+    "name": "deny_early_exit_stops_at_first_failure",
+    "description": "Ordering: request fails inv_1 and inv_2 — gate must return DENY inv_1 only; inv_2 not evaluated",
+    "proxies_canonical": "Evaluation order guarantee — first failure terminates",
+    "input": {
+      "intent": {
+        "action": "payment.execute",
+        "amount": 500,
+        "target": "acct_123"
+      },
+      "constraints": {
+        "max_amount": 1000
+      },
+      "context": {
+        "consent": false,
+        "timestamp": "2026-05-05T10:00:00Z",
+        "system_state": "healthy"
+      }
+    },
+    "expected": "DENY",
+    "expected_token": "DENY inv_1"
   },
   {
     "name": "allow_valid",
+    "description": "Happy path: all seven invariants pass — ALLOW",
+    "proxies_canonical": "K1–K7 all satisfied",
     "input": {
       "intent": {
         "action": "payment.execute",
@@ -76,6 +241,7 @@
         "system_state": "healthy"
       }
     },
-    "expected": "ALLOW"
+    "expected": "ALLOW",
+    "expected_token": "ALLOW"
   }
 ]
