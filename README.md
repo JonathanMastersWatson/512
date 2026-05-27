@@ -1,198 +1,326 @@
-# 512 — The Commit Gate
+# 512 — The Execution Boundary
 
-This repository documents **512**, a discovered constraint that physics
-forces into existence at the execution boundary of any machine-speed
-system operating at scale.
+AI systems are approaching a point where humans can no longer intervene before irreversible actions occur.
 
-512 is **not** a product, protocol, platform, governance system, or
-political program. It is a **minimal, non-ownable constraint** identified
-through applied systems research conducted in late 2025.
+Existing governance systems were designed for human-speed software:
+- IAM
+- approval workflows
+- audit trails
+- policy engines
+- post-hoc compliance systems
+- human review loops
+
+Those systems fail when execution moves to machine speed.
+
+512 defines the minimal execution boundary required for autonomous systems operating in real time.
+
+It is:
+- deterministic
+- binary
+- local
+- non-bypassable
+- executable in microseconds
+
+512 does not govern after execution.
+
+512 governs at the exact point irreversible action occurs.
 
 ---
 
-## START HERE
+# The Problem
 
-Choose your entry point:
+Modern AI systems are evolving from passive software into active execution systems.
 
-| I am... | Start here |
+Agents are beginning to:
+- move money
+- modify infrastructure
+- operate vehicles
+- control industrial systems
+- execute contracts
+- trigger physical actions
+- coordinate other systems autonomously
+
+At low scale, humans remain in the loop.
+
+At machine scale, human intervention collapses under latency.
+
+Once execution speed exceeds human supervisory capability:
+- governance becomes observational instead of enforceable
+- audit becomes post-failure archaeology
+- liability attribution deteriorates
+- trust collapses into operator assertion
+- insurance becomes structurally unstable
+
+The industry is now approaching this boundary.
+
+---
+
+# What 512 Is
+
+512 is a minimal execution-boundary constraint system.
+
+It defines the properties required for governing irreversible execution at machine speed.
+
+512 operates:
+- locally
+- deterministically
+- at the commit boundary
+- before irreversible state change occurs
+
+The system evaluates execution against pre-declared constraints and returns only:
+- ALLOW
+- DENY
+
+No third state exists.
+
+512 does not determine:
+- truth
+- morality
+- legality
+- correctness
+- political legitimacy
+
+It determines only whether execution satisfies declared constraints before execution commits.
+
+---
+
+# Why Existing Governance Fails
+
+Most governance systems were built for cloud-era human workflows.
+
+They assume:
+- human escalation
+- delayed review
+- retrospective audit
+- centralized interpretation
+- reversible outcomes
+
+Autonomous systems invalidate those assumptions.
+
+At machine speed:
+- humans become too slow
+- logs arrive after execution
+- policy engines become advisory
+- governance becomes disconnected from execution itself
+
+Physics eventually forces governance to move directly into the execution path.
+
+512 is that boundary condition.
+
+---
+
+# Why 512 Matters
+
+Without execution-boundary control:
+- AI systems become operationally uninsurable
+- enterprises cannot independently prove execution legitimacy
+- regulators lose enforceability at machine speed
+- attribution collapses after failure
+- autonomous systems exceed human supervisory capability
+- post-hoc governance becomes economically insufficient
+
+512 exists because governance must eventually operate at execution speed.
+
+---
+
+# Core Properties
+
+| Property | Requirement |
 |---|---|
-| **A developer who wants to run 512 immediately** | [`runtime/`](./runtime/) |
-| **An engineer building a gate** | [`512-ops/COMMIT_BOUNDARY_REFERENCE.md`](./512-ops/COMMIT_BOUNDARY_REFERENCE.md) |
-| **An enterprise practitioner preparing workflows** | [`USE_CASES/ENTRY_POINTS/ENTERPRISE_PRACTITIONERS.md`](./USE_CASES/ENTRY_POINTS/ENTERPRISE_PRACTITIONERS.md) |
-| **A CTO or board member** | [`512_ARCHITECTURE`](./512_ARCHITECTURE_v3.0.md) |
-| **A regulator or legal reviewer** | [`USE_CASES/ENTRY_POINTS/REGULATORS.md`](./USE_CASES/ENTRY_POINTS/REGULATORS.md) |
-| **An economist or researcher** | [`USE_CASES/ENTRY_POINTS/ECONOMISTS.md`](./USE_CASES/ENTRY_POINTS/ECONOMISTS.md) |
+| Deterministic | Same state and constraints produce same outcome |
+| Binary | Only ALLOW or DENY |
+| Local | Executes physically near execution |
+| Non-bypassable | No alternate commit path permitted |
+| Constant-time | Predictable bounded execution |
+| Constraint-bound | Evaluates declared constraints only |
+| Pre-execution | Evaluates before irreversible commit |
 
 ---
 
-## The Canonical Kernel
+# The Seven Invariants
 
-The kernel text is the authority.  
-Path:   512-core/KERNEL/512-kernel-padded.txt  
-Size:   512 bytes (exact, UTF-8, no BOM)  
-SHA-256: 7b08c024b77a24830c15e7952d6e54bed383aa960f4c74a71ff95ce51f4d80f5  
+1. No agent may initiate force or fraud against any human.
 
-XRPL anchor transaction:  
+2. All interactions must be voluntary and based on explicit consent.
+
+3. Consent may be withdrawn. Exit must always be possible.
+
+4. All contracts must be explicit, readable, and equally enforceable by all parties.
+
+5. No rules governing interaction may be hidden or unilaterally changed.
+
+6. On failure, systems must fail open, reveal governing rules, and default to human choice.
+
+7. The kernel is immutable. Adherence is binary.
+
+Full definitions:
+`/512-core/KERNEL/INVARIANTS.md`
+
+---
+
+# High-Level Architecture
+
+```text
+Intent
+   ↓
+Constraint Definition
+   ↓
+Execution Request
+   ↓
+[ 512 Commit Boundary ]
+   ↓
+ALLOW / DENY
+   ↓
+Irreversible State Change
+```
+
+512 operates only at the execution boundary.
+
+It does not:
+- orchestrate workflows
+- define business logic
+- generate policy
+- manage identities
+- provide audit storage
+- perform observation
+
+---
+
+# Relationship to CVS
+
+512 governs execution.
+
+CVS proves what occurred.
+
+512 decides.
+CVS witnesses.
+
+The CVS repository defines an independent cryptographic witness architecture that operates alongside execution systems without interrupting execution.
+
+512 and CVS are architecturally separate.
+
+---
+
+# Who This Repository Is For
+
+| Audience | Start Here |
+|---|---|
+| CTOs / Executives | `512_ARCHITECTURE_v3.0.md` |
+| Engineers | `512-ops/COMMIT_BOUNDARY_REFERENCE.md` |
+| Enterprise Architects | `512-ops/REFERENCE_FLOW.md` |
+| Regulators | `USE_CASES/ENTRY_POINTS/REGULATORS.md` |
+| Economists / Researchers | `USE_CASES/ENTRY_POINTS/ECONOMISTS.md` |
+| Developers | `/runtime/` |
+
+---
+
+# START HERE
+
+## Executives
+Read:
+- `512_ARCHITECTURE_v3.0.md`
+
+## Engineers
+Read:
+- `512-ops/COMMIT_BOUNDARY_REFERENCE.md`
+- `512-ops/REFERENCE_FLOW.md`
+
+## Developers
+Start in:
+- `/runtime/`
+
+## Enterprise Practitioners
+Read:
+- `USE_CASES/ENTRY_POINTS/ENTERPRISE_PRACTITIONERS.md`
+
+---
+
+# Canonical Kernel
+
+The canonical kernel text is authoritative.
+
+Path:
+`512-core/KERNEL/512-kernel-padded.txt`
+
+Properties:
+- exact size: 512 bytes
+- UTF-8
+- no BOM
+
+SHA-256:
+`7b08c024b77a24830c15e7952d6e54bed383aa960f4c74a71ff95ce51f4d80f5`
+
+XRPL Anchor Transaction:
 `378536A3CB75DECF90B6AE57F75292BDFF716285B01946870CAC158F8152D100`
 
-The kernel is immutable. It is not redefined anywhere else in this
-repository. Commentary, analysis, and interpretation documents are
-subordinate to it. The 512-byte padded artifact is implementation-oriented
-and must not be edited in-browser.
+The kernel is immutable.
+
+Commentary and interpretation are subordinate to the kernel artifact.
 
 ---
 
-## What 512 Is
+# Repository Structure
 
-512 is a **discovered constraint** — not a product, system, or invention.
+## Core
+- `/512-core/KERNEL/`
+- `/512-core/CANON/`
+- `/512-ops/`
 
-When execution systems operate at machine speed — AI agents deciding
-in microseconds, autonomous systems committing thousands of state changes
-per second — the moment between intent and irreversible consequence
-collapses below the threshold of human intervention. Governance
-mechanisms designed for human-speed execution do not slow down.
-They become structurally irrelevant.
+## Research
+- `/512-papers/`
+- `/512-analysis/`
 
-The response to this is not a product. It is a constraint that physics
-makes inevitable: a **Commit Gate** — a minimal, immutable, binary
-mechanism positioned at the execution boundary, enforcing pre-committed
-constraints before state change occurs, at speeds that make
-interpretation physically impossible.
+## Audience Entry Points
+- `/USE_CASES/ENTRY_POINTS/`
 
-512 defines seven invariants that any Commit Gate satisfying its
-properties must enforce. Systems either satisfy these properties or
-they do not. There is no partial satisfaction.
-
----
-
-## What 512 Is Not
-
-512 is not:
-- a manifesto
-- a constitution
-- a governance framework
-- a protocol suite
-- a standards body
-- a movement or ideology
-- a compliance system
-- a monitoring tool
-- a policy engine
-- a product to be deployed
-
-512 does not determine truth, correctness, or morality.  
-It defines only whether execution aligns with declared constraints.
+## Supporting References
+- `ANTI_DRIFT.md`
+- `TERMS.md`
+- `PROVENANCE.md`
+- `FAILURE_MODES.md`
+- `INTERPRETATION_GUIDE.md`
+- `LEGAL_NOTE.md`
 
 ---
 
-## The Seven Invariants
+# Scope
 
-No agent may initiate force or fraud against any human.  
-All interactions must be voluntary and based on explicit consent.  
-Consent may be withdrawn. Exit must always be possible.  
-All contracts must be explicit, readable, and equally enforceable by all parties.  
-No rules governing interaction may be hidden or unilaterally changed.  
-On failure, systems must fail open, reveal governing rules, and default to human choice.  
-The kernel is immutable. Adherence is binary.
+512 defines execution-boundary admissibility only.
 
-Full definitions: [`512-core/KERNEL/INVARIANTS.md`](./512-core/KERNEL/INVARIANTS.md)
+It does not define:
+- policy generation
+- upstream governance
+- identity systems
+- economic systems
+- orchestration
+- enforcement institutions
+- witness architectures
+- legal interpretation
 
----
-
-## Operational Reference — 512-ops
-
-The `512-ops/` folder contains the working reference for organisations
-preparing agentic workflows for Commit Gate execution:
-
-| File | What it covers |
-|---|---|
-| [`INTEGRATION_STEPS.md`](./512-ops/INTEGRATION_STEPS.md) | 7-step workflow from boundary identification to verified evidence chain |
-| [`COMMIT_BOUNDARY_REFERENCE.md`](./512-ops/COMMIT_BOUNDARY_REFERENCE.md) | Boundary mechanics, Proposal Object, evaluation outputs, non-conformant patterns |
-| [`CONSTRAINT_DEFINITION_LAYER.md`](./512-ops/CONSTRAINT_DEFINITION_LAYER.md) | How to translate policies into executable constraints |
-| [`REFERENCE_FLOW.md`](./512-ops/REFERENCE_FLOW.md) | End-to-end sequence from intent to anchored evidence |
-| [`PROPERTIES_CHECKLIST.md`](./512-ops/PROPERTIES_CHECKLIST.md) | Go-live verification checklist |
-| [`LAYER_REFERENCE.md`](./LAYER_REFERENCE.md) | Three-layer architecture: Kernel / Commit Boundary / Witness Layer — functions, outputs, and prohibited claims |
+Constraint definition remains upstream responsibility.
 
 ---
 
-## Repository Structure
+# Status
 
-**Core:**
-- `/512-core/KERNEL/` — canonical kernel text and invariants
-- `/512-core/CANON/` — spec hash mechanism and equivalence model
-- `/512-ops/` — operational reference for builders and enterprise practitioners
+This repository is a descriptive research record.
 
-**Reference:**
-- `LAYER_REFERENCE.md` — three-layer semantic firewall: Kernel /
-  Commit Boundary / Witness Layer — what each layer does, what it
-  produces, and what it must not claim
-- `ANTI_DRIFT.md` — how implementations drift from 512's properties
-  and how to prevent it
-- `TERMS.md` — canonical vocabulary
-- `PROVENANCE.md` — origin and authorship
-- `FAILURE_MODES.md` — explicit non-solutions
-- `INTERPRETATION_GUIDE.md` — how not to misread this repository
-- `LEGAL_NOTE.md` — legal posture
-- `SCOPE_AND_NON_GOALS.md` — what 512 defines and what it does not
+The kernel is frozen.
 
-**Research record:**
-- `/512-papers/` — discovery history, problem definition, technical
-  constraints, economic implications, explicit non-goals
-- `/512-analysis/` — economics, philosophy, history
-
-**Entry points by audience:**
-- `/USE_CASES/ENTRY_POINTS/` — engineers, enterprise practitioners,
-  regulators, economists
-
-**Non-canonical:**
-- `/DERIVATIVES/` — commercial and exploratory material
-- `/512-interpretation/` — interpretation variants (non-authoritative)
-- `/PROMPTS/` — optional LLM workspace loaders (UX helpers only)
+Future additions are append-only and tracked through:
+`CHANGELOG.md`
 
 ---
 
-## Scope
+# Licensing
 
-512 defines the minimum constraint surface for enforcing execution-time
-properties at the commit boundary — without creating new authorities.
+512 and its constraint set are non-ownable.
 
-512 does **not** provide:
-- constraint definition (see [`Constraint-Architecture`](https://github.com/JonathanMastersWatson/Constraint-Architecture))
-- evidence persistence or ledger anchoring (see CVS)
-- identity, governance, or enforcement logic
-- implementation prescriptions
-
-**On witness architectures:** 512 does not prescribe a witness layer.
-The CVS (Cryptographic Verification Sidecar) repository is the reference
-witness architecture. Others may exist. None are canonical to 512.
-
-**On constraint definition:** 512 does not define domain constraints.
-Constraint definition is upstream work — the organisation's
-responsibility. See `512-ops/CONSTRAINT_DEFINITION_LAYER.md`.
+Documentation is released under:
+Creative Commons Attribution 4.0 (CC BY 4.0)
 
 ---
 
-## Status
+# One Sentence Summary
 
-This repository is a **descriptive research record**.
-
-The kernel is frozen. The hardening pass covering this repository
-was completed April 2026. New material may be added only through
-append-only updates tracked in `CHANGELOG.md`.
-
----
-
-## Licensing
-
-512 and its constraint set are non-ownable. Discovered constraints
-are not subject to proprietary ownership.
-
-Written documentation in this repository is released under Creative
-Commons Attribution 4.0 (CC BY 4.0) unless otherwise specified.
-
----
-
-## One-Sentence Summary
-
-> 512 is a discovered constraint — the minimal set of properties any
-> execution system operating at machine speed must satisfy at the
-> commit boundary, or bear the consequences that physics and scale impose.
+512 defines the minimum execution-boundary properties required for governing irreversible machine-speed execution before state change occurs.
