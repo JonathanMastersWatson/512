@@ -85,8 +85,22 @@ affected parties in advance.
 
 ## Fail Open
 
-A failure mode in which a system reveals its governing rules or state
-and defaults to user choice rather than restriction.
+The system behaviour that engages when the gate cannot complete
+evaluation — due to crash, timeout, network partition, or any
+condition that prevents evaluation from occurring. On a Fail Open
+event: the gate produces no output; the commit path remains
+available; execution proceeds; the witness layer records the
+ungoverned period as an evidence chain gap.
+
+Fail Open is not a gate output. It is not equivalent to ALLOW.
+Constraint satisfaction was not established.
+
+Fail Open governs gate unavailability only. It does not govern
+what a system must do when the gate evaluates and produces DENY.
+Those obligations — disclosure of the governing rule and return
+of authority to the human party — are defined in the kernel
+clauses "reveal governing rules" and "default to human choice"
+and elaborated in `512-core/KERNEL/I6_CONSTITUTIONAL_ELABORATION.md`.
 
 ---
 
