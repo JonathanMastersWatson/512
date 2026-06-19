@@ -36,5 +36,5 @@ Where:
 
 - Systems MAY publish SPEC_HASH alongside kernel text.
 - High-stakes use SHOULD require multi-interpreter consensus on canonical IR prior to accepting a SPEC_HASH claim.
-- On disagreement, systems MUST fail open and default to human choice / non-action.
-
+- On disagreement, systems MUST default to Human Default — non-action and return of authority
+  to the human party. See `512-core/KERNEL/I6_CONSTITUTIONAL_ELABORATION.md`.
