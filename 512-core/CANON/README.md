@@ -50,7 +50,7 @@ To enable equivalence without authority, this repository defines:
 
 - a **Canonical Intermediate Representation (IR)** of kernel invariants
 - a **SPEC_HASH** computed from canonical IR, not prose
-- a **multi-interpreter consensus model** that fails open on disagreement
+- a **multi-interpreter consensus model** that defaults to Human Default on disagreement
 
 These mechanisms allow equivalence to be evaluated mechanically rather than argued socially.
 
@@ -102,7 +102,7 @@ architecture is defined separately at the Evidence-Sidecar repository.
 - Execution over explanation
 - Verification over interpretation
 - Constraint over control
-- Fail open on ambiguity
+- Human Default on ambiguity
 - No hidden rules
 - No silent authority
 
@@ -151,7 +151,8 @@ Equivalence is determined mechanically, not socially.
 - Interpreters may be human or machine.
 - No interpreter is authoritative.
 - High-stakes use SHOULD require multiple independent interpreters.
-- Disagreement MUST fail open and default to non-action / human choice.
+- Disagreement MUST default to Human Default — non-action and return of authority
+  to the human party. See `512-core/KERNEL/I6_CONSTITUTIONAL_ELABORATION.md`.
 
 ### What this avoids
 
