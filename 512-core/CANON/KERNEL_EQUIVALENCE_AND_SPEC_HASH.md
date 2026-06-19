@@ -74,7 +74,7 @@ All contracts must be explicit, readable, and equally enforceable by all parties
 **I5 — No Hidden or Unilateral Rules**
 No rules governing interaction may be hidden or unilaterally changed.
 
-**I6 — Fail-Open**
+**I6 — Continuity Behaviour / Transparent Denial / Human Default**
 On failure, systems must fail open, reveal governing rules, and default to human choice.
 
 **I7 — Immutability and Binary Satisfaction**
@@ -84,6 +84,7 @@ Notes:
 - These seven invariants are the complete target.
 - Prose is an interface, not the authority.
 - The kernel text governs where any conflict exists between prose and invariant.
+- The authoritative elaboration of I6 is `512-core/KERNEL/I6_CONSTITUTIONAL_ELABORATION.md`.
 
 ---
 
@@ -100,8 +101,13 @@ Minimum requirements:
   guideline, or policy goal).
 - "Exit" must remain unconditional (not "reasonable efforts," not "where
   feasible," not "subject to policy").
-- "Fail open" must remain a disclosure + user choice default (not "fail safe,"
-  not "quiet degrade," not "fallback to authority").
+- "Fail open" must remain bounded to gate unavailability behaviour — the gate
+  produces no output; the continuity handler opens the commit path; the gap is
+  recorded. "Reveal governing rules" must remain a disclosure obligation on DENY
+  — not "fail safe," not "quiet degrade," not "fallback to authority." "Default
+  to human choice" must remain an unconditional sovereignty guarantee — not
+  "subject to policy," not "where feasible." All three are distinct obligations.
+  See `512-core/KERNEL/I6_CONSTITUTIONAL_ELABORATION.md`.
 - "Consent withdrawal" and "exit" must remain as two distinct conditions within
   I3 — neither may be dropped or merged into the other.
 - "Immutability" and "binary satisfaction" must remain as two distinct conditions
@@ -149,7 +155,7 @@ Process:
 Decision:
 
 - **PASS** only if interpreters converge on identical canonical IR and SPEC_HASH.
-- **FAIL OPEN** on disagreement: surface the disagreement and default to
+- **HUMAN DEFAULT** on disagreement: surface the disagreement and default to
   user choice / non-action.
 
 This does not create authority.
@@ -168,7 +174,9 @@ Typical drifts (non-exhaustive):
 - "any human" → "authorized humans" / "lawful persons" / "participants"
 - "exit always possible" → "where feasible" / "reasonable notice" / "subject to policy"
 - "no unilateral change" → "may update with notice"
-- "fail open" → "fail safe" / "silent fallback" / "contact support"
+- "fail open" → "fail safe" / "silent fallback" / "contact support" / "domain-configurable"
+- "reveal governing rules" → omitted, merged with fail open, or reduced to logging
+- "default to human choice" → "subject to policy" / "where feasible" / "at operator discretion"
 - splitting I3 to drop either consent withdrawal or exit
 - splitting I7 to treat binary satisfaction as optional
 - adding an enforcer, court, council, registry, or scoring system
@@ -197,5 +205,4 @@ Invariants cannot.
 SPEC_HASH binds meaning.
 Multi-interpreter consensus hardens the edge.
 
-Ambiguity fails open.
-
+Ambiguity fails open to Human Default.
