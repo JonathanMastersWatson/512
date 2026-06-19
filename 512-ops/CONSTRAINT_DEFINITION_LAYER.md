@@ -314,7 +314,7 @@ Use this checklist when defining constraints for each invariant.
 | I3 — Consent withdrawal | You have defined the propagation window, the epoch mechanism, and the binary condition that detects stale tokens |
 | I4 — Contractual clarity | You have named the contract registry, defined what machine-readable and human-readable mean for your contract format, and confirmed both parties have acknowledged the terms |
 | I5 — No hidden rules | You have defined how the active spec hash is disclosed, to whom, and how acknowledgement is recorded |
-| I6 — Fail-open | You have defined what your system does when the gate is unavailable and confirmed the fail-open path generates a gap record |
+| I6 — Continuity Behaviour / Transparent Denial / Human Default | You have defined what your system does when the gate is unavailable and confirmed the continuity handler generates a gap record; you have confirmed DENY results include the violated invariant ID and constraint reference; you have confirmed exit and contest paths are structurally available on any adverse outcome |
 | I7 — Immutability | You have confirmed the gate verifies the canonical hash at startup and refuses to start on mismatch |
 
 A constraint definition is complete only when all fields in the
