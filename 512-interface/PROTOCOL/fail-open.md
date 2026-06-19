@@ -1,30 +1,53 @@
-# Fail-Open Protocol
+# Transparent Denial and Human Default Protocol
 
 ## Purpose
 
 This document specifies how systems adhering to the 512 Kernel implement
-fail-open behavior without exposing private data, security-sensitive
-internals, or exploitable system logic.
+the disclosure and human sovereignty obligations of Invariant 6 — without
+exposing private data, security-sensitive internals, or exploitable system
+logic.
 
-Fail-open is a transparency and freedom guarantee, not a disclosure mandate.
+This document governs two of the three obligations derived from I6:
+
+- **Transparent Denial** — when the gate evaluates and produces DENY,
+  the governing rule must be disclosed and the decision must be inspectable.
+- **Human Default** — on any adverse outcome, authority returns to the
+  human party; exit, revocation, and contest remain structurally available.
+
+This document does not govern Fail Open (gate unavailability behaviour).
+Fail Open — the behaviour that engages when the gate cannot complete
+evaluation — is defined in `512-core/KERNEL/DEFINITIONS.md` and elaborated
+in `512-core/KERNEL/I6_CONSTITUTIONAL_ELABORATION.md`.
+
+The authoritative constitutional elaboration of all three I6 obligations
+is `512-core/KERNEL/I6_CONSTITUTIONAL_ELABORATION.md`. This document
+provides the operational protocol for implementing Transparent Denial
+and Human Default.
 
 ---
 
 ## Principle
 
-Fail-open means:
+Transparent Denial means:
 
-When a system cannot proceed normally, it must:
-- reveal the governing rule path that led to the outcome, and
+When the gate evaluates and produces DENY, the system must:
+- reveal the governing rule that produced the denial, and
+- make the decision inspectable by the affected party.
+
+Human Default means:
+
+On any adverse outcome — denial, restriction, or system failure —
+the system must:
+- return authority to the human party, and
 - default to user choice to exit, revoke, or contest.
 
-Fail-open does not require disclosure of secrets.
+Neither obligation requires disclosure of secrets.
 
 ---
 
 ## Scope of Disclosure
 
-Fail-open requires disclosure of what is necessary for accountability.
+Transparent Denial requires disclosure of what is necessary for accountability.
 
 It does not require disclosure of what would enable exploitation.
 
@@ -32,7 +55,7 @@ It does not require disclosure of what would enable exploitation.
 
 ## Required Disclosures
 
-On a fail-open event, a system must disclose:
+On a Transparent Denial event, a system must disclose:
 
 1. **Decision Outcome**  
    The action taken or denied (e.g., allow, deny, restrict, flag).
@@ -52,14 +75,14 @@ On a fail-open event, a system must disclose:
    Clear paths to:
    - exit the interaction,
    - revoke consent,
-   - export the user’s own data,
+   - export the user's own data,
    - or initiate review.
 
 ---
 
 ## Prohibited Disclosures
 
-Fail-open must not disclose:
+Transparent Denial must not disclose:
 
 - private data belonging to other parties,
 - credentials, keys, or secrets,
@@ -88,7 +111,7 @@ Proof replaces disclosure where disclosure would cause harm.
 
 ## Two-Channel Transparency
 
-Fail-open operates across two channels:
+Transparent Denial operates across two channels:
 
 1. **Public Accountability Channel**  
    Discloses rules, policy identifiers, and decision grounds.
@@ -99,22 +122,22 @@ Fail-open operates across two channels:
 
 ---
 
-## Safe-Open Mode
+## Degraded Operation
 
-On entering fail-open, systems must reduce risk by:
+On any adverse outcome, systems must reduce risk by:
 
 - disabling non-essential actions,
 - rate-limiting sensitive operations,
 - freezing high-impact automated decisions,
 - preserving evidence for review.
 
-Fail-open does not imply full operational continuity.
+Adverse outcome handling does not imply full operational continuity.
 
 ---
 
 ## Dispute and Review
 
-If a user contests a decision:
+If a human party contests a decision:
 
 - the system must provide a reproducible rule path, or
 - offer escalation to an independent reviewer or auditor.
@@ -125,21 +148,23 @@ Disclosure to reviewers may occur under controlled conditions.
 
 ## Exit Guarantee
 
-If fail-open obligations cannot be satisfied without violating privacy or
-security constraints, the system must default to exit.
+If Transparent Denial obligations cannot be satisfied without violating
+privacy or security constraints, the system must default to exit.
 
-Users must be able to:
+Human parties must be able to:
 - terminate participation,
 - revoke consent,
 - and retrieve their own data.
+
+This is the structural expression of Human Default.
 
 ---
 
 ## Non-Compliance
 
 A system that:
-- hides governing rules,
-- traps users during failure,
+- hides governing rules on denial,
+- traps human parties after an adverse outcome,
 - or claims secrecy to avoid accountability,
 
 is not adhering to the 512 Kernel.
