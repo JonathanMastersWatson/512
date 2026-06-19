@@ -119,6 +119,14 @@ party, not to the system or its operator.
 Fail-closed systems, silent failures, and failures that increase
 system control do not satisfy this invariant.
 
+The authoritative elaboration of this invariant — including
+constitutional intent, obligation decomposition, disclosure
+boundary, external authority test, and terminology governance
+— is defined in `512-core/KERNEL/I6_CONSTITUTIONAL_ELABORATION.md`.
+That document governs all future repository documents,
+implementations, standards submissions, and IP filings that
+reference I6 or fail-open behaviour.
+
 ---
 
 ## Invariant 7 — Immutability and Binary Satisfaction
