@@ -17,12 +17,12 @@ This is a cost, risk, and durability analysis — not a values argument.
 - reducing data handling and breach liabilities,
 - minimizing vendor lock-in and switching friction,
 - simplifying audit and compliance workflows.
-
+  
 ---
 
 ## Risk Containment
 
-Explicit consent, rule visibility, and fail-open behavior reduce:
+Explicit consent, rule visibility, Transparent Denial, and Human Default reduce:
 
 - black-box operational risk,
 - reputational exposure from opaque decisions,
