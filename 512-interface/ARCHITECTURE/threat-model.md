@@ -18,7 +18,7 @@ Attempts to:
 - restrict exit,
 - or compel participation through hidden constraints.
 
-Mitigation: explicit consent, exit guarantees, fail-open behavior.
+Mitigation: explicit consent, exit guarantees, Human Default, Transparent Denial.
 
 ---
 
@@ -45,7 +45,7 @@ auditability.
 Attempts to exploit transparency mechanisms to extract sensitive
 internals or security logic.
 
-Mitigation: proof without disclosure, tiered fail-open responses.
+Mitigation: proof without disclosure, tiered Transparent Denial responses.
 
 ---
 
