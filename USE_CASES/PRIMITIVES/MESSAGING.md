@@ -34,7 +34,7 @@ Hidden moderation violates adherence.
 
 ---
 
-## Fail-Open Behavior
+## Transparent Denial Behavior
 
 When messaging is restricted or blocked, systems must:
 - disclose the governing rule path,
