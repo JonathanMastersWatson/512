@@ -115,7 +115,7 @@ Silent changes violate adherence.
 
 ---
 
-### K6 — Fail-Open Behavior
+### K6 — Transparent Denial / Human Default
 
 Fail-open requires disclosure of:
 - which platform rule was invoked,
