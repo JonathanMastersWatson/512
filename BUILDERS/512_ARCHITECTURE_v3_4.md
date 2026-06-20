@@ -342,19 +342,57 @@ Any modification to the invariants produces a different hash — making unauthor
 
 **Failure mode:** Operator changes rules without notice. Users claim they did not consent. Operator argues implicit acceptance. Without cryptographic proof of rule disclosure and explicit consent to changes, the dispute is unresolvable. The canonical hash record proves what rules were in effect and when.
 
+I have the full §4.6. It still contains the old pre-decomposition text — the earlier pass correction was not committed to this repo copy. I need to replace §4.6 in full with the v2.0-correct version.
+One replacement. Find:
+### 4.6 Invariant 6: On Failure, Systems Must Fail Open, Reveal Governing Rules, and Default to Human Choice
+
+**Requirement:** When constraint evaluation fails due to gate unavailability or internal error, execution continues — the failure is logged, governing constraints are disclosed, and humans receive the information needed to decide whether to proceed.
+
+**Rationale:** Fail-closed systems create single points of failure and denial-of-service attack surfaces. They concentrate authority at the gate — whoever controls the gate controls all execution. Fail-open preserves operational continuity while ensuring failures are never silent. The constraint is not violated by gate failure — it is made observable.
+
+**Enforcement:** The gate never blocks execution by failing closed. If it crashes or becomes unavailable, execution continues and the gap is recorded in the witness layer. When evaluation explicitly denies execution (constraint violated), the system discloses which constraint failed and why, enabling humans to understand the basis for denial.
+
+**Failure mode:** Gate fails closed, blocking legitimate operations — a denial-of-service equivalent. Or gate fails silently, concealing constraint violations — creating evidentiary gaps exploitable by adversarial parties.
+Replace with:
 ### 4.6 Invariant 6: On Failure, Systems Must Fail Open, Reveal Governing Rules, and Default to Human Choice
 
 I6 expresses three distinct obligations. The kernel sentence remains unchanged. The authoritative elaboration is `512-core/KERNEL/I6_CONSTITUTIONAL_ELABORATION.md`.
 
-**Continuity Behaviour — gate unavailability:**
+---
 
-**Requirement:** When the gate cannot complete evaluation — due to crash, timeout, or partition — execution continues. The gate produces no output. The continuity handler opens the commit path. The witness layer records the ungoverned period as a gap. Constraint satisfaction was not established.
+**Evaluation-Unavailable DENY — gate unavailability:**
 
-**Rationale:** A gate that blocks execution on its own failure concentrates authority in itself — whoever controls the gate controls all execution. Continuity Behaviour prevents gate availability from becoming a concealed governing rule. The gap record ensures the ungoverned period is observable, not silent.
+**Requirement:** When the gate cannot complete evaluation — due to crash, timeout, or partition — the infrastructure-failure handler produces DENY with reason: evaluation unavailable. The commit path remains closed. Execution does not proceed. The cause of unavailability and the retry path are disclosed.
 
-**Enforcement:** The gate never blocks execution by failing. If it crashes or becomes unavailable, the continuity handler opens the commit path and the gap is recorded in the witness layer. A Continuity Behaviour event is not equivalent to ALLOW — constraint evaluation did not occur.
+**Rationale:** A gate that permits execution on its own failure makes gate availability a concealed governing rule — whoever controls the gate controls all execution by taking it down. A gate that silently allows execution without evaluation conceals the absence of governance. Evaluation-Unavailable DENY holds the commit boundary unconditionally while disclosing the reason and preserving the human party's ability to retry. Admissibility requires completed evaluation. An action does not commit because the gate was unavailable.
 
-**Failure mode:** Gate fails closed, blocking legitimate operations — a denial-of-service equivalent. Or gate allows silently without recording a gap — ungoverned execution presented as governed execution.
+**Enforcement:** The infrastructure-failure handler produces DENY (deny_cause: evaluation_unavailable) on any gate unavailability event. The commit path remains closed. The DENY discloses: failure cause, timestamp, retry path. The CVS sidecar records a gap record documenting the unavailability period.
+
+**Failure mode:** Infrastructure failure opens the commit path — ungoverned action commits without admissibility established. Or infrastructure failure produces silent DENY without disclosed reason or retry path — Human Default violated.
+
+---
+
+**Transparent Denial — disclosure on DENY:**
+
+**Requirement:** When the gate evaluates and produces DENY (constraint violation), the governing rule must be disclosed. The failed invariant is identified. The basis for the denial is inspectable by the affected party and by independent verifiers.
+
+**Rationale:** A denial that does not identify the governing rule is authoritative concealment — the system exercises authority while hiding its basis. I6 prohibits this. Every DENY is an exercise of authority. That authority must be visible.
+
+**Enforcement:** Every constraint violation DENY includes the violated invariant identifier and constraint reference. The CVS Evidence Object records this. A DENY without invariant identification does not satisfy I6 regardless of whether the other obligations are correctly implemented.
+
+**Failure mode:** Gate denies without disclosing the governing rule. Affected party cannot understand or contest the basis. Authority is exercised invisibly.
+
+---
+
+**Human Default — human sovereignty on any adverse outcome:**
+
+**Requirement:** On any adverse outcome — constraint violation DENY, evaluation-unavailable DENY, or gate failure — the human party retains agency. Exit remains structurally available. Contest, retry, and consent revocation remain available.
+
+**Rationale:** The system does not use an adverse outcome to further concentrate its own authority over the human party. Human Default is the constitutional floor: regardless of what any other obligation produces, the human party remains an agent, not a subject.
+
+**Enforcement:** Exit paths, retry mechanisms, and contest paths are system obligations — not gate obligations. The gate enforces constraints at the commit boundary. The system surrounding the gate must preserve human agency regardless of gate output. The system must not generate permanent opaque deprivation of human agency on its own authority.
+
+**Failure mode:** System produces evaluation-unavailable DENY without retry path — human party cannot proceed. Or system produces constraint violation DENY and removes exit options. Or system routes a denial through a nominally external policy it controls — authority laundering.
 
 ---
 
