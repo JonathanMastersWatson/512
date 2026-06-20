@@ -55,7 +55,7 @@ Undisclosed scoring violates adherence.
 
 ---
 
-### K6 — Fail-Open
+### K6 — Transparent Denial / Human Default
 Fail-open requires:
 - rule category disclosure,
 - rejection reason class,
