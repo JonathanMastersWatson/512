@@ -98,7 +98,7 @@ Emergency powers must be declared, not smuggled.
 
 ---
 
-### K6 — Fail-Open Behavior
+### K6 — Transparent Denial / Human Default
 
 Fail-open requires:
 - rule-path disclosure,
