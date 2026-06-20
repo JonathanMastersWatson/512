@@ -151,7 +151,7 @@ field cannot be resolved during context binding.
 An unevaluated constraint is recorded in the per-invariant results
 of the Evidence Object. If any constraint is unevaluated and the
 overall evaluation cannot complete, the gate produces no output
-and the fail-open handler engages.
+and the infrastructure-failure handler produces Evaluation-Unavailable DENY.
 
 No constraint may declare a missing-input behaviour that silently
 passes. A missing input is never a pass.
