@@ -62,7 +62,8 @@ DENY evaluation_error
 
 `DENY evaluation_error` — gate encountered an internal error during
 evaluation. Treat as DENY. In production, this condition triggers the
-fail-open handler rather than producing a denial. See
+infrastructure-failure handler, which produces Evaluation-Unavailable
+DENY — the commit path remains closed. See
 `docs/512_EBI_DESIGN_v1_1.md §8`.
 
 ---
