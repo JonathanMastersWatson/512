@@ -102,7 +102,7 @@ system will evaluate:
 | I3 — Consent withdrawal | How withdrawal propagates and within what time window |
 | I4 — Contractual clarity | Which contract governs each action and how readability is confirmed |
 | I5 — No hidden rules | How the active constraint set is disclosed and to whom |
-| I6 — Fail-open | What your system does when the gate is unavailable |
+| I6 — Evaluation-Unavailable DENY | What your system produces when the gate is unavailable — DENY with disclosed cause and retry path; commit path remains closed |
 | I7 — Immutability | How the canonical hash is verified at startup |
 
 **Each constraint must be reducible to a binary condition.**
@@ -130,7 +130,7 @@ Before enabling enforcement, operate the gate in observation mode.
 In observation mode:
 - all seven invariants are evaluated at every boundary crossing
 - no execution is blocked
-- all gate results are recorded: ALLOW or DENY; fail-open events are recorded as evidence chain gaps by the witness layer
+- all gate results are recorded: ALLOW or DENY; evaluation-unavailable DENY events are recorded by the witness layer; CVS sidecar records gap
 
 Observation mode surfaces three categories of problem:
 
@@ -138,10 +138,10 @@ Observation mode surfaces three categories of problem:
 requests. These indicate constraint definitions that are too narrow
 or input data that is not being assembled correctly.
 
-**Fail-open events** — gate unavailability or evaluation timeout
+**Evaluation-Unavailable DENY events** — gate unavailability or evaluation timeout
 caused by missing input data, registry unavailability, or timeout.
-These generate evidence chain gaps recorded by the witness layer
-and indicate integration issues that must be resolved before enforcement.
+These produce Evaluation-Unavailable DENY with commit path closed;
+CVS sidecar records gap; indicates integration issues to resolve before enforcement.
 
 **Coverage gaps** — execution events that do not produce any
 evaluation record. These indicate commit boundaries that were
@@ -149,10 +149,10 @@ missed in Step 1 or parallel paths that were missed in Step 2.
 
 **Output:** An observation period of sufficient duration to capture
 a representative sample of your execution traffic, with a resolution
-log showing how each DENY and fail-open event was addressed.
+log showing how each DENY and Evaluation-Unavailable DENY event was addressed.
 
 Do not proceed to Step 6 until the observation record is clean:
-no unexpected DENYs, no unresolved fail-open events, no uncovered boundaries.
+no unexpected DENYs, no unresolved Evaluation-Unavailable DENY events, no uncovered boundaries.
 
 ---
 
@@ -163,7 +163,7 @@ Switch the gate from observation mode to enforcement mode.
 At this point:
 - ALLOW results open the commit path
 - DENY results close the commit path and record the violated invariant
-- Fail-open events allow execution to proceed; the witness layer records the ungoverned period as an evidence chain gap
+- Evaluation-Unavailable DENY events close the commit path; CVS sidecar records the unavailability period as a gap record
 
 No constraint changes are required between observation and
 enforcement mode. Only the enforcement posture changes.
@@ -201,7 +201,7 @@ For a sample of DENY results, confirm:
 - the denial record identifies the specific violated invariant
 - the deny message is present and human-readable
 
-For any witness layer gap records (fail-open events), confirm:
+For any CVS sidecar gap records (Evaluation-Unavailable DENY events), confirm:
 - the gap duration and reason are recorded
 - all executions during the gap window are identifiable
 
