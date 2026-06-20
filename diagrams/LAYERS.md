@@ -89,7 +89,7 @@ flowchart TD
     B -->|operates without| A
 
     A -->|enforcement continues| C[No witness = unverifiable]
-    B -->|witnessing continues| D[No gate = ungoverned execution]
+    B -->|witnessing continues| D[No gate = Evaluation-Unavailable DENY; commit boundary holds]
 
     E[Both required for: enforcement AND auditability] -.-> A
     E -.-> B
