@@ -85,22 +85,26 @@ affected parties in advance.
 
 ## Fail Open
 
-The system behaviour that engages when the gate cannot complete
-evaluation — due to crash, timeout, network partition, or any
-condition that prevents evaluation from occurring. On a Fail Open
-event: the gate produces no output; the commit path remains
-available; execution proceeds; the witness layer records the
-ungoverned period as an evidence chain gap.
+The I6 constitutional principle governing gate behaviour on infrastructure
+failure. When the gate cannot complete evaluation — due to crash, timeout,
+network partition, or any condition preventing evaluation from occurring —
+the gate produces DENY with reason: evaluation unavailable. The commit path
+remains closed. The cause of unavailability is disclosed. Retry is
+explicitly permitted when the gate is available.
 
-Fail Open is not a gate output. It is not equivalent to ALLOW.
-Constraint satisfaction was not established.
+Fail Open does not mean execution continues without admissibility being
+established. It means the system must not weaponise its own failure as
+concealed restriction — the DENY reason is disclosed, the commit boundary
+holds, and the human party retains the ability to retry.
 
-Fail Open governs gate unavailability only. It does not govern
-what a system must do when the gate evaluates and produces DENY.
-Those obligations — disclosure of the governing rule and return
-of authority to the human party — are defined in the kernel
-clauses "reveal governing rules" and "default to human choice"
-and elaborated in `512-core/KERNEL/I6_CONSTITUTIONAL_ELABORATION.md`.
+This is the Evaluation-Unavailable DENY doctrine. The authoritative
+elaboration is `512-core/KERNEL/I6_CONSTITUTIONAL_ELABORATION.md`.
+
+Fail Open governs gate unavailability only. It does not govern what a
+system must do when the gate evaluates and produces DENY due to constraint
+violation. Those obligations — disclosure of the violated invariant and
+return of authority to the human party — are defined in the kernel clauses
+"reveal governing rules" and "default to human choice."
 
 ---
 
