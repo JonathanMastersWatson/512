@@ -108,22 +108,33 @@ The result produced by the gate upon completing evaluation of a Proposal Object.
 The gate produces exactly two output values:
 
 - **ALLOW** — all seven invariants are satisfied; the commit path opens
-- **DENY** — one or more invariants are not satisfied; the commit path remains closed
+- **DENY** — permission to commit not granted; the commit path remains closed
+
+DENY has two causes:
+- **Constraint violation** — one or more invariants evaluated and not satisfied;
+  the violated invariant is identified and disclosed
+- **Evaluation unavailable** — infrastructure failure prevented evaluation from
+  completing; the failure cause and retry path are disclosed
 
 There is no third output value. When the gate cannot complete evaluation,
-it produces no output. Execution proceeds under the fail-open posture
-required by Invariant 6. The witness layer records the resulting ungoverned
-period as an evidence chain gap.
+the infrastructure-failure handler produces DENY (deny_cause:
+evaluation_unavailable). The commit path remains closed. Execution does not
+proceed. The CVS sidecar records the unavailability period as an evidence
+chain gap.
+
+See `512-core/KERNEL/I6_CONSTITUTIONAL_ELABORATION.md` for the authoritative
+elaboration of gate unavailability behaviour.
 
 ---
 
 ### Evidence Chain Gap
-A witness layer classification applied to an ungoverned period in the evidence
-chain — a period during which execution proceeded without gate evaluation.
+A CVS sidecar record documenting a period of gate unavailability.
 
-An evidence chain gap is produced by the witness layer, not the gate. It is
-not a gate output. It records that evaluation did not occur, not that
-evaluation produced a particular result.
+An evidence chain gap is produced by the CVS sidecar, not the gate. It is
+not a gate output. It records that evaluation did not occur and that
+Evaluation-Unavailable DENY was produced during the unavailability period.
+It does not indicate that execution proceeded — under the Evaluation-Unavailable
+DENY doctrine, execution does not proceed during gate unavailability.
 
 ---
 
@@ -177,19 +188,29 @@ Witnessing is passive.
 ---
 
 ### Fail-Open
-The behaviour required by Invariant 6 when a system cannot complete
-evaluation at the commit boundary.
+The I6 constitutional principle governing gate behaviour on infrastructure
+failure.
 
-On fail-open:
-- the gate produces no output
-- execution proceeds — blocking execution on gate failure would itself
-  violate Invariant 6
-- governing rules are disclosed
-- control returns to the human party
-- the witness layer records the ungoverned period as an evidence chain gap
+When the gate cannot complete evaluation — due to crash, timeout, network
+partition, or any condition preventing evaluation from occurring — the
+infrastructure-failure handler produces DENY (deny_cause: evaluation_unavailable).
+The commit path remains closed. The cause of unavailability and the retry path
+are disclosed. The CVS sidecar records the unavailability period as an evidence
+chain gap.
 
-Fail-open is not a gate output. It is a system behaviour. The resulting
-ungoverned period is classified by the witness layer as an evidence chain gap.
+Fail-Open does not mean execution continues without admissibility being
+established. It means the system must not weaponise its own failure as
+concealed restriction — the DENY reason is disclosed, the commit boundary
+holds, and the human party retains the ability to retry.
+
+Fail-Open governs gate unavailability only. The obligations that govern
+what the system must do when the gate evaluates and produces DENY —
+disclosure of the governing rule (Transparent Denial) and return of authority
+to the human party (Human Default) — are permanent obligations defined in the
+kernel clauses "reveal governing rules" and "default to human choice."
+
+The authoritative elaboration is
+`512-core/KERNEL/I6_CONSTITUTIONAL_ELABORATION.md`.
 
 ---
 
