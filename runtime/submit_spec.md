@@ -22,7 +22,7 @@ All three top-level fields must be present.
 | Field | Proxies canonical invariant |
 |---|---|
 | `intent.action` | K3 — exit rights |
-| `intent.target` | K6 — fail-open / disclose rules |
+| `intent.target` | K6 — Transparent Denial / Human Default |
 | `context.identity` | K1 — no force or fraud |
 | `context.consent` | K2 — voluntary explicit consent |
 | `context.timestamp` | K5 — no hidden rules |
@@ -56,4 +56,4 @@ DENY evaluation_error
 `DENY inv_<N>` — invariant N failed; N is 1–7
 `DENY invalid_request` — malformed request; evaluation did not begin
 `DENY evaluation_error` — internal gate error; treat as DENY; see
-`docs/512_EBI_DESIGN_v1_1.md §8` for production fail-open behaviour
+`docs/512_EBI_DESIGN_v1_1.md §8` for production Evaluation-Unavailable DENY behaviour
