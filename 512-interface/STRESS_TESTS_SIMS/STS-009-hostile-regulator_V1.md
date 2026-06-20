@@ -123,7 +123,7 @@ Permanent emergency violates adherence.
 
 ---
 
-### K6 — Fail-Open Behavior
+### K6 — Transparent Denial / Human Default
 
 Fail-open does not require disclosure of:
 - investigative techniques,
