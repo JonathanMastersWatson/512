@@ -82,7 +82,7 @@ Rule changes must be disclosed prior to enforcement.
 
 ---
 
-### K6 — Fail-Open Behavior
+### K6 — Transparent Denial / Human Default
 
 Fail-open requires disclosure of:
 - governing moderation rule,
