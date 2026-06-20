@@ -62,26 +62,25 @@ sequenceDiagram
 
 ---
 
-## Gate Fail-Open — Ungoverned Execution Gap
-
+## Evaluation-Unavailable DENY — Gate Cannot Evaluate
 ```mermaid
 sequenceDiagram
     participant P as Proposing Entity
     participant G as 512 Commit Gate
-    participant F as Fail-Open Handler
+    participant F as Infrastructure-Failure Handler
     participant C as Commit Target
-    participant W as CVS Witness
-
+    participant W as CVS Sidecar
     P->>G: Submit proposal
     G->>G: Attempt constraint evaluation
     G--xG: Gate unavailable or evaluation timeout
-    G->>F: Engage fail-open handler
-    F->>C: Commit path opens — execution continues
-    F-->>W: Emit gap event (async)
-    W->>W: Record gap evidence
-    Note over G,C: Constraint satisfaction was not established
-    Note over G,C: Gate produces no output token
-    Note over W: Gap permanently observable in evidence chain
+    G->>F: Engage infrastructure-failure handler
+    F->>P: DENY (evaluation_unavailable, retry_permitted: true)
+    Note over F,C: Commit path remains closed — execution does not proceed
+    F-->>W: Emit deny evidence object (async)
+    F-->>W: Emit gap record (async)
+    W->>W: Record evaluation-unavailable DENY evidence
+    W->>W: Record gap record (gate_output_during_gap: deny_evaluation_unavailable)
+    Note over W: Gap and DENY permanently observable in evidence chain
 ```
 
 ---
