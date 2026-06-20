@@ -80,7 +80,7 @@ Material changes require disclosure.
 
 ---
 
-### K6 — Fail-Open Behavior
+### K6 — Transparent Denial / Human Default
 
 Fail-open requires disclosure of:
 - allocation rule invoked,
