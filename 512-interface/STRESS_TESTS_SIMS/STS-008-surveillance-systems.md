@@ -55,7 +55,7 @@ Scope creep violates adherence.
 
 ---
 
-### K6 — Fail-Open
+### K6 — Transparent Denial / Human Default
 Fail-open requires:
 - disclosure of authority,
 - category of surveillance,
