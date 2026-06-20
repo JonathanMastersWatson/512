@@ -42,7 +42,7 @@ Administrative opacity violates adherence.
 
 ---
 
-## Fail-Open and Accountability
+## Transparent Denial and Accountability
 
 When institutional decisions affect individuals or groups,
 systems must:
