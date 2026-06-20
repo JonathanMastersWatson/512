@@ -30,7 +30,7 @@ A 512-adherent system is composed of four logical layers:
 
 2. **Protocol Layer**  
    Implements kernel constraints through explicit mechanisms
-   (contracts, consent, fail-open behavior).
+   (contracts, consent, Transparent Denial, Human Default).
 
 3. **Execution Layer**  
    Performs computation, inference, storage, and interaction.
@@ -72,4 +72,6 @@ A failure in one component must not:
 - trap users,
 - or suspend exit rights.
 
-Failure triggers fail-open behavior as defined in protocol.
+Failure triggers Evaluation-Unavailable DENY — commit boundary holds,
+reason disclosed, retry permitted. See
+`512-core/KERNEL/I6_CONSTITUTIONAL_ELABORATION.md`.
