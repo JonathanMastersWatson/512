@@ -144,18 +144,24 @@ and exit opportunity.
 
 ---
 
-### I6 — Fail-Open
-**Check:** If this system fails at or after this boundary, will it
-fail open?
+### I6 — Evaluation-Unavailable DENY / Transparent Denial / Human Default
+**Check:** If the gate cannot complete evaluation, does the system
+produce DENY with disclosed reason and retry path rather than opening
+the commit path?
 
-Fail-open means:
-- default to least restrictive state
-- reveal governing rules
-- return control to the human party
+On infrastructure failure: gate produces DENY (reason: evaluation
+unavailable). Commit path remains closed. Cause and retry path
+disclosed. Execution does not proceed without admissibility established.
 
-**Pass:** Failure mode is structurally fail-open.
-**Fail:** Failure mode is fail-closed, silent, or increases system
-control over the human party.
+On constraint violation DENY: failed invariant is identified and
+disclosed. Human party retains contest and exit path.
+
+On any adverse outcome: human party retains agency, retry, and exit.
+
+**Pass:** Infrastructure failure produces Evaluation-Unavailable DENY
+with disclosed cause and retry path. Commit path remains closed.
+**Fail:** Infrastructure failure opens the commit path. Failure mode
+is silent. System increases its control over the human party on failure.
 
 ---
 
@@ -184,49 +190,70 @@ All seven invariants are satisfied.
 The action may cross the boundary and become irreversible state change.
 
 ### DENY
-One or more invariants are not satisfied.
-The action does not cross the boundary.
-State does not change.
-The denial is recorded with the specific invariant(s) that failed.
+Permission to commit not granted. Two causes:
+
+**Constraint violation:** One or more invariants evaluated and not
+satisfied. The action does not cross the boundary. State does not
+change. The denial is recorded with the specific invariant(s) that
+failed.
+
+**Evaluation unavailable:** Infrastructure failure prevented evaluation
+from completing. The action does not cross the boundary. State does
+not change. The denial is recorded with the failure cause and retry
+path. See §4.1.
 
 ---
 
-## 4.1 Fail-Open — When the Gate Cannot Evaluate
+## 4.1 Evaluation-Unavailable DENY — When the Gate Cannot Evaluate
 
-Fail-open is not a gate output. It is a system behaviour that
-engages when the gate cannot complete evaluation.
+When the gate is unavailable or evaluation times out, the system
+produces DENY with reason: evaluation unavailable. The commit path
+remains closed.
 
-When the gate is unavailable or evaluation times out:
+- the gate cannot evaluate — evaluation did not complete
+- the infrastructure-failure handler produces **DENY**
+  (deny_cause: evaluation_unavailable)
+- the commit path remains closed — no execution proceeds
+- the DENY discloses: failure cause, timestamp, retry path
+- the witness layer records an **evaluation-unavailable DENY**
+  Evidence Object
+- the CVS sidecar records a **gap record** documenting the
+  unavailability period
 
-- the gate produces **no output** — evaluation did not complete
-- execution proceeds because Invariant 6 requires fail-open behaviour;
-  blocking execution on gate failure would itself be a violation
-- the fail-open handler emits a **gap record** to the witness layer
-- the witness layer records the ungoverned period as an evidence
-  chain gap — not an ALLOW, not a DENY
+**DENY (evaluation unavailable) is not a constraint violation.**
+No invariant failed. The violated invariant field is absent. The
+cause is infrastructure failure, not constraint non-satisfaction.
 
-**A gap record is not an ALLOW.** Constraint satisfaction was not
-established. Execution proceeded because availability is prioritised
-over blocking — not because the constraints passed.
+**DENY (evaluation unavailable) is not permanent.** Retry is
+explicitly permitted when the gate is available. A system that
+produces permanent evaluation-unavailable DENY without retry path
+violates Human Default.
 
-**Silent execution — proceeding without a gate output and without
-a gap record — is non-satisfaction of 512's properties.**
+**The commit boundary holds unconditionally.** Admissibility
+requires completed evaluation. An action does not commit because
+the gate was unavailable at the time of proposal.
+
+**Silent execution — proceeding without completed evaluation and
+without an evaluation-unavailable DENY — is non-conformant.**
+
+The authoritative elaboration of all I6 obligations is
+`512-core/KERNEL/I6_CONSTITUTIONAL_ELABORATION.md`.
 
 ---
 
 ## 5. What Gets Anchored to XRPL
 
 Every gate evaluation produces ALLOW or DENY and generates a witness
-record. Fail-open events produce no gate output but generate a witness
-layer gap record. The witness layer batches these records and anchors
-a Merkle root to the XRP Ledger on a fixed interval (every 30 seconds
-under standard configuration).
+record. The witness layer batches these records and anchors a Merkle
+root to the XRP Ledger on a fixed interval (every 30 seconds under
+standard configuration).
 
 | Event | What is anchored |
 |---|---|
 | ALLOW | Hash of Proposal Object, per-invariant results, spec hash, timestamp, execution outcome |
-| DENY | Hash of Proposal Object, per-invariant results, violated invariant identifier, spec hash, timestamp |
-| Fail-open (gap record) | Gap duration, gap reason, executing identity during gap window, spec hash, timestamp |
+| DENY (constraint violation) | Hash of Proposal Object, per-invariant results, violated invariant identifier, spec hash, timestamp |
+| DENY (evaluation unavailable) | Deny cause, failure reason, retry-permitted flag, proposal hash, spec hash, timestamp |
+| Gap record (CVS sidecar) | Gap duration, gap reason, gate output during gap, spec hash, timestamp |
 
 **What is never anchored:**
 - private data
@@ -238,8 +265,8 @@ The ledger records proof of evaluation. It does not record content.
 DENY and gap records are anchored with the same integrity guarantees
 as ALLOW records. A DENY is not a lesser event — it is evidence that
 the constraint enforced correctly. A gap record is not a lesser event
-— it is evidence that evaluation did not occur and execution proceeded
-under fail-open.
+— it is evidence that evaluation did not occur and the commit boundary
+held under Evaluation-Unavailable DENY.
 
 **Why XRPL:**
 - Deterministic finality
@@ -283,7 +310,7 @@ The kernel is immutable. Adherence is binary.
 | What is a Proposal Object? | Structured record of a proposed action, built before boundary |
 | How many invariants? | Seven — all must be satisfied |
 | What are the gate outputs? | ALLOW or DENY — binary, always |
-| What is fail-open? | System behaviour when gate cannot evaluate — not a gate output; witness layer records a gap |
+| What is fail-open? | I6 doctrine for infrastructure failure — gate produces DENY (evaluation unavailable); commit path remains closed; retry permitted; CVS sidecar records gap |
 | What gets anchored? | Hashes only — no private data |
 | Why XRPL? | Public, final, cheap, no operator trust required |
 | Is partial satisfaction valid? | No. Binary. All seven or none. |
@@ -380,6 +407,15 @@ condition — not whether it is used.
 
 ---
 
+**❌ Pattern F — Execution on evaluation unavailability**
+[gate unavailable] → [continuity handler opens commit path] → [execution proceeds]
+The commit path opens without admissibility being established.
+Execution proceeds without completed evaluation.
+This pattern is non-conformant regardless of whether a gap record
+is produced. Evaluation-Unavailable DENY is the required behaviour.
+
+---
+
 **The only conformant model:**
 [upstream systems]
 |
@@ -387,13 +423,14 @@ v
 [evaluation at commit boundary]
 |
 v
-[irreversible state change]
+[irreversible state change — only if ALLOW]
 
 ---
 
 ## Related Files
 
 - `512-core/KERNEL/INVARIANTS.md` — full invariant definitions
+- `512-core/KERNEL/I6_CONSTITUTIONAL_ELABORATION.md` — authoritative I6 elaboration
 - `512-core/KERNEL/512-kernel.txt.txt` — canonical kernel text
 - `512-core/CANON/KERNEL_EQUIVALENCE_AND_SPEC_HASH.md` — SPEC_HASH mechanism
 - `512-interface/BLOCKCHAIN/COMMIT_BOUNDARY.md` — boundary mechanics detail
