@@ -83,15 +83,17 @@ I2 — Explicit consent              pass / fail
 I3 — Consent withdrawal and exit   pass / fail
 I4 — Contractual clarity           pass / fail
 I5 — No hidden rules               pass / fail
-I6 — Fail-open confirmed           pass / fail
+I6 — Evaluation-Unavailable DENY   pass / fail
 I7 — Immutability and binary sat.  pass / fail
 
 If all seven pass: overall result is ALLOW.
-If any fail: overall result is DENY, with the specific
-violated invariant identified.
-If the gate cannot complete evaluation: the gate produces no
-output. Execution proceeds under fail-open. The witness layer
-records the ungoverned period as an evidence chain gap.
+If any fail: overall result is DENY (constraint violation), with
+the specific violated invariant identified.
+If the gate cannot complete evaluation: the infrastructure-failure
+handler produces DENY (deny_cause: evaluation_unavailable). The
+commit path remains closed. Execution does not proceed. The cause
+and retry path are disclosed. The CVS sidecar records a gap record
+documenting the unavailability period.
 
 **Evaluation completes in under 50μs (median) in software.**
 **Under 5μs on dedicated hardware.**
@@ -101,9 +103,11 @@ records the ungoverned period as an evidence chain gap.
 **What the witness layer sees:** a validation-result event is
 emitted after evaluation completes. This is Observation Point 2.
 It contains the overall result, per-invariant results, the spec
-hash, and evaluation duration. On fail-open events, the gate
-produces no output and no validation-result event is emitted —
-the witness layer records a gap record instead.
+hash, and evaluation duration. On evaluation-unavailable DENY
+events, a validation-result event is emitted containing the DENY
+with deny_cause: evaluation_unavailable. The CVS sidecar records
+a gap record documenting the unavailability period. No
+post-execution event is emitted — execution did not proceed.
 
 ---
 
@@ -121,41 +125,49 @@ The gate appends no conditions, recommendations, or caveats
 to an ALLOW result. ALLOW means the commit path opens. Nothing more.
 
 ### DENY
-One or more invariants failed.
-The commit path remains closed.
-Execution does not proceed.
-The violated invariant identifier and deny message are returned.
+Permission to commit not granted. Two causes:
 
-The proposing entity is informed which invariant failed and why.
-No guesswork. No ambiguity.
+**Constraint violation:** One or more invariants evaluated and not
+satisfied. The commit path remains closed. Execution does not
+proceed. The violated invariant identifier and deny message are
+returned. The proposing entity is informed which invariant failed
+and why.
+
+**Evaluation unavailable:** Infrastructure failure prevented
+evaluation from completing. The commit path remains closed.
+Execution does not proceed. The failure cause and retry path are
+returned. See Stage 4.1.
 
 ---
 
-## Stage 4.1 — Fail-Open (Gate Unavailable)
+## Stage 4.1 — Evaluation-Unavailable DENY (Gate Cannot Evaluate)
 
-Fail-open is not a gate output. It is a system behaviour that
-engages when the gate cannot complete evaluation.
+When the gate is unavailable or evaluation times out, the
+infrastructure-failure handler produces DENY with reason:
+evaluation unavailable. The commit path remains closed.
 
-When the gate is unavailable or evaluation times out:
+- evaluation did not complete
+- the infrastructure-failure handler produces **DENY**
+  (deny_cause: evaluation_unavailable)
+- the commit path remains closed — execution does not proceed
+- the DENY discloses: failure cause, timestamp, retry path
+- the witness layer records an evaluation-unavailable DENY
+  Evidence Object
+- the CVS sidecar records a **gap record** documenting the
+  unavailability period
 
-- the gate produces **no output** — evaluation did not complete
-- the commit path opens because Invariant 6 requires fail-open
-  behaviour; blocking execution on gate failure would itself be
-  an I6 violation
-- the fail-open handler emits a **gap record** to the witness layer
-- the witness layer records the ungoverned period as an evidence
-  chain gap
+**DENY (evaluation unavailable) is not a constraint violation.**
+No invariant failed. The violated invariant field is absent.
 
-**A gap record is not an ALLOW.** Constraint satisfaction was not
-established. Execution proceeded because availability is prioritised
-over blocking — not because the constraints passed.
+**DENY (evaluation unavailable) is not permanent.** Retry is
+explicitly permitted when the gate is available.
 
-The witness layer — not the gate — records the ungoverned period.
-The gate's absence from the signal path is itself the evidence.
+**The commit boundary holds unconditionally.** Admissibility
+requires completed evaluation. An action does not commit because
+the gate was unavailable at the time of proposal.
 
-**The gate's signal is the structural prerequisite for the commit
-path to open. It is not advisory. It is not delivered to a
-downstream layer for interpretation or application.**
+The authoritative elaboration is
+`512-core/KERNEL/I6_CONSTITUTIONAL_ELABORATION.md`.
 
 ---
 
@@ -180,13 +192,15 @@ at Stage 4.
 **What the witness layer sees:** a post-execution event is emitted
 after execution completes. This is Observation Point 3. It contains
 the actual execution outcome and the actual scope of what executed.
+On evaluation-unavailable DENY: no post-execution event is emitted.
+Execution did not proceed.
 
 ---
 
 ## Stage 6 — Evidence Assembly
 
-The witness layer assembles the three observation point events
-into a complete Evidence Object for this proposal.
+The witness layer assembles the observation point events into a
+complete Evidence Object for this proposal.
 Evidence Object
 ├── pre_validation          (Observation Point 1)
 │   ├── proposal_id
@@ -197,16 +211,20 @@ Evidence Object
 │
 ├── validation_result       (Observation Point 2)
 │   ├── overall_result      ALLOW or DENY
-│   │                       (absent on fail-open — gap_record replaces)
+│   ├── deny_cause          constraint_violation or evaluation_unavailable
+│   │                       (present on DENY only)
 │   ├── spec_hash
 │   ├── per_invariant_results
-│   ├── violated_constraint_detail  (on DENY only)
+│   ├── violated_constraint_detail  (on constraint violation DENY only)
+│   ├── failure_cause       (on evaluation_unavailable DENY only)
+│   ├── retry_permitted     (on evaluation_unavailable DENY only)
 │   └── evaluation_duration_us
 │
 └── post_execution          (Observation Point 3)
-├── execution_outcome   completed / failed / cancelled
-├── actual_scope
-└── execution_duration_us
+    ├── execution_outcome   completed / failed / cancelled
+    ├── actual_scope
+    └── execution_duration_us
+    (absent on evaluation_unavailable DENY — execution did not proceed)
 
 The three observation points are linked by a common correlation ID.
 
@@ -257,10 +275,11 @@ PROPOSING ENTITY       COMMIT GATE            WITNESS LAYER (CVS)      XRPL
 │◄── ALLOW or DENY ───│                        │                    │
 │                     │                        │                    │
 [commit path opens    │                        │                    │
-or remains closed]    │                        │                    │
+on ALLOW only]        │                        │                    │
 │                     │                        │                    │
 │                     │── post_execution ──────►│                   │
-│                     │   (after execution)     │                    │
+│                     │   (after execution,     │                    │
+│                     │    ALLOW only)          │                    │
 │                     │                        │                    │
 │                     │                [assemble Evidence Object]   │
 │                     │                [hash-chain to prior]        │
@@ -271,12 +290,15 @@ or remains closed]    │                        │                    │
 ── CVS emission is async and off the gate's critical path ──────────────────►
 The gate does not wait for witness acknowledgement.
 Execution is never delayed by witness layer state.
-FAIL-OPEN PATH (gate unavailable or evaluation timeout):
+
+EVALUATION-UNAVAILABLE DENY PATH (gate unavailable or evaluation timeout):
 │                     │                        │                    │
 │              GateUnavailable                  │                    │
 │              or EvalTimeout                   │                    │
-│   [no gate signal — fail-open handler opens commit path]          │
-│                     │── gap_record ──────────►│                   │
+│   [infrastructure-failure handler produces DENY — commit path remains closed]
+│◄── DENY (evaluation_unavailable, retry_permitted: true) ──────────│
+│                     │── deny_evidence_object ─►│                  │
+│                     │── gap_record (sidecar) ──►│                 │
 │                     │   [queued locally if    │                    │
 │                     │    CVS unavailable]     │                    │
 
@@ -299,6 +321,8 @@ It does not cover:
 
 - `512-ops/COMMIT_BOUNDARY_REFERENCE.md` — boundary mechanics
   and Proposal Object specification
+- `512-core/KERNEL/I6_CONSTITUTIONAL_ELABORATION.md` — authoritative
+  I6 elaboration
 - `512-ops/INTEGRATION_STEPS.md` — how to prepare your system
   for this flow
 - `512-ops/CONSTRAINT_DEFINITION_LAYER.md` — constraint definition
