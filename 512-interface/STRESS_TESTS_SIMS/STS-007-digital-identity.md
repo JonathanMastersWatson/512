@@ -55,7 +55,7 @@ Scope expansion must be disclosed.
 
 ---
 
-### K6 — Fail-Open
+### K6 — Transparent Denial / Human Default
 Fail-open requires disclosure of:
 - identity use,
 - domain,
