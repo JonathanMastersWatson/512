@@ -14,7 +14,7 @@ produces a system that cannot be independently verified.
 | Layer | Function | Must Not Do |
 |---|---|---|
 | **Kernel** | Define the seven invariants. Establish what constraint satisfaction means. Provide the canonical commitment hash. | Enforce constraints. Capture evidence. Define domain-specific constraint logic. Interpret its own invariants at runtime. |
-| **Commit Boundary (Gate)** | Evaluate Proposal Objects against the compiled constraint set. Produce ALLOW or DENY. Maintain exclusive commit authority over the non-bypassable commit path. Fail open under Invariant 6 when evaluation cannot complete. | Define constraints. Interpret policy. Produce scores, recommendations, or probabilistic outputs. Capture or store evidence. Allow parallel execution paths. |
+| **Commit Boundary (Gate)** | Evaluate Proposal Objects against the compiled constraint set. Produce ALLOW or DENY. Maintain exclusive commit authority over the non-bypassable commit path. Produce Evaluation-Unavailable DENY when evaluation cannot complete — commit path remains closed. | Define constraints. Interpret policy. Produce scores, recommendations, or probabilistic outputs. Capture or store evidence. Allow parallel execution paths. |
 | **Witness Layer (CVS)** | Observe execution events out-of-band. Record cryptographic evidence. Classify ungoverned periods as evidence chain gaps. Anchor Merkle batch commitments to a public settlement ledger. | Influence execution. Enforce constraints. Produce gate outputs. Block execution. Control the commit path. |
 
 ---
@@ -24,7 +24,7 @@ produces a system that cannot be independently verified.
 | Layer | Output |
 |---|---|
 | Kernel | Seven invariants. Canonical commitment hash. Spec hash mechanism. |
-| Commit Boundary | ALLOW or DENY. No third value. When evaluation cannot complete: no output; fail-open handler emits gap record to witness layer. |
+| Commit Boundary | ALLOW or DENY. No third value. When evaluation cannot complete: DENY (evaluation_unavailable); commit path remains closed; CVS sidecar records gap. |
 | Witness Layer | Evidence Objects. Hash-chained records. Merkle batch anchors on public ledger. Evidence chain gap records for ungoverned periods. |
 
 ---
