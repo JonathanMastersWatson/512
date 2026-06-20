@@ -70,7 +70,7 @@ Silent expansion of freeze criteria violates adherence.
 
 ---
 
-### K6 — Fail-Open Behavior
+### K6 — Transparent Denial / Human Default
 Fail-open requires disclosure of:
 - rule invoked,
 - category of trigger,
