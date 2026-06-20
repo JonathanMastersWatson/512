@@ -35,14 +35,14 @@ It constrains the **legitimacy boundary** between them.
 
 ---
 
-## Fail-Open Principle
-
+## Transparency and Continuity Principle
 512-compatible systems must:
-- continue operating if 512 is unavailable
-- not block execution
-- not enforce compliance
-
-Failure must reduce legitimacy signaling, not halt action.
+- produce Evaluation-Unavailable DENY when the gate cannot evaluate
+- hold the commit boundary — execution does not proceed without admissibility established
+- disclose the basis for any denial
+- return authority to the human party on any adverse outcome
+- not enforce compliance beyond the commit boundary decision
+Failure must be disclosed, not concealed.
 
 ---
 
