@@ -147,22 +147,35 @@ interaction — and when that set was in force?
 
 ---
 
-### Invariant 6 — Fail-Open
-When the gate is unavailable, execution continues. The gap
-is recorded. Governing rules are disclosed. Control returns
-to the human party.
+### Invariant 6 — Evaluation-Unavailable DENY / Transparent Denial / Human Default
+When the gate is unavailable, the infrastructure-failure handler
+produces DENY (reason: evaluation unavailable). The commit path
+remains closed. Execution does not proceed without admissibility
+being established. The cause is disclosed. Retry is permitted
+when the gate is available. The CVS sidecar records the
+unavailability period as an evidence chain gap.
+
+When the gate evaluates and produces DENY, the governing rule
+is disclosed and the failed constraint is identified. When any
+adverse outcome occurs, authority returns to the human party.
 
 **What you must have ready:**
-- A declared fail-open posture: your system does not block
-  on gate failure
-- Gap record infrastructure: gaps are recorded and forwarded
-  to the witness layer even when the gate is unavailable
-- Human notification: affected parties are informed when
-  execution proceeded without gate evaluation
+- Infrastructure-failure handler: produces Evaluation-Unavailable
+  DENY on gate failure; commit path remains closed
+- Gap record infrastructure: CVS sidecar records the unavailability
+  period and confirms no execution proceeded
+- Retry path: affected parties are informed of the DENY reason
+  and can retry when the gate is available
+- Disclosure on constraint violation DENY: the failed invariant
+  is identified and disclosed to the affected party
 
 **The question to answer:** If your gate goes offline at
-2am, what happens to your agentic workflows — and does
-that behaviour satisfy the fail-open requirement?
+2am, what happens to your agentic workflows — does the
+commit boundary hold, and does the affected party receive
+a disclosed DENY with a retry path?
+
+See `512-core/KERNEL/I6_CONSTITUTIONAL_ELABORATION.md` for
+the authoritative elaboration.
 
 ---
 
@@ -234,9 +247,10 @@ begins:
 - **Unexpected DENY results** — constraints firing on
   legitimate requests, indicating constraint definitions
   that need refinement
-- **Fail-open events** — gate unavailability or evaluation timeout,
-  generating evidence chain gaps recorded by the witness layer;
-  indicates integration issues to resolve before enforcement
+- **Evaluation-Unavailable DENY events** — gate unavailability
+  or evaluation timeout producing DENY with commit path closed;
+  CVS sidecar records gap; indicates infrastructure issues to
+  resolve before enforcement
 - **Coverage gaps** — execution events with no evaluation
   record, indicating missed boundaries or parallel paths
 
