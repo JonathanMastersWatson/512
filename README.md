@@ -25,6 +25,9 @@ It is:
 
 512 governs at the exact point irreversible action occurs.
 
+New here? Start with [READ_THIS_FIRST.md](READ_THIS_FIRST.md) — a plain-language
+explainer of what 512 is, written for humans and the agents that represent them.
+
 ---
 
 # The Problem
@@ -205,7 +208,7 @@ The CVS repository defines an independent cryptographic witness architecture tha
 
 | Audience | Start Here |
 |---|---|
-| CTOs / Executives | `512_ARCHITECTURE_v3.0.md` |
+| CTOs / Executives | `BUILDERS/512_ARCHITECTURE_v3_5.md` |
 | Engineers | `512-ops/COMMIT_BOUNDARY_REFERENCE.md` |
 | Enterprise Architects | `512-ops/REFERENCE_FLOW.md` |
 | Regulators | `USE_CASES/ENTRY_POINTS/REGULATORS.md` |
@@ -218,7 +221,7 @@ The CVS repository defines an independent cryptographic witness architecture tha
 
 ## Executives
 Read:
-- `512_ARCHITECTURE_v3.0.md`
+- `BUILDERS/512_ARCHITECTURE_v3_5.md`
 
 ## Engineers
 Read:
