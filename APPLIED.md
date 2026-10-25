@@ -1,6 +1,6 @@
 # 512 / CVS Applied — Power, the State, Knowledge, and the Citizen Contract
 
-**Document:** `512-cvs-applied` · **Version:** 1.0 · **Date:** 2026-10-24
+**Document:** `512-cvs-applied` · **Version:** 1.1 · **Date:** 2026-10-25
 **Author:** Jonathan M. Watson
 **Status:** Explanatory. This document is an illustrative application of
 the public 512 and CVS (Evidence-Sidecar) doctrines. It is not part of the
@@ -14,7 +14,7 @@ At civilisational scale, the same three separations do all the work: **the actor
 
 ## 1. Power in general
 
-Most power today is two abilities bundled together: act at scale, and control the record and its interpretation afterwards. A declaration–gate–witness pairing unbundles them. To act inside the system you must declare your terms beforehand, in a versioned, hashed form; execution is checked against exactly those terms; and the evidence lands with a witness you don't control, anchored outside your reach.
+Today's world runs on interpretation. An action is committed first — a payment made, a permit denied, a post taken down, a benefit cut — and what the action meant is settled afterwards, by whoever holds the interpretation: the institution that acted, its accountants, its lawyers, its government, its courts. The fallout of every act is an industry, and it runs entirely after the fact, because the act was never fixed in advance — it has to be reconstructed, argued over, interpreted. That is where the power actually sits: not in the act, but in the interpretation of the act. 512 / CVS ends that order. The meaning of an action is declared before the action exists — written terms, hashed, versioned, the actor's name on them. Execution is then not interpreted at all: it is checked, deterministically, against exactly those terms, and the evidence of what passed the check goes at once to a witness who does not interpret anything either — he keeps receipts. For the citizen the change is total. He no longer lives downstream of somebody else's reading of what was done to him. The terms were fixed before the act, the check was mechanical, and the record is held by a party with no interpretation of its own to sell. A dispute stops being an argument about what an action meant. It is a comparison anyone can run.
 
 Discretion doesn't disappear. It moves — upstream, to the moment the rule is compiled, where it has a name and an author on it. Politics doesn't end; politics relocates to *who compiles, by what authority* — an honestly unresolved question, stated as such within the doctrine itself.
 
