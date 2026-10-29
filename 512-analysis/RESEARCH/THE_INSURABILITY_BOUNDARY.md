@@ -14,7 +14,7 @@
 
 Open-ended autonomous agents cannot yet obtain ordinary, scalable liability insurance on ordinary actuarial terms.
 
-That is not the same as saying no insurance exists. Specialist coverage exists (see §5, dated 2025–2026). What does not yet exist is the underwriting infrastructure required for broad deployment:
+That is not the same as saying no insurance exists. Specialist coverage exists (see §3, dated 2025–2026). What does not yet exist is the underwriting infrastructure required for broad deployment:
 
 - a standard exposure unit for delegated authority,
 - a mature claims history,
