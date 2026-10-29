@@ -3,8 +3,8 @@
 **512 Research Archive — Analysis / Research**
 **Document date:** 29 October 2026
 **Evidence window:** 18 November 2025 – 22 October 2026
-**Suggested placement:** `512-analysis/RESEARCH/THE_INSURABILITY_BOUNDARY.md`
-**Status:** Draft for deployment in the 512 repository. Not a claim that 512 has been tested, accepted, or priced by any insurer, actuary, or underwriter.
+**Placement:** `512-analysis/RESEARCH/THE_INSURABILITY_BOUNDARY.md`
+**Status:** Published in the 512 repository, 29 October 2026. Not a claim that 512 has been tested, accepted, or priced by any insurer, actuary, or underwriter.
 
 > 512 describes a technical constraint on execution-time legitimacy. It does not prescribe policy, governance, or social outcomes. This document applies that constraint to one external problem — insurance — using dated, public evidence only.
 
